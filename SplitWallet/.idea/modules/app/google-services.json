@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1005472984268",
+    "firebase_url": "https://splitwallet-7a833.firebaseio.com",
+    "project_id": "splitwallet-7a833",
+    "storage_bucket": "splitwallet-7a833.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005472984268:android:47f7e2f7c4acd087e52669",
+        "android_client_info": {
+          "package_name": "com.example.splitwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005472984268-9fbg03jluh5f75ptbmk0vkl9aqsbd0kv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.splitwallet",
+            "certificate_hash": "69e381a4f021d6648ce1d3147ce3ea127c1d099d"
+          }
+        },
+        {
+          "client_id": "1005472984268-n78e483lj8a4adrcgu53l9pu8rqk1idk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY7ApZEuCT0mnmz4xgfHdiBygpte8wfLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005472984268-n78e483lj8a4adrcgu53l9pu8rqk1idk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
