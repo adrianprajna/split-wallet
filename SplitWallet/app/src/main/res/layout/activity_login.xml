@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".LoginActivity"
     android:orientation="vertical">
 
     <ImageView
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username_email"
+            android:id="@+id/usernameLogin"
             android:layout_marginVertical="5dp"
             android:padding="10dp"
             android:textColor="@color/fontColor"/>
@@ -41,18 +42,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:id="@+id/passwordLogin"
             android:padding="10dp"
             android:layout_marginVertical="5dp"
             android:inputType="textPassword"
             android:textColor="@color/fontColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/registerHyperlink"
+            android:layout_gravity="center"
+            android:id="@+id/registerHyperlink"
+            android:textColor="@color/hyperlinkColor"
+            android:layout_marginVertical="5dp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="80dp"
             android:text="@string/login"
+            android:id="@+id/loginButton"
             android:layout_marginVertical="5dp"
-            android:background="@color/colorLoginButton"/>
+            android:background="@drawable/login_round_button"/>
+
+
     </LinearLayout>
 
 
