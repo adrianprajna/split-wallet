@@ -16,6 +16,10 @@
     <string name="success_register_toast">Successfully Register</string>
     <string name="title_activity_register">Register</string>
 
+    <!--Login & Register-->
+    <string name="username_invalid">Invalid Username</string>
+    <string name="wrong_credential">Wrong Credential</string>
+
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

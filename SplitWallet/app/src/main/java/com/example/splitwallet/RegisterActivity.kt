@@ -1,5 +1,6 @@
 package com.example.splitwallet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -34,10 +35,14 @@ class RegisterActivity : AppCompatActivity() {
 
     fun createUser(username : String, email : String, password : String){
         var reff : DatabaseReference
-        reff = FirebaseDatabase.getInstance().getReference().child("Users");
+        reff = FirebaseDatabase.getInstance().getReference().child("Users")
 
         var users = Users(username, password, email)
         reff.push().setValue(users)
+
+        Toast.makeText(this, R.string.success_register_toast, Toast.LENGTH_SHORT).show()
+        var intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
 

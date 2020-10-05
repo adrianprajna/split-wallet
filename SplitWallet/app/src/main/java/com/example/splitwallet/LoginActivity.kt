@@ -3,6 +3,7 @@ package com.example.splitwallet
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -19,19 +20,51 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.*
+import org.json.JSONObject
+import org.json.JSONStringer
 
 
 class LoginActivity : AppCompatActivity() {
 
     var RC_SIGN_IN = 1
     var mAuth = FirebaseAuth.getInstance()
+    lateinit var reff : DatabaseReference
+    var userList = arrayListOf<Users>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        reff = FirebaseDatabase.getInstance().getReference().child("Users")
+
+        reff.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (p in snapshot.children){
+                    var temp = p.getValue(Users::class.java)
+                    if (temp != null) {
+                        var u = Users(temp.username, temp.password, temp.email)
+                        userList.add(u)
+                    }
+                }
+
+
+            }
+
+
+
+
+        })
         checkLogin()
         clickRegister()
         loginWithGoogle()
+
+
+
     }
 
     fun checkLogin(){
@@ -43,7 +76,33 @@ class LoginActivity : AppCompatActivity() {
             var et_password = findViewById<EditText>(R.id.passwordLogin).text
 
             if (!et_username.isEmpty() && !et_password.isEmpty()){
-                Toast.makeText(this, R.string.success_login_toast, Toast.LENGTH_SHORT).show()
+                var userValid = false
+                var u : Users?
+                u = null
+                for(p in userList){
+                    if (et_username.toString().equals(p.username)){
+                        userValid = true
+                        u = p
+
+                        break
+                    }
+
+
+                }
+
+                if (userValid){
+                    if (u != null){
+                        if (u.password!!.equals(et_password.toString())){
+                            Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                        else {
+                            Toast.makeText(this, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, R.string.username_invalid, Toast.LENGTH_SHORT).show()
+                }
+
             } else {
                 Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
