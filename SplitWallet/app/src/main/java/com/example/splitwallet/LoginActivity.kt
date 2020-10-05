@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var reff : DatabaseReference
     var userList = arrayListOf<Users>()
 
+    lateinit var mGoogleSignInClient : GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -54,9 +56,6 @@ class LoginActivity : AppCompatActivity() {
 
 
             }
-
-
-
 
         })
         checkLogin()
@@ -126,13 +125,13 @@ class LoginActivity : AppCompatActivity() {
 
         var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
 
-        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         signInButton.setOnClickListener(){
             var signInIntent = mGoogleSignInClient.getSignInIntent()
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-
+//        invalidGoogleSignIn()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -191,10 +190,36 @@ class LoginActivity : AppCompatActivity() {
             val personEmail = account.email
             val personId = account.id
             val personPhoto: Uri? = account.photoUrl
-            Toast.makeText(this, personName + personEmail, Toast.LENGTH_SHORT).show()
+
+            var userValid = false
+            var u : Users?
+            u = null
+            for(p in userList){
+                if (personEmail.toString().equals(p.email)){
+                    userValid = true
+                    u = p
+
+                    break
+                }
+
+
+            }
+
+            if (userValid){
+                if (u != null){
+                    Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                invalidGoogleSignIn()
+            }
+
         }
     }
 
+    fun invalidGoogleSignIn(){
+        mGoogleSignInClient.signOut();
+        Toast.makeText(this,"Please register your email first",Toast.LENGTH_SHORT).show();
+    }
 
 
 

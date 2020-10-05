@@ -2,7 +2,7 @@
     <string name="empty_field_toast">Please insert all of the field</string>
     <!--Login-->
     <string name="app_name">SplitWallet</string>
-    <string name="username_email">Username/Email</string>
+    <string name="username_email">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="registerHyperlink">Haven\'t make an account? Sign Up</string>
