@@ -15,10 +15,12 @@
     <string name="register">Register</string>
     <string name="success_register_toast">Successfully Register</string>
     <string name="title_activity_register">Register</string>
-
+    <string name="confirm_password">Confirm password</string>
+    <string name="wrong_confirm_password">Password and Confirm password must same</string>
     <!--Login & Register-->
     <string name="username_invalid">Invalid Username</string>
     <string name="wrong_credential">Wrong Credential</string>
+
 
 
     <!-- Strings used for fragments for navigation -->

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -50,11 +51,14 @@ class RegisterActivity : AppCompatActivity() {
             var et_username = findViewById<EditText>(R.id.username).text.toString()
             var et_email = findViewById<EditText>(R.id.email).text.toString()
             var et_password = findViewById<EditText>(R.id.passwordLogin).text.toString()
+            var et_re_password = findViewById<EditText>(R.id.confirmLogin).text.toString()
 
-            if (!et_username.isEmpty() && !et_password.isEmpty() && !et_email.isEmpty()){
+            if (!et_username.isEmpty() && !et_password.isEmpty() && !et_email.isEmpty() && et_password.equals(et_re_password)){
                 if (checkValid(et_email, et_username, et_password)){
                     createUser(et_username, et_email, et_password)
                 }
+            } else if (!et_password.equals(et_re_password) && !et_re_password.isEmpty()){
+                Toast.makeText(this, R.string.wrong_confirm_password, Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
