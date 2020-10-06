@@ -59,6 +59,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             } else if (!et_password.equals(et_re_password) && !et_re_password.isEmpty()){
                 Toast.makeText(this, R.string.wrong_confirm_password, Toast.LENGTH_SHORT).show()
+
             } else {
                 Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
