@@ -39,6 +39,7 @@
     <string name="icon_home">Home</string>
     <string name="icon_account">Account</string>
     <string name="icon_transaction">Transaction</string>
+    <string name="icon_report">Report</string>
 
     <!--  User Account page   -->
     <string name="user_account_name">Adrian</string>
