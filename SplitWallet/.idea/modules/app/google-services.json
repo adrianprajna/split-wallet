@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1005472984268-sj74fmvt79q3ctg16fmkg5j40qjgl7gm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.splitwallet",
+            "certificate_hash": "de74b6ce4a1850ba74531d41513e46fe8a434a2d"
+          }
+        },
+        {
           "client_id": "1005472984268-9fbg03jluh5f75ptbmk0vkl9aqsbd0kv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

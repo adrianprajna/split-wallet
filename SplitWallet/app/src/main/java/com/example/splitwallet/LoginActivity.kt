@@ -93,6 +93,8 @@ class LoginActivity : AppCompatActivity() {
                     if (u != null){
                         if (u.password!!.equals(et_password.toString())){
                             Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                            var intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
                         }
                         else {
                             Toast.makeText(this, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
@@ -208,6 +210,8 @@ class LoginActivity : AppCompatActivity() {
             if (userValid){
                 if (u != null){
                     Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
             } else {
                 invalidGoogleSignIn()
