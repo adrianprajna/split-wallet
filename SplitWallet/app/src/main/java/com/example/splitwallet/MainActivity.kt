@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     1 -> R.id.nav_calendar
                     2 -> R.id.nav_transaction
                     3 -> R.id.nav_report
-                    4 -> R.id.nav_account
+                    4 -> R.id.nav_wallet
                     else -> R.id.nav_home
                 }
             }
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_calendar -> 1
                 R.id.nav_transaction -> 2
                 R.id.nav_report -> 3
-                R.id.nav_account -> 4
+                R.id.nav_wallet -> 4
                 else -> 0
             }
 

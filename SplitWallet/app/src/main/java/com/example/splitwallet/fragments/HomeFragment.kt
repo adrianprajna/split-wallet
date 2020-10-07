@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
             300000))
         list.add(Wallets("Salary",
             "Income",
-            5000000))
+            0))
         reff.child("listWallets").setValue(list)
     }
 

@@ -13,7 +13,7 @@ class PageAdapter(var fm: FragmentManager): FragmentStatePagerAdapter(fm){
             1 -> CalendarFragment()
             2 -> Transaction()
             3 -> ReportFragment()
-            4 -> AccountFragment()
+            4 -> WalletFragment()
             else -> HomeFragment()
         }
     }

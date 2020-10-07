@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AccountFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AccountFragment : Fragment() {
+class WalletFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class AccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        var inf = inflater.inflate(R.layout.fragment_account, container, false)
+        var inf = inflater.inflate(R.layout.fragment_wallet, container, false)
 
         initView(inf)
 
