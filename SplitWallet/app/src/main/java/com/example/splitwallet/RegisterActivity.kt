@@ -33,7 +33,6 @@ class RegisterActivity : AppCompatActivity() {
                             temp.username,
                             temp.password,
                             temp.email,
-                            null
                         )
                         userList.add(u)
                     }
@@ -73,7 +72,6 @@ class RegisterActivity : AppCompatActivity() {
             username,
             password,
             email,
-            arrayListOf<Wallets>()
         )
 
 

@@ -6,7 +6,7 @@ class Wallets {
     var walletName : String? = ""
     var walletType : String? = ""
     var walletLimit : Number? = 0
-    var listTransactions = arrayListOf<Transactions>()
+//    var listTransactions = arrayListOf<Transactions>()
 
     constructor()
 

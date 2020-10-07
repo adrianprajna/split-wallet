@@ -43,9 +43,9 @@ class LoginActivity : AppCompatActivity() {
         var user_storage : String? = preferenceConfig.getString(Constants.KEY_USER)
 
         if (user_storage != null){
-            preferenceConfig.clearSharedPreference()
+//            preferenceConfig.clearSharedPreference()
 
-//            preferenceLogin(user_storage)
+            preferenceLogin(user_storage)
         } else {
             normalLogin()
         }
@@ -70,15 +70,16 @@ class LoginActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (p in snapshot.children){
                     var temp = p.getValue(Users::class.java)
-                    if (temp != null) {
-                        var u = Users(
-                            temp.username,
-                            temp.password,
-                            temp.email,
-                            null
-                        )
-                        userList.add(u)
-                    }
+//                    if (temp != null) {
+//                        var u = Users(
+//                            temp.username,
+//                            temp.password,
+//                            temp.email,
+//                            null
+//                        )
+//                        userList.add(u)
+//                    }
+                    userList.add(temp!!)
                 }
 
 
@@ -149,6 +150,7 @@ class LoginActivity : AppCompatActivity() {
 //                    }
 //
 //                })
+
             } else {
                 Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
@@ -279,8 +281,5 @@ class LoginActivity : AppCompatActivity() {
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-
-
-
 
 }
