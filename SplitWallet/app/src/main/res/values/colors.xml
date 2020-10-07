@@ -8,13 +8,12 @@
     <color name="hyperlinkColor">#070FF5</color>
 
     <color name="colorPrimaryVariant">#000b76</color>
-    <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGray50">#FAFAFA</color>
     <color name="colorGray100">#F5F5F5</color>
     <color name="colorGray200">#EEEEEE</color>
 
-    <color name="fontReverseColor">#fff</color>
+    <color name="fontReverseColor">#FFF</color>
 
   
 </resources>

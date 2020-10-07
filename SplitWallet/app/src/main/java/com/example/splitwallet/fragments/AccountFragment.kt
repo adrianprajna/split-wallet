@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.splitwallet.R
+import com.example.splitwallet.support_class.Constants
+import com.example.splitwallet.support_class.PreferenceConfig
+import com.example.splitwallet.support_class.Users
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +32,28 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false)
+
+        var inf = inflater.inflate(R.layout.fragment_account, container, false)
+
+        initView(inf)
+
+        return inf
     }
+
+    fun initView(inf : View){
+        if (activity != null){
+            var username_home = inf.findViewById<TextView>(R.id.user_name)
+            var email_home = inf.findViewById<TextView>(R.id.user_email)
+            var preferenceConfig : PreferenceConfig
+            preferenceConfig = PreferenceConfig(requireActivity().applicationContext)
+
+            val u : Users
+            u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
+            username_home.setText(u.username)
+            email_home.setText(u.email)
+        }
+    }
+
+
 
 }
