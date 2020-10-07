@@ -115,7 +115,6 @@ class LoginActivity : AppCompatActivity() {
                     if (u != null){
                         if (u.password!!.equals(et_password.toString())){
                             successLogin(u)
-
                         }
                         else {
                             Toast.makeText(this, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
