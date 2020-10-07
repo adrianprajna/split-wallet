@@ -31,9 +31,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 bottom_nav.selectedItemId = when(position){
                     0 -> R.id.nav_home
-                    1 -> R.id.nav_transaction
-                    2 -> R.id.nav_calendar
-                    3 -> R.id.nav_account
+                    1 -> R.id.nav_calendar
+                    2 -> R.id.nav_transaction
+                    3 -> R.id.nav_report
+                    4 -> R.id.nav_account
                     else -> R.id.nav_home
                 }
             }
@@ -45,9 +46,10 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setOnNavigationItemSelectedListener { item ->
             viewPager.currentItem = when(item.itemId) {
                 R.id.nav_home -> 0
-                R.id.nav_transaction -> 1
-                R.id.nav_calendar -> 2
-                R.id.nav_account -> 3
+                R.id.nav_calendar -> 1
+                R.id.nav_transaction -> 2
+                R.id.nav_report -> 3
+                R.id.nav_account -> 4
                 else -> 0
             }
 

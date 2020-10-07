@@ -7,14 +7,20 @@
         android:title="@string/icon_home"/>
 
     <item
+        android:id="@+id/nav_calendar"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/icon_calendar" />
+
+
+    <item
         android:id="@+id/nav_transaction"
         android:icon="@drawable/ic_baseline_account_balance_wallet_24"
         android:title="@string/icon_transaction" />
 
     <item
-        android:id="@+id/nav_calendar"
-        android:icon="@drawable/ic_baseline_calendar_today_24"
-        android:title="@string/icon_calendar" />
+        android:id="@+id/nav_report"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="@string/icon_report"/>
 
     <item
         android:id="@+id/nav_account"
