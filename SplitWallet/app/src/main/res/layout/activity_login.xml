@@ -30,17 +30,22 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+
+            >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/username_email"
                     android:id="@+id/usernameLogin"
-                    android:layout_marginVertical="5dp"
-                    android:padding="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="25dp"
                     android:textColor="@color/fontColor"
                     android:drawablePadding="15dp"
+
                     android:drawableLeft="@drawable/username_logo"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -56,13 +61,17 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
+
+                >
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
                         android:id="@+id/passwordLogin"
-                        android:padding="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="25dp"
                         android:drawableLeft="@drawable/password_logo"
                         android:drawablePadding="15dp"
                         android:layout_marginVertical="5dp"

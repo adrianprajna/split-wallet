@@ -10,6 +10,9 @@ import com.example.splitwallet.R
 import com.example.splitwallet.support_class.Constants
 import com.example.splitwallet.support_class.PreferenceConfig
 import com.example.splitwallet.support_class.Users
+import com.example.splitwallet.support_class.Wallets
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,12 +43,28 @@ class HomeFragment : Fragment() {
             var preferenceConfig : PreferenceConfig
             preferenceConfig = PreferenceConfig(requireActivity().applicationContext)
 
+
             val u : Users
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
             username_home.setText(u.username)
             email_home.setText(u.email)
+
+            addWallet(u)
         }
         return inf
+    }
+
+    fun addWallet(u : Users){
+        var reff = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER).child(u.email!!.split("@gmail.com")[0])
+
+        var list = arrayListOf<Wallets>()
+        list.add(Wallets("Food",
+            "Expense",
+            300000))
+        list.add(Wallets("Salary",
+            "Income",
+            5000000))
+        reff.child("listWallets").setValue(list)
     }
 
 

@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.splitwallet.support_class.Constants
 import com.example.splitwallet.support_class.Users
+import com.example.splitwallet.support_class.Wallets
 import com.google.firebase.database.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
                         var u = Users(
                             temp.username,
                             temp.password,
-                            temp.email
+                            temp.email,
                         )
                         userList.add(u)
                     }
@@ -70,9 +71,11 @@ class RegisterActivity : AppCompatActivity() {
         var users = Users(
             username,
             password,
-            email
+            email,
         )
-        reff.push().setValue(users)
+
+
+        reff.child(users.email!!.split("@gmail.com")[0]).setValue(users)
 
         Toast.makeText(this, R.string.success_register_toast, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, LoginActivity::class.java)

@@ -1,15 +1,14 @@
 package com.example.splitwallet
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.splitwallet.adapter.PageAdapter
-import com.example.splitwallet.fragments.AccountFragment
-import com.example.splitwallet.fragments.CalendarFragment
-import com.example.splitwallet.fragments.HomeFragment
-import com.example.splitwallet.fragments.Transaction
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         setBottomNav()
         setViewPagerListener()
     }
+
+    var exit = false
 
     private fun setViewPagerListener(){
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -56,5 +57,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun setViewPagerAdapter(){
         viewPager.adapter = PageAdapter(supportFragmentManager)
+    }
+
+    @Override
+    override fun onBackPressed() {
+        if (exit){
+            val a = Intent(Intent.ACTION_MAIN)
+            a.addCategory(Intent.CATEGORY_HOME)
+            a.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(a)
+        } else {
+            Toast.makeText(
+                this, "Press Back again to Exit.",
+                Toast.LENGTH_SHORT
+            ).show()
+            exit = true
+            Handler().postDelayed(Runnable { exit = false }, 3 * 1000)
+        }
     }
 }
