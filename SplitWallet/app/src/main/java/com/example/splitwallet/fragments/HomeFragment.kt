@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
             var preferenceConfig : PreferenceConfig
             preferenceConfig = PreferenceConfig(requireActivity().applicationContext)
 
+
             val u : Users
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
             username_home.setText(u.username)

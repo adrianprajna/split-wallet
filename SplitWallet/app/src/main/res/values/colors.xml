@@ -13,7 +13,11 @@
     <color name="colorGray100">#F5F5F5</color>
     <color name="colorGray200">#EEEEEE</color>
 
+    <color name="greenHomeCard">#42F598</color>
+    <color name="yellowHomeCard">#FECE2f</color>
+    <color name="redHomeCard">#FE5555</color>
     <color name="fontReverseColor">#FFF</color>
 
-  
+    <color name="darkThemeBackgroud">#0033BB</color>
+
 </resources>

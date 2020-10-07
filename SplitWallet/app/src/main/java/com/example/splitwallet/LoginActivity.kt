@@ -3,6 +3,7 @@ package com.example.splitwallet
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -42,7 +43,9 @@ class LoginActivity : AppCompatActivity() {
         var user_storage : String? = preferenceConfig.getString(Constants.KEY_USER)
 
         if (user_storage != null){
-            preferenceLogin(user_storage)
+            preferenceConfig.clearSharedPreference()
+
+//            preferenceLogin(user_storage)
         } else {
             normalLogin()
         }
@@ -71,7 +74,8 @@ class LoginActivity : AppCompatActivity() {
                         var u = Users(
                             temp.username,
                             temp.password,
-                            temp.email
+                            temp.email,
+                            null
                         )
                         userList.add(u)
                     }
@@ -123,7 +127,28 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, R.string.username_invalid, Toast.LENGTH_SHORT).show()
                 }
-
+//                reff.child("ferdinandg066").addValueEventListener(object : ValueEventListener {
+//                    override fun onCancelled(error: DatabaseError) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                        var temp = snapshot.getValue(Users::class.java)
+//                        var us : Users
+//                        if (temp != null){
+//                            us = Users(
+//                                temp.username,
+//                                temp.password,
+//                                temp.email,
+//                                null)
+//                            Toast.makeText(this@LoginActivity, us.username, Toast.LENGTH_SHORT).show()
+//
+//                        }
+//
+//                    }
+//
+//                })
             } else {
                 Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
@@ -148,6 +173,9 @@ class LoginActivity : AppCompatActivity() {
         var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+
 
         signInButton.setOnClickListener(){
             var signInIntent = mGoogleSignInClient.getSignInIntent()
