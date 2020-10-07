@@ -3,12 +3,14 @@ package com.example.splitwallet
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.splitwallet.support_class.Constants
+import com.example.splitwallet.support_class.PreferenceConfig
+import com.example.splitwallet.support_class.Users
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -22,8 +24,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import org.json.JSONObject
-import org.json.JSONStringer
 
 
 class LoginActivity : AppCompatActivity() {
@@ -32,13 +32,32 @@ class LoginActivity : AppCompatActivity() {
     var mAuth = FirebaseAuth.getInstance()
     lateinit var reff : DatabaseReference
     var userList = arrayListOf<Users>()
+    lateinit var preferenceConfig : PreferenceConfig
 
     lateinit var mGoogleSignInClient : GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        preferenceConfig = PreferenceConfig(applicationContext)
+        var user_storage : String? = preferenceConfig.getString(Constants.KEY_USER)
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Users")
+        if (user_storage != null){
+            preferenceLogin(user_storage)
+        } else {
+            normalLogin()
+        }
+
+    }
+
+    fun preferenceLogin(user: String){
+        var u = preferenceConfig.getGson().fromJson(user, Users::class.java)
+        Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun normalLogin(){
+        reff = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER)
 
         reff.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -49,7 +68,11 @@ class LoginActivity : AppCompatActivity() {
                 for (p in snapshot.children){
                     var temp = p.getValue(Users::class.java)
                     if (temp != null) {
-                        var u = Users(temp.username, temp.password, temp.email)
+                        var u = Users(
+                            temp.username,
+                            temp.password,
+                            temp.email
+                        )
                         userList.add(u)
                     }
                 }
@@ -61,10 +84,9 @@ class LoginActivity : AppCompatActivity() {
         checkLogin()
         clickRegister()
         loginWithGoogle()
-
-
-
     }
+
+
 
     fun checkLogin(){
 
@@ -92,7 +114,8 @@ class LoginActivity : AppCompatActivity() {
                 if (userValid){
                     if (u != null){
                         if (u.password!!.equals(et_password.toString())){
-                            Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                            successLogin(u)
+
                         }
                         else {
                             Toast.makeText(this, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
@@ -139,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN){
             var task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            Toast.makeText(this, task.toString(), Toast.LENGTH_SHORT).show()
             handleSignInResult(task)
         }
     }
@@ -207,7 +231,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (userValid){
                 if (u != null){
-                    Toast.makeText(this, "Welcome " + u.username.toString(), Toast.LENGTH_SHORT).show()
+                    successLogin(u)
                 }
             } else {
                 invalidGoogleSignIn()
@@ -219,6 +243,14 @@ class LoginActivity : AppCompatActivity() {
     fun invalidGoogleSignIn(){
         mGoogleSignInClient.signOut();
         Toast.makeText(this,"Please register your email first",Toast.LENGTH_SHORT).show();
+    }
+
+    fun successLogin(u : Users){
+        preferenceConfig = PreferenceConfig(applicationContext)
+        preferenceConfig.putString(Constants.KEY_USER, preferenceConfig.listToJson(u))
+        Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 

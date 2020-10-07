@@ -1,4 +1,4 @@
-package com.example.splitwallet
+package com.example.splitwallet.support_class
 
 class Users {
     var username: String? = ""
