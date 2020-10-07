@@ -6,19 +6,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.splitwallet.support_class.Constants
+import com.example.splitwallet.support_class.Users
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    var reff = FirebaseDatabase.getInstance().getReference().child("Users")
+    var reff = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER)
     var userList = arrayListOf<Users>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-        reff = FirebaseDatabase.getInstance().getReference().child("Users")
 
         reff.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -26,20 +25,20 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (p in snapshot.children){
+                for (p in snapshot.children) {
                     var temp = p.getValue(Users::class.java)
                     if (temp != null) {
-                        var u = Users(temp.username, temp.password, temp.email)
+                        var u = Users(
+                            temp.username,
+                            temp.password,
+                            temp.email
+                        )
                         userList.add(u)
                     }
                 }
-
-
             }
 
         })
-
-
 
         checkRegister()
     }
@@ -68,7 +67,11 @@ class RegisterActivity : AppCompatActivity() {
 
     fun createUser(username : String, email : String, password : String){
 
-        var users = Users(username, password, email)
+        var users = Users(
+            username,
+            password,
+            email
+        )
         reff.push().setValue(users)
 
         Toast.makeText(this, R.string.success_register_toast, Toast.LENGTH_SHORT).show()

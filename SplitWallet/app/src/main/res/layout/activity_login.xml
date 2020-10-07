@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginActivity"
     android:orientation="vertical">
 
@@ -27,17 +28,22 @@
             android:orientation="vertical"
             android:layout_marginHorizontal="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/username_email"
-                android:id="@+id/usernameLogin"
-                android:layout_marginVertical="5dp"
-                android:padding="15dp"
-                android:textColor="@color/fontColor"
-                android:drawablePadding="15dp"
-                android:drawableLeft="@drawable/username_logo"
-                />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/username_email"
+                    android:id="@+id/usernameLogin"
+                    android:layout_marginVertical="5dp"
+                    android:padding="15dp"
+                    android:textColor="@color/fontColor"
+                    android:drawablePadding="15dp"
+                    android:drawableLeft="@drawable/username_logo"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--        <EditText-->
             <!--            android:layout_width="match_parent"-->
@@ -47,18 +53,22 @@
             <!--            android:layout_marginVertical="5dp"-->
             <!--            android:padding="15dp"-->
             <!--            android:textColor="@color/fontColor"/>-->
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:id="@+id/passwordLogin"
-                android:padding="15dp"
-                android:drawableLeft="@drawable/password_logo"
-                android:drawablePadding="10dp"
-                android:layout_marginVertical="5dp"
-                android:inputType="textPassword"
-                android:textColor="@color/fontColor"/>
+                app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:id="@+id/passwordLogin"
+                        android:padding="15dp"
+                        android:drawableLeft="@drawable/password_logo"
+                        android:drawablePadding="15dp"
+                        android:layout_marginVertical="5dp"
+                        android:inputType="textPassword"
+                        android:textColor="@color/fontColor"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--        <EditText-->
             <!--            android:layout_width="match_parent"-->
