@@ -15,8 +15,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
-import java.lang.StringBuilder
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
+import edu.bluejack20_1.splitwallet.support_class.Users
+import edu.bluejack20_1.splitwallet.support_class.Wallets
+import com.google.firebase.database.FirebaseDatabase
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
+
     var listWallets = arrayListOf<WalletsHelper>()
     var reff = FirebaseDatabase.getInstance().getReference()
 
@@ -36,6 +41,7 @@ class HomeFragment : Fragment() {
     var totalLimit = 0
 
     lateinit var inf : View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,6 +56,7 @@ class HomeFragment : Fragment() {
         if (activity != null){
             var username_home = inf.findViewById<TextView>(R.id.home_username)
             var email_home = inf.findViewById<TextView>(R.id.home_email)
+
             var preferenceConfig : PreferenceConfig =
                 PreferenceConfig(
                     requireActivity().applicationContext
@@ -60,6 +67,7 @@ class HomeFragment : Fragment() {
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
             username_home.setText(u.username)
             email_home.setText(u.email)
+
             Constants.KEY_USER_ID = u.email!!.split("@gmail.com")[0]
 //            addWallet()
             initView()
@@ -310,11 +318,6 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
-
-
-
-
 
 
 }

@@ -2,12 +2,10 @@ package edu.bluejack20_1.splitwallet.support_class
 
 import android.content.Context
 
-
 class PreferenceConfig (context: Context) : GsonReader() {
 
     private val sharedPreferences = context.getSharedPreferences("myPreferences", 0)
-
-
+  
     fun putString(key: String, value : String){
         sharedPreferences.edit().putString(key, value).apply()
     }
