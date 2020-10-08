@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorGray200"
-    tools:context=".fragments.AccountFragment">
+    tools:context="edu.bluejack20_1.splitwallet.fragments.WalletFragment">
 
     <View
         android:layout_width="match_parent"

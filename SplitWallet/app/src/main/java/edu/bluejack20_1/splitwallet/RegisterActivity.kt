@@ -1,4 +1,4 @@
-package com.example.splitwallet
+package edu.bluejack20_1.splitwallet
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.splitwallet.support_class.Constants
-import com.example.splitwallet.support_class.Users
-import com.example.splitwallet.support_class.Wallets
+import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.Users
 import com.google.firebase.database.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -58,10 +58,12 @@ class RegisterActivity : AppCompatActivity() {
                     createUser(et_username, et_email, et_password)
                 }
             } else if (!et_password.equals(et_re_password) && !et_re_password.isEmpty()){
-                Toast.makeText(this, R.string.wrong_confirm_password, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    R.string.wrong_confirm_password, Toast.LENGTH_SHORT).show()
 
             } else {
-                Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -77,7 +79,8 @@ class RegisterActivity : AppCompatActivity() {
 
         reff.child(users.email!!.split("@gmail.com")[0]).setValue(users)
 
-        Toast.makeText(this, R.string.success_register_toast, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,
+            R.string.success_register_toast, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }

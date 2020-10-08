@@ -1,4 +1,4 @@
-package com.example.splitwallet.support_class
+package edu.bluejack20_1.splitwallet.support_class
 
 class Users {
     var username: String? = ""

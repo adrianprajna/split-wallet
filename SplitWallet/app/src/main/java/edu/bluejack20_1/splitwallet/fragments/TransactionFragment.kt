@@ -1,4 +1,4 @@
-package com.example.splitwallet.fragments
+package edu.bluejack20_1.splitwallet.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
+ * Use the [Transaction.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CalendarFragment : Fragment() {
+class Transaction : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        return inflater.inflate(R.layout.fragment_transaction, container, false)
     }
+
 }

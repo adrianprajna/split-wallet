@@ -1,4 +1,4 @@
-package com.example.splitwallet.fragments
+package edu.bluejack20_1.splitwallet.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

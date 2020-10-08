@@ -1,9 +1,10 @@
-package com.example.splitwallet.adapter
+package edu.bluejack20_1.splitwallet.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.splitwallet.fragments.*
+import edu.bluejack20_1.splitwallet.fragments.*
 
 class PageAdapter(var fm: FragmentManager): FragmentStatePagerAdapter(fm){
 
@@ -13,7 +14,7 @@ class PageAdapter(var fm: FragmentManager): FragmentStatePagerAdapter(fm){
             1 -> CalendarFragment()
             2 -> Transaction()
             3 -> ReportFragment()
-            4 -> AccountFragment()
+            4 -> WalletFragment()
             else -> HomeFragment()
         }
     }

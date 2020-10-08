@@ -1,4 +1,4 @@
-package com.example.splitwallet.support_class
+package edu.bluejack20_1.splitwallet.support_class
 
 import android.content.Context
 import com.google.gson.Gson
