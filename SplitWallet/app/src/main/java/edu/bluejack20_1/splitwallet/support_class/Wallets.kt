@@ -1,6 +1,4 @@
-package com.example.splitwallet.support_class
-
-import android.icu.number.IntegerWidth
+package edu.bluejack20_1.splitwallet.support_class
 
 class Wallets {
     var walletName : String? = ""

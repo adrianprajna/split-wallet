@@ -1,4 +1,4 @@
-package com.example.splitwallet
+package edu.bluejack20_1.splitwallet
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,8 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.example.splitwallet.adapter.PageAdapter
+import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.adapter.PageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -58,7 +59,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewPagerAdapter(){
-        viewPager.adapter = PageAdapter(supportFragmentManager)
+        viewPager.adapter =
+            PageAdapter(supportFragmentManager)
     }
 
     @Override

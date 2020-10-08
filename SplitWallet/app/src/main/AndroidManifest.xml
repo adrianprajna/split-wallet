@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AccountActivity"></activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name="edu.bluejack20_1.splitwallet.RegisterActivity" />
+        <activity android:name="edu.bluejack20_1.splitwallet.MainActivity" />
+        <activity android:name="edu.bluejack20_1.splitwallet.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

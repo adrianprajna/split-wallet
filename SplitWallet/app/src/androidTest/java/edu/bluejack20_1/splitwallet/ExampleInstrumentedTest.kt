@@ -1,4 +1,4 @@
-package com.example.splitwallet
+package edu.bluejack20_1.splitwallet
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

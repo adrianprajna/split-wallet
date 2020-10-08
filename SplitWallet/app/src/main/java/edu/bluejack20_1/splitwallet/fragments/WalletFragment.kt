@@ -1,4 +1,4 @@
-package com.example.splitwallet.fragments
+package edu.bluejack20_1.splitwallet.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.splitwallet.R
-import com.example.splitwallet.support_class.Constants
-import com.example.splitwallet.support_class.PreferenceConfig
-import com.example.splitwallet.support_class.Users
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
+import edu.bluejack20_1.splitwallet.support_class.Users
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +45,10 @@ class WalletFragment : Fragment() {
             var username_home = inf.findViewById<TextView>(R.id.user_name)
             var email_home = inf.findViewById<TextView>(R.id.user_email)
             var preferenceConfig : PreferenceConfig
-            preferenceConfig = PreferenceConfig(requireActivity().applicationContext)
+            preferenceConfig =
+                PreferenceConfig(
+                    requireActivity().applicationContext
+                )
 
             val u : Users
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)

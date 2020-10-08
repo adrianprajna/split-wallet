@@ -1,17 +1,17 @@
-package com.example.splitwallet
+package edu.bluejack20_1.splitwallet
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.renderscript.Sampler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.splitwallet.support_class.Constants
-import com.example.splitwallet.support_class.PreferenceConfig
-import com.example.splitwallet.support_class.Users
+import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
+import edu.bluejack20_1.splitwallet.support_class.Users
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -39,7 +39,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        preferenceConfig = PreferenceConfig(applicationContext)
+        preferenceConfig =
+            PreferenceConfig(
+                applicationContext
+            )
         var user_storage : String? = preferenceConfig.getString(Constants.KEY_USER)
 
         if (user_storage != null){
@@ -122,11 +125,13 @@ class LoginActivity : AppCompatActivity() {
                             successLogin(u)
                         }
                         else {
-                            Toast.makeText(this, R.string.wrong_credential, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,
+                                R.string.wrong_credential, Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, R.string.username_invalid, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,
+                        R.string.username_invalid, Toast.LENGTH_SHORT).show()
                 }
 //                reff.child("ferdinandg066").addValueEventListener(object : ValueEventListener {
 //                    override fun onCancelled(error: DatabaseError) {
@@ -152,7 +157,8 @@ class LoginActivity : AppCompatActivity() {
 //                })
 
             } else {
-                Toast.makeText(this, R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    R.string.empty_field_toast, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -172,7 +178,9 @@ class LoginActivity : AppCompatActivity() {
     fun loginWithGoogle(){
         var signInButton = findViewById<SignInButton>(R.id.sign_in_button)
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(
+            R.string.default_web_client_id
+        )).requestEmail().build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
@@ -275,7 +283,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun successLogin(u : Users){
-        preferenceConfig = PreferenceConfig(applicationContext)
+        preferenceConfig =
+            PreferenceConfig(
+                applicationContext
+            )
         preferenceConfig.putString(Constants.KEY_USER, preferenceConfig.listToJson(u))
         Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, MainActivity::class.java)
