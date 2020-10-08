@@ -1,23 +1,11 @@
 package edu.bluejack20_1.splitwallet.support_class
 
 import android.content.Context
-import com.google.gson.Gson
 
-
-class PreferenceConfig (context: Context){
+class PreferenceConfig (context: Context) : GsonReader() {
 
     private val sharedPreferences = context.getSharedPreferences("myPreferences", 0)
-    private val gson : Gson = Gson()
-
-    fun listToJson(list: Any) : String{
-        return gson.toJson(list)
-    }
-
-    fun getGson() : Gson{
-        return gson
-    }
-
-
+  
     fun putString(key: String, value : String){
         sharedPreferences.edit().putString(key, value).apply()
     }

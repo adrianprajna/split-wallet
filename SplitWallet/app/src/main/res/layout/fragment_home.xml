@@ -81,6 +81,7 @@
                     android:layout_height="125dp"
                     android:layout_weight="1"
                     android:layout_margin="10dp"
+                    android:id="@+id/home_spend_box"
                     android:background="@color/redHomeCard"
 
                     >
@@ -107,7 +108,7 @@
                             android:textSize="20sp"
                             android:layout_centerInParent="true"
                             android:includeFontPadding="false"
-                            android:text="Rp. 100.000"
+                            android:text="-"
                             android:textStyle="bold"
                             android:textColor="@color/fontReverseColor"/>
 
@@ -153,7 +154,7 @@
                             android:textSize="20sp"
                             android:layout_centerInParent="true"
                             android:includeFontPadding="false"
-                            android:text="Rp. 1.000.000"
+                            android:text="-"
                             android:textStyle="bold"/>
 
                         <TextView
