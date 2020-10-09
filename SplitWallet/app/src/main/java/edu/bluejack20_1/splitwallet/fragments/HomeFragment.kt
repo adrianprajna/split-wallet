@@ -127,15 +127,21 @@ class HomeFragment : Fragment() {
 
 
     fun initView(){
+
+
         initViewListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                totalSpend = 0
-                totalLimit = 0
-                collectData(snapshot.getValue() as Map<String, Any>)
+
+                if (snapshot.exists()){
+
+                    totalSpend = 0
+                    totalLimit = 0
+                    collectData(snapshot.getValue() as Map<String, Any>)
+                }
             }
 
         }
@@ -202,7 +208,7 @@ class HomeFragment : Fragment() {
 
     fun collectData(data : Map<String, Any>){
 
-        Log.d("List Data", data.toString())
+
         for ((name, value) in data.entries) {
 //                Toast.makeText(this@HomeFragment.context, name, Toast.LENGTH_LONG).show()
 
@@ -267,6 +273,7 @@ class HomeFragment : Fragment() {
                     )
                     if (singleUser["walletType"].toString() == "Expense"){
                         totalLimit += singleUser["walletLimit"].toString()!!.toInt()
+                        changeWalletView()
                     }
                 }
 
