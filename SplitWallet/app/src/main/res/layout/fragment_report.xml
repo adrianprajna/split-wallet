@@ -3,34 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="edu.bluejack20_1.splitwallet.fragments.ReportFragment"
-    android:background="@color/fontColor">
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
-        <Spinner
+        <fr.ganfra.materialspinner.MaterialSpinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/report_spinner"
+            app:ms_arrowColor="@color/colorPrimary"
+            app:ms_arrowSize="16dp"
+            app:ms_floatingLabelColor="@color/fontColor"
+            app:ms_floatingLabelText="Choose Wallet Type"
+            app:ms_hint="Please Choose"
+            app:ms_hintColor="@color/fontColor"
+            app:ms_multiline="true"
+            android:layout_margin="10dp"/>
 
         <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:layout_margin="10dp"
             android:id="@+id/report_income_pie_chart"
             />
 
         <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:layout_margin="10dp"
             android:id="@+id/report_expense_pie_chart"
             />
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
 
     </LinearLayout>
 

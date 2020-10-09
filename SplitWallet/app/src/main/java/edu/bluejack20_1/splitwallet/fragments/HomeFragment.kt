@@ -47,7 +47,9 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         reff.removeEventListener(initViewListener)
-        reffTransactions!!.removeEventListener(valueListener!!)
+        if (reffTransactions != null){
+            reffTransactions!!.removeEventListener(valueListener!!)
+        }
     }
 
 
