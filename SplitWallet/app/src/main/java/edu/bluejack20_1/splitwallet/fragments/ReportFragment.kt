@@ -1,11 +1,25 @@
 package edu.bluejack20_1.splitwallet.fragments
 
 import android.os.Bundle
+import android.telecom.Call
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.splitwallet.R
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.Transactions
+import edu.bluejack20_1.splitwallet.support_class.json_class.WalletGrowth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,13 +44,121 @@ class ReportFragment : Fragment() {
         }
     }
 
+    lateinit var inf : View
+    lateinit var mIncomePieChart: PieChart
+    lateinit var mExpensePieChart: PieChart
+
+    lateinit var expenseList : ArrayList<WalletGrowth>
+    lateinit var incomeList : ArrayList<WalletGrowth>
+    var reff_report = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER).child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        fragmentManager?.popBackStack()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report, container, false)
+        inf = inflater.inflate(R.layout.fragment_report, container, false)
+
+        mIncomePieChart = inf.findViewById(R.id.report_income_pie_chart)
+        mExpensePieChart = inf.findViewById(R.id.report_expense_pie_chart)
+        getListOfData()
+
+        return inf
     }
+
+    fun getListOfData(){
+        reff_report.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                expenseList = ArrayList()
+                incomeList = ArrayList()
+                for (p in snapshot.children){
+                    if (p.child("walletType").getValue().toString() == "Expense"){
+                        expenseList.add(WalletGrowth(p.child("walletName").getValue().toString()))
+                        var temp = p.child("transactions")
+                        for (t in temp.children){
+                            var totalNow : Int = expenseList.get(expenseList.size - 1).walletSpent.toInt()
+                            totalNow += t.child("transactionAmount").getValue().toString().toInt()
+                            expenseList.get(expenseList.size - 1).walletSpent = totalNow
+                        }
+
+                    } else {
+                        incomeList.add(WalletGrowth(p.child("walletName").getValue().toString()))
+                        var temp = p.child("transactions")
+                        for (t in temp.children){
+                            var totalNow : Int = incomeList.get(incomeList.size - 1).walletSpent.toInt()
+                            totalNow += t.child("transactionAmount").getValue().toString().toInt()
+                            incomeList.get(incomeList.size - 1).walletSpent = totalNow
+                        }
+
+                    }
+                }
+
+                getGrowthChart()
+
+
+            }
+
+        })
+    }
+
+
+    fun getGrowthChart(){
+
+        var incomeBarEntries = arrayListOf<PieEntry>()
+        var expenseBarEntries = arrayListOf<PieEntry>()
+
+        for (p in incomeList){
+            incomeBarEntries.add(PieEntry(p.walletSpent.toFloat(), p.walletName))
+        }
+
+        for (p in expenseList){
+            expenseBarEntries.add(PieEntry(p.walletSpent.toFloat(), p.walletName))
+        }
+
+        mIncomePieChart.visibility = View.VISIBLE
+        mIncomePieChart.animateXY(5000,5000)
+
+        var incomePieDataSet = PieDataSet(incomeBarEntries, "")
+        incomePieDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+
+        var incomePieData = PieData(incomePieDataSet)
+        mIncomePieChart.data = incomePieData
+
+        var description = Description()
+        description.text = "Incomes"
+        description.textSize = 20.0f
+        mIncomePieChart.description = description
+        mIncomePieChart.invalidate()
+
+
+
+
+
+
+
+        mExpensePieChart.visibility = View.VISIBLE
+        mExpensePieChart.animateXY(5000,5000)
+        var expensePieDataSet = PieDataSet(expenseBarEntries, "")
+        expensePieDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+
+        var expensePieData = PieData(expensePieDataSet)
+        mExpensePieChart.data = expensePieData
+
+        var descriptions = Description()
+        descriptions.text = "Expenses"
+        descriptions.textSize = 20.0f
+        mExpensePieChart.description = descriptions
+        mExpensePieChart.invalidate()
+
+
+    }
+
 
     companion object {
         /**

@@ -1,6 +1,7 @@
 package edu.bluejack20_1.splitwallet.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.splitwallet.R
+import com.google.firebase.database.*
+import com.google.gson.Gson
 import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
-import java.lang.StringBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,20 +28,35 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment() {
     var listWallets = arrayListOf<WalletsHelper>()
     var reff = FirebaseDatabase.getInstance().getReference()
+        .child(Constants.KEY_USER)
 
     var totalSpend = 0
     var totalLimit = 0
+
+    lateinit var initViewListener : ValueEventListener
+
+    var reffTransactions : DatabaseReference? = null
+    var valueListener: ValueEventListener? = null
+
 
     lateinit var inf : View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        reff.removeEventListener(initViewListener)
+        reffTransactions!!.removeEventListener(valueListener!!)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        fragmentManager?.popBackStack()
         inf = inflater.inflate(R.layout.fragment_home, container, false)
 
         if (activity != null){
@@ -54,6 +66,7 @@ class HomeFragment : Fragment() {
                 PreferenceConfig(
                     requireActivity().applicationContext
                 )
+
 
 
             val u : Users
@@ -68,11 +81,7 @@ class HomeFragment : Fragment() {
     }
 
     fun initView(){
-        var reff = reff.child(Constants.KEY_USER).child(
-            Constants.KEY_USER_ID).child(
-            Constants.LIST_WALLET)
-
-        reff.addValueEventListener(object : ValueEventListener {
+        initViewListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -84,7 +93,10 @@ class HomeFragment : Fragment() {
 
             }
 
-        })
+        }
+        reff = reff.child(Constants.KEY_USER_ID)
+            .child(Constants.LIST_WALLET)
+        reff.addValueEventListener(initViewListener)
 
 //        changeWalletView()
 
@@ -109,44 +121,48 @@ class HomeFragment : Fragment() {
     }
 
     fun greenView(){
-        var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
-        box.background = resources.getDrawable(R.color.greenHomeCard)
-        var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
-        tx_desc.setTextColor(resources.getColor(R.color.fontColor))
+        if (isAdded){
+            var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
+            box.background = resources.getDrawable(R.color.greenHomeCard)
+            var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
+            tx_desc.setTextColor(resources.getColor(R.color.fontColor))
 
-        var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
-        tx_val.setTextColor(resources.getColor(R.color.fontColor))
+            var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
+            tx_val.setTextColor(resources.getColor(R.color.fontColor))
+        }
 
     }
 
     fun yellowView(){
-        var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
-        box.background = resources.getDrawable(R.color.yellowHomeCard)
-        var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
-        tx_desc.setTextColor(resources.getColor(R.color.fontColor))
+        if (isAdded){
+            var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
+            box.background = resources.getDrawable(R.color.yellowHomeCard)
+            var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
+            tx_desc.setTextColor(resources.getColor(R.color.fontColor))
 
-        var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
-        tx_val.setTextColor(resources.getColor(R.color.fontColor))
+            var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
+            tx_val.setTextColor(resources.getColor(R.color.fontColor))
+        }
 
     }
 
     fun redView(){
-        var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
-        box.background = resources.getDrawable(R.color.redHomeCard)
-        var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
-        tx_desc.setTextColor(resources.getColor(R.color.fontReverseColor))
+        if (isAdded){
+            var box = inf.findViewById<LinearLayout>(R.id.home_spend_box)
+            box.background = resources.getDrawable(R.color.redHomeCard)
+            var tx_desc = inf.findViewById<TextView>(R.id.home_payment_desc)
+            tx_desc.setTextColor(resources.getColor(R.color.fontReverseColor))
 
-        var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
-        tx_val.setTextColor(resources.getColor(R.color.fontReverseColor))
+            var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
+            tx_val.setTextColor(resources.getColor(R.color.fontReverseColor))
 
+        }
     }
-
-
-
 
     fun collectData(data : Map<String, Any>){
 
-            for ((name, value) in data.entries) {
+        Log.d("List Data", data.toString())
+        for ((name, value) in data.entries) {
 //                Toast.makeText(this@HomeFragment.context, name, Toast.LENGTH_LONG).show()
 
                 //Get user map
@@ -154,54 +170,53 @@ class HomeFragment : Fragment() {
                     value as Map<*, *>
 
                 if (singleUser["transactions"] != null) {
-                    var reffTransactions = reff.child(Constants.KEY_USER).child(
-                        Constants.KEY_USER_ID).child(
-                        Constants.LIST_WALLET).child(name).child("transactions")
+                    reffTransactions = reff.child(name).child("transactions")
+                    valueListener = object : ValueEventListener {
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
 
-                        reffTransactions.addValueEventListener(object : ValueEventListener {
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-
-                            override fun onDataChange(snapshot: DataSnapshot) {
+                        override fun onDataChange(snapshot: DataSnapshot) {
 //                                var a : ArrayList<Transactions>? =
 //                                var a = collectTransaction(snapshot.getValue() as Any)
 
-                                listWallets.add(
-                                    WalletsHelper(
-                                        singleUser["walletName"].toString(),
-                                        singleUser["walletType"].toString(),
-                                        singleUser["walletLimit"].toString().toInt(),
-                                        null
-                                    )
+                            listWallets.add(
+                                WalletsHelper(
+                                    singleUser["walletName"].toString(),
+                                    singleUser["walletType"].toString(),
+                                    singleUser["walletLimit"].toString().toInt(),
+                                    null
                                 )
+                            )
 
-                                for (p in snapshot.children){
+                            for (p in snapshot.children){
 
-                                    var u =
-                                        Transactions(
-                                                p.child("transactionDate").value.toString(),
-                                    p.child("transactionNote").value.toString(),
-                                    p.child("transactionAmount").value.toString().toInt(),
-                                    p.child("transactionType").value.toString()
+                                var u =
+                                    Transactions(
+                                        p.child("transactionDate").value.toString(),
+                                        p.child("transactionNote").value.toString(),
+                                        p.child("transactionAmount").value.toString().toInt(),
+                                        p.child("transactionType").value.toString()
                                     )
-                                    listWallets.get(listWallets.size - 1).listTransactions.add(u)
+                                listWallets.get(listWallets.size - 1).listTransactions.add(u)
+                            }
+
+                            if (singleUser["walletType"].toString().equals("Expense")){
+                                totalLimit += singleUser["walletLimit"].toString()!!.toInt()
+                                for (t in listWallets.get(listWallets.size - 1).listTransactions){
+                                    totalSpend += t.transactionAmount!!.toInt()
                                 }
-
-                                if (singleUser["walletType"].toString().equals("Expense")){
-                                    totalLimit += singleUser["walletLimit"].toString()!!.toInt()
-                                    Toast.makeText(this@HomeFragment.context, "Sue kong", Toast.LENGTH_LONG).show()
-                                    for (t in listWallets.get(listWallets.size - 1).listTransactions){
-                                        totalSpend += t.transactionAmount!!.toInt()
-                                    }
-                                    changeWalletView()
-
-                                }
-
+                                changeWalletView()
 
                             }
 
-                        })
+
+                        }
+
+                    }
+                    reffTransactions!!.addValueEventListener(valueListener!!)
+//                    reffTransactions.removeEventListener(valueListener!!)
+
                 } else {
                     listWallets.add(
                         WalletsHelper(
@@ -213,7 +228,12 @@ class HomeFragment : Fragment() {
                 }
 
         }
-        changeWalletView()
+        if (reffTransactions != null){
+
+            changeWalletView()
+        }
+        Log.d("Wallet size", listWallets.size.toString())
+
 //        Toast.makeText(this@HomeFragment.context, listWallets.get(0).listTransactions.get(0).toString(), Toast.LENGTH_SHORT).show()
     }
 

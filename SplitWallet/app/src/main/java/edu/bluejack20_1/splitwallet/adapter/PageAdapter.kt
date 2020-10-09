@@ -3,7 +3,6 @@ package edu.bluejack20_1.splitwallet.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.splitwallet.fragments.*
 import edu.bluejack20_1.splitwallet.fragments.*
 
 class PageAdapter(var fm: FragmentManager): FragmentStatePagerAdapter(fm){
