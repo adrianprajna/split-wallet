@@ -184,6 +184,9 @@
             >
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_create_wallet"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"

@@ -1,25 +1,31 @@
 package edu.bluejack20_1.splitwallet.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import edu.bluejack20_1.splitwallet.CreateWalletActivity
+import edu.bluejack20_1.splitwallet.LoginActivity
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Users
 import edu.bluejack20_1.splitwallet.support_class.Wallets
-import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -62,7 +68,6 @@ class HomeFragment : Fragment() {
                     requireActivity().applicationContext
                 )
 
-
             val u : Users
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
             username_home.setText(u.username)
@@ -70,10 +75,20 @@ class HomeFragment : Fragment() {
 
             Constants.KEY_USER_ID = u.email!!.split("@gmail.com")[0]
 //            addWallet()
+
+
+            val btn = inf.findViewById<CardView>(R.id.btn_create_wallet)
+            btn.setOnClickListener(){
+                val intent = Intent(activity, CreateWalletActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+
             initView()
         }
+
         return inf
     }
+
 
     fun initView(){
         var reff = reff.child(Constants.KEY_USER).child(
@@ -89,13 +104,11 @@ class HomeFragment : Fragment() {
                 totalSpend = 0
                 totalLimit = 0
                 collectData(snapshot.getValue() as Map<String, Any>)
-
             }
 
         })
 
 //        changeWalletView()
-
     }
 
 
@@ -149,9 +162,6 @@ class HomeFragment : Fragment() {
 
     }
 
-
-
-
     fun collectData(data : Map<String, Any>){
 
             for ((name, value) in data.entries) {
@@ -185,6 +195,9 @@ class HomeFragment : Fragment() {
                                 )
 
                                 for (p in snapshot.children){
+
+                                    Log.d("children", snapshot.children.toString())
+                                    Log.d("children", p.key.toString())
 
                                     var u =
                                         Transactions(
@@ -223,30 +236,6 @@ class HomeFragment : Fragment() {
         }
         changeWalletView()
 //        Toast.makeText(this@HomeFragment.context, listWallets.get(0).listTransactions.get(0).toString(), Toast.LENGTH_SHORT).show()
-    }
-
-
-
-    fun collectTransaction(data : Any) : ArrayList<Transactions>? {
-        var listTransactions = arrayListOf<Transactions>()
-        var gson = Gson()
-
-        var x = gson.fromJson(data.toString(), ArrayList<Transactions>()::class.java)
-//        for ((_, value) in data.entries) {
-//            val t = value as Map<*, *>
-//
-//            listTransactions.add(Transactions(t["transactionDate"].toString(), t["transactionNote"].toString(), t["transactionAmount"].toString().toInt(),
-//            t["transactionType"].toString()))
-//        }
-
-//        for (d in data){
-//            listTransactions.add(Transactions(d.transactionDate, d.transactionNote, d.transactionAmount,
-//            d.transactionType))
-//        }
-
-//        Toast.makeText(this@HomeFragment.context, data.size.toString(), Toast.LENGTH_SHORT).show()
-
-        return x
     }
 
 

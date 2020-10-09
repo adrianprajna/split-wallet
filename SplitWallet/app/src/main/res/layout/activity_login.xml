@@ -45,7 +45,6 @@
                     android:paddingTop="25dp"
                     android:textColor="@color/fontColor"
                     android:drawablePadding="15dp"
-
                     android:drawableLeft="@drawable/username_logo"
                     />
             </com.google.android.material.textfield.TextInputLayout>
