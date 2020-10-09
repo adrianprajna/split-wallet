@@ -63,10 +63,10 @@ class HomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        reff.removeEventListener(initViewListener)
-        if (reffTransactions != null){
-            reffTransactions!!.removeEventListener(valueListener!!)
-        }
+//        reff.removeEventListener(initViewListener)
+//        if (reffTransactions != null){
+//            reffTransactions!!.removeEventListener(valueListener!!)
+//        }
     }
 
 
@@ -252,6 +252,9 @@ class HomeFragment : Fragment() {
                             singleUser["walletLimit"].toString().toInt(), null
                         )
                     )
+                    if (singleUser["walletType"].toString() == "Expense"){
+                        totalLimit += singleUser["walletLimit"].toString()!!.toInt()
+                    }
                 }
 
         }
