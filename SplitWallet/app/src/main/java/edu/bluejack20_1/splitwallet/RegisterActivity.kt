@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Constants
@@ -89,7 +90,15 @@ class RegisterActivity : AppCompatActivity() {
         if (!email.startsWith("@") && email.endsWith("@gmail.com")){
             if (password.length >= 6 && isAlphanumeric(password)){
                 for (p in userList){
-                    if (p.username.equals(username) || p.email.equals(email)) return false
+                    if (p.email.equals(email)){
+                        var txt_email = findViewById<TextView>(R.id.email)
+                        txt_email.error = "Email already exists!"
+                        return false
+                    } else if(p.username.equals(username)){
+                        var txt_username = findViewById<TextView>(R.id.username)
+                        txt_username.error = "Username already exists!"
+                        return false
+                    }
                 }
                 return true
             }

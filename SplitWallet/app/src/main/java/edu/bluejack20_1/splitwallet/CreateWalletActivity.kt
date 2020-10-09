@@ -22,6 +22,8 @@ class CreateWalletActivity : AppCompatActivity() {
     val reff = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
         .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
 
+    var flag : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_create_wallet)
@@ -51,6 +53,8 @@ class CreateWalletActivity : AppCompatActivity() {
 
     fun validateWalletName(): Boolean{
 
+        flag = true
+
         reff.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
 
@@ -59,7 +63,7 @@ class CreateWalletActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.child(wallet_name.text.toString()).exists()){
                     wallet_name.setError("Wallet name is exists!")
-                    false
+                    flag = false
                 }
             }
 
@@ -106,14 +110,14 @@ class CreateWalletActivity : AppCompatActivity() {
                         walletLimit = wallet_limit.text.toString().toInt()
                     )
                 }
-
-                reff.setValue(list)
+                if(flag){
+                    reff.setValue(list)
+                    Toast.makeText(this@CreateWalletActivity, "Success create new wallet!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
-
         })
-        Toast.makeText(this, "Success create new wallet!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 
 }
