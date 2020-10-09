@@ -56,8 +56,8 @@ class ReportFragment : Fragment() {
     lateinit var mIncomePieChart: PieChart
     lateinit var mExpensePieChart: PieChart
 
-    lateinit var expenseList : ArrayList<WalletGrowth>
-    lateinit var incomeList : ArrayList<WalletGrowth>
+    var expenseList : ArrayList<WalletGrowth> = arrayListOf()
+    var incomeList : ArrayList<WalletGrowth> = arrayListOf()
     var reff_report = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER).child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
 
     lateinit var spinner : MaterialSpinner
@@ -74,6 +74,7 @@ class ReportFragment : Fragment() {
         mIncomePieChart = inf.findViewById(R.id.report_income_pie_chart)
         mExpensePieChart = inf.findViewById(R.id.report_expense_pie_chart)
         initItems()
+
         getListOfData()
         spinner = inf.findViewById(R.id.report_spinner) as MaterialSpinner
         adapter = ArrayAdapter<String>(this@ReportFragment.requireContext(), android.R.layout.simple_spinner_dropdown_item, listSpinner)
