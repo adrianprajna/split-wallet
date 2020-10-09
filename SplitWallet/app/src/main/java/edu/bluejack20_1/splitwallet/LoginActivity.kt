@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
 
         if (user_storage != null){
 //            preferenceConfig.clearSharedPreference()
-
             preferenceLogin(user_storage)
         } else {
             normalLogin()
