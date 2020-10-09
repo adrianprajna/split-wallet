@@ -62,7 +62,7 @@ class CreateWalletActivity : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
-                    if(snapshot.child(wallet_name.text.toString()).exists()){
+                    if(snapshot.child(Constants.capitalizeEachWord(wallet_name.text.toString())).exists()){
                         wallet_name.setError("Wallet name is exists!")
                         flag = false
                     }
@@ -80,6 +80,7 @@ class CreateWalletActivity : AppCompatActivity() {
             true
         }
     }
+
 
     fun addWallet(view: View){
         if(!validateWalletName()){
@@ -103,13 +104,13 @@ class CreateWalletActivity : AppCompatActivity() {
 
                     if(autoComplete.text.toString().equals("Income")){
                         list[wallet_name.text.toString()] = Wallets(
-                            walletName = wallet_name.text.toString(),
+                            walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = 0
                         )
                     } else {
                         list[wallet_name.text.toString()] = Wallets(
-                            walletName = wallet_name.text.toString(),
+                            walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = wallet_limit.text.toString().toInt()
                         )
@@ -123,13 +124,13 @@ class CreateWalletActivity : AppCompatActivity() {
                 } else {
                     if(autoComplete.text.toString().equals("Income")){
                         list[wallet_name.text.toString()] = Wallets(
-                            walletName = wallet_name.text.toString(),
+                            walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = 0
                         )
                     } else {
                         list[wallet_name.text.toString()] = Wallets(
-                            walletName = wallet_name.text.toString(),
+                            walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = wallet_limit.text.toString().toInt()
                         )
