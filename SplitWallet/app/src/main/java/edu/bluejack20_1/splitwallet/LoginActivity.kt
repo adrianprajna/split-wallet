@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Users
