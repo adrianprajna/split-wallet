@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.splitwallet.R
+import edu.bluejack20_1.splitwallet.R
 import com.google.firebase.database.*
 import com.google.gson.Gson
 import edu.bluejack20_1.splitwallet.support_class.*
