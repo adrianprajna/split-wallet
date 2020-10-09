@@ -5,13 +5,29 @@
     android:layout_height="match_parent"
     tools:context="edu.bluejack20_1.splitwallet.fragments.CalendarFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/colorPrimary"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calendar"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/fontReverseColor"
+            />
+
+    </LinearLayout>
+
+    <CalendarView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calendar Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/top_bar"
         />
 
 </RelativeLayout>

@@ -12,6 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import edu.bluejack20_1.splitwallet.R
 import com.google.firebase.database.*
 import com.google.gson.Gson
@@ -54,7 +57,7 @@ class HomeFragment : Fragment() {
     var reffTransactions : DatabaseReference? = null
     var valueListener: ValueEventListener? = null
 
-
+    lateinit var mGoogleSignInClient : GoogleSignInClient
     lateinit var inf : View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +80,20 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         fragmentManager?.popBackStack()
         inf = inflater.inflate(R.layout.fragment_home, container, false)
+
+        var btn_sign_out = inf.findViewById<Button>(R.id.btn_sign_out)
+        btn_sign_out.setOnClickListener(){
+            var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(
+                R.string.default_web_client_id
+            )).requestEmail().build()
+
+            mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+            mGoogleSignInClient.signOut();
+
+            var preferenceConfig = PreferenceConfig(this.requireContext()).clearSharedPreference()
+            var intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         if (activity != null){
             var username_home = inf.findViewById<TextView>(R.id.home_username)
@@ -129,7 +146,6 @@ class HomeFragment : Fragment() {
 //        changeWalletView()
     }
 
-
     fun changeWalletView(){
 
         var txt_spend = inf.findViewById<TextView>(R.id.home_payment_label)
@@ -157,7 +173,6 @@ class HomeFragment : Fragment() {
             var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
             tx_val.setTextColor(resources.getColor(R.color.fontColor))
         }
-
     }
 
     fun yellowView(){
@@ -182,7 +197,6 @@ class HomeFragment : Fragment() {
 
             var tx_val = inf.findViewById<TextView>(R.id.home_payment_label)
             tx_val.setTextColor(resources.getColor(R.color.fontReverseColor))
-
         }
     }
 
@@ -234,7 +248,6 @@ class HomeFragment : Fragment() {
                                     totalSpend += t.transactionAmount!!.toInt()
                                 }
                                 changeWalletView()
-
                             }
 
 
