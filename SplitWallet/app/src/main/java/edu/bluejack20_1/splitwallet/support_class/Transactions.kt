@@ -1,5 +1,6 @@
 package edu.bluejack20_1.splitwallet.support_class
 
+
 class Transactions {
     var transactionDate : String = ""
     var transactionNote : String = ""
