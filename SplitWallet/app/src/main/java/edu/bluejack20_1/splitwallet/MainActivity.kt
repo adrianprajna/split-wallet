@@ -79,4 +79,6 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed(Runnable { exit = false }, 3 * 1000)
         }
     }
+
+
 }
