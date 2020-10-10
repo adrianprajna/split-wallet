@@ -55,13 +55,12 @@ class CreateWalletActivity : AppCompatActivity() {
 
         flag = true
 
-        reff.addValueEventListener(object : ValueEventListener{
+        reff.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
-
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.child(wallet_name.text.toString()).exists()){
+                if(snapshot.child(wallet_name.text.toString().capitalize()).exists()){
                     wallet_name.setError("Wallet name is exists!")
                     flag = false
                 }
@@ -69,14 +68,12 @@ class CreateWalletActivity : AppCompatActivity() {
 
         })
 
-        return if (wallet_name.text.toString().isEmpty()) {
+        if (wallet_name.text.toString().isEmpty()) {
             wallet_name.setError("Field can't be empty")
-            false
+            return false
         }
-        else {
-            wallet_name.setError(null)
-            true
-        }
+
+        return true
     }
 
     fun addWallet(view: View){
@@ -95,27 +92,31 @@ class CreateWalletActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val list = (snapshot.getValue() as Map<String, Any>).toMutableMap()
+                if(snapshot.exists()){
+                    val list = (snapshot.getValue() as Map<String, Any>).toMutableMap()
 
-                if(autoComplete.text.toString().equals("Income")){
-                    list[wallet_name.text.toString()] = Wallets(
-                        walletName = wallet_name.text.toString(),
-                        walletType = autoComplete.text.toString(),
-                        walletLimit = 0
-                    )
-                } else {
-                    list[wallet_name.text.toString()] = Wallets(
-                        walletName = wallet_name.text.toString(),
-                        walletType = autoComplete.text.toString(),
-                        walletLimit = wallet_limit.text.toString().toInt()
-                    )
+                    if(autoComplete.text.toString().equals("Income")){
+                        list[wallet_name.text.toString()] = Wallets(
+                            walletName = wallet_name.text.toString(),
+                            walletType = autoComplete.text.toString(),
+                            walletLimit = 0
+                        )
+                    } else {
+                        list[wallet_name.text.toString()] = Wallets(
+                            walletName = wallet_name.text.toString(),
+                            walletType = autoComplete.text.toString(),
+                            walletLimit = wallet_limit.text.toString().toInt()
+                        )
+                    }
+                    if(flag){
+                        reff.setValue(list)
+                        Toast.makeText(this@CreateWalletActivity, "Success create new wallet!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
-                if(flag){
-                    reff.setValue(list)
-                    Toast.makeText(this@CreateWalletActivity, "Success create new wallet!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
-                    startActivity(intent)
-                }
+
+
             }
         })
     }
