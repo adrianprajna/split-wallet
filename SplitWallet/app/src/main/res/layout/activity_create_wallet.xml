@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:hint="Wallet Name"
             app:errorEnabled="true"
+            android:id="@+id/wallet_name_layout"
             android:layout_marginBottom="10dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >

@@ -26,8 +26,6 @@ class DateHelper {
 
             var diffInMillies = Math.abs(secondDate.time - firstDate.time)
             return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS)
-
-
         }
     }
 
