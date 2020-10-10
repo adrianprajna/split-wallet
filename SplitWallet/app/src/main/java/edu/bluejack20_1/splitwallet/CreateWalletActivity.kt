@@ -55,9 +55,8 @@ class CreateWalletActivity : AppCompatActivity() {
 
         flag = true
 
-        reff.addValueEventListener(object : ValueEventListener{
+        reff.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
-
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -71,14 +70,12 @@ class CreateWalletActivity : AppCompatActivity() {
 
         })
 
-        return if (wallet_name.text.toString().isEmpty()) {
+        if (wallet_name.text.toString().isEmpty()) {
             wallet_name.setError("Field can't be empty")
-            false
+            return false
         }
-        else {
-            wallet_name.setError(null)
-            true
-        }
+
+        return true
     }
 
 
@@ -98,6 +95,7 @@ class CreateWalletActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
+
                 var list = mutableMapOf<String, Any>()
                 if (snapshot.exists()){
                     list = (snapshot.getValue() as Map<String, Any>).toMutableMap()

@@ -135,9 +135,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 if (snapshot.exists()){
-
                     totalSpend = 0
                     totalLimit = 0
                     collectData(snapshot.getValue() as Map<String, Any>)
@@ -145,6 +143,8 @@ class HomeFragment : Fragment() {
             }
 
         }
+
+
         reff = reff.child(Constants.KEY_USER_ID)
             .child(Constants.LIST_WALLET)
         reff.addValueEventListener(initViewListener)
@@ -256,7 +256,6 @@ class HomeFragment : Fragment() {
                                 changeWalletView()
                             }
 
-
                         }
 
                     }
@@ -279,7 +278,6 @@ class HomeFragment : Fragment() {
 
         }
         if (reffTransactions != null){
-
             changeWalletView()
         }
         Log.d("Wallet size", listWallets.size.toString())
