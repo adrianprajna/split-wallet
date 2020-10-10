@@ -295,8 +295,8 @@ class HomeFragment : Fragment() {
 
 
 
-        val x = mutableMapOf<String, Wallets>()
-
+//        val x = mutableMapOf<String, Wallets>()
+//
 //        x["Food"] = Wallets("Food",
 //            "Expense",
 //            500000)

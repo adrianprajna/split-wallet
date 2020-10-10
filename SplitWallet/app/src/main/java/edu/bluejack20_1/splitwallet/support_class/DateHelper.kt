@@ -29,6 +29,27 @@ class DateHelper {
 
 
         }
+
+        fun validateTwoDates(date1: String, date2 : String): Boolean{
+            val sdf = SimpleDateFormat("yyyy/MM/dd")
+            var firstDate = sdf.parse(date1)
+            var secondDate = sdf.parse(date2)
+
+            return secondDate >= firstDate
+        }
+
+        fun dateIsValid(date1 : String, date2 : String, dateCheck : String) : Boolean {
+            val sdf = SimpleDateFormat("yyyy/MM/dd")
+            var firstDate = sdf.parse(date1)
+            var secondDate = sdf.parse(date2)
+            var targetDate = sdf.parse(dateCheck)
+
+            return (targetDate <= secondDate && targetDate >= firstDate)
+        }
+
+
+
+
     }
 
 }
