@@ -84,11 +84,9 @@ class LoginActivity : AppCompatActivity() {
 //                    }
                     userList.add(temp!!)
                 }
-
-
             }
-
         })
+
         checkLogin()
         clickRegister()
         loginWithGoogle()

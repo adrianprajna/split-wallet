@@ -49,154 +49,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="-5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="-5dp"
             android:background="@color/colorGray200"
             android:orientation="vertical"
-            android:padding="15dp"
-            >
+            android:scrollbars="vertical"
+            android:padding="15dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_view"
+            <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/item_wallet"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:background="@color/colorPrimaryVariant"
-                        >
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_baseline_fastfood_24"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Food and Beverage"
-                            android:textColor="@color/fontReverseColor"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:layout_marginStart="10dp"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Transaction 1"
-                                    />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:text="Rp. 500.000,00"
-                                    />
-
-                            </RelativeLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bayar Grabfood"
-                                    />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:text="Rp. 1.300.000,00"
-                                    />
-
-                            </RelativeLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="?android:attr/listDivider"
-                            />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total"
-                                    />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:text="Rp. 1.800.000,00"
-                                    />
-
-                            </RelativeLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_height="match_parent"
+                />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
