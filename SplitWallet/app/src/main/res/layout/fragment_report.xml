@@ -15,15 +15,26 @@
         android:orientation="vertical"
         >
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Report"
-            android:paddingLeft="20dp"
-            android:textSize="40sp"
-            android:textStyle="italic|bold"
-            android:textColor="@color/fontReverseColor"
-            android:background="@color/colorPrimary"/>
+            android:layout_height="75dp"
+            android:background="@color/colorPrimary"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Report"
+                android:paddingLeft="20dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:textColor="@color/fontReverseColor"
+                />
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,6 +160,22 @@
                     ></com.google.android.material.button.MaterialButton>
             </RelativeLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_round_button"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btn_report_submit"
+                android:text="Submit"/>
+
+
+        </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
 

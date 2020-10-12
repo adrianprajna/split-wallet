@@ -59,6 +59,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.ganfra:material-spinner:1.1.1'
+    implementation files('libs\\poi-3.15.jar')
+    implementation files('libs\\poi-ooxml-3.15.jar')
+    implementation files('libs\\poi-ooxml-schemas-3.15.jar')
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -73,8 +76,4 @@ dependencies {
     //Dependency Injection
     implementation 'org.kodein.di:kodein-di-generic-jvm:6.2.1'
     implementation 'org.kodein.di:kodein-di-framework-android-x:6.2.1'
-
-    //Navigation Architecture
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc01'
 }

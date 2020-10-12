@@ -5,29 +5,39 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
-import edu.bluejack20_1.splitwallet.R
-import com.github.mikephil.charting.charts.BarChart
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.DateHelper
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletGrowth
 import fr.ganfra.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_report.*
-import java.lang.StringBuilder
+import org.apache.poi.hssf.usermodel.HSSFBorderFormatting
+import org.apache.poi.hssf.usermodel.HSSFCell
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.hssf.util.CellReference
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -173,7 +183,6 @@ class ReportFragment : Fragment() {
 
         })
 
-
         report_date_to.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 var c = Calendar.getInstance()
@@ -207,42 +216,338 @@ class ReportFragment : Fragment() {
 
         })
 
-
         btn_check.setOnClickListener {
+            giveChart()
+        }
 
-            if (report_date_from.text.toString().isBlank() || report_date_to.text.toString().isBlank()){
-                if (report_date_from.text.toString().isBlank()){
-                    report_date_from.error = "Required"
-                }
+        var submit = inf.findViewById<Button>(R.id.btn_report_submit)
 
-                if (report_date_to.text.toString().isBlank()){
-                    report_date_to.error = "Required"
-                }
-            } else if (!DateHelper.validateTwoDates(report_date_from.text.toString(), report_date_to.text.toString())){
-                report_date_to.error = "Date Invalid"
-//            } else if (spinner.selectedItemId.toInt() == -1){
-//                Toast.makeText(this.requireContext(), "Please choose type of wallet", Toast.LENGTH_SHORT).show()
-            }
-
-            else {
+        submit.setOnClickListener{
+            if (giveChart()){
                 var selected = spinner.selectedItem.toString()
-                report_no_expand.visibility = View.GONE
-                report_no_income.visibility = View.GONE
-                if (selected != "Please Choose") {
-                    mExpensePieChart.visibility = View.GONE
-                    mIncomePieChart.visibility = View.GONE
-
-                    getListOfData(report_date_from.text.toString(), report_date_to.text.toString())
-
-                } else {
-                    Toast.makeText(this.requireContext(), "Please choose type of wallet", Toast.LENGTH_SHORT).show()
-                }
-                report_date_to.error = null
-                report_date_from.error = null
-
+                makeReport(selected)
             }
         }
     }
+
+    fun giveChart() : Boolean{
+        if (report_date_from.text.toString().isBlank() || report_date_to.text.toString().isBlank()){
+            if (report_date_from.text.toString().isBlank()){
+                report_date_from.error = "Required"
+            }
+
+            if (report_date_to.text.toString().isBlank()){
+                report_date_to.error = "Required"
+            }
+            return false
+        } else if (!DateHelper.validateTwoDates(report_date_from.text.toString(), report_date_to.text.toString())){
+            report_date_to.error = "Date Invalid"
+            return false
+        }
+        else {
+            var selected = spinner.selectedItem.toString()
+            report_no_expand.visibility = View.GONE
+            report_no_income.visibility = View.GONE
+
+            report_date_to.error = null
+            report_date_from.error = null
+            return if (selected != "Please Choose") {
+                mExpensePieChart.visibility = View.GONE
+                mIncomePieChart.visibility = View.GONE
+
+                getListOfData(report_date_from.text.toString(), report_date_to.text.toString())
+                true
+            } else {
+                Toast.makeText(this.requireContext(), "Please choose type of wallet", Toast.LENGTH_SHORT).show()
+                false
+            }
+
+
+        }
+    }
+
+    fun isType(type : String, st: String) : Boolean {
+        if (type == "All"){
+            return true
+        } else if (type == st){
+            return true
+        }
+
+        return false
+    }
+
+    fun makeReport(type : String){
+        Log.d("Type of ", type)
+        var listTransaction = arrayListOf<Transactions>()
+        var listing_transaction = FirebaseDatabase.getInstance()
+            .getReference().child(Constants.KEY_USER)
+            .child(Constants.KEY_USER_ID)
+            .child(Constants.LIST_WALLET)
+
+
+        var date1 = report_date_from.text.toString()
+        var date2 = report_date_to.text.toString()
+
+        var listener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (p in snapshot.children) {
+                    var temp = p.child("transactions")
+                    for (t in temp.children){
+                        Log.d("Type of child", t.child("transactionType").value.toString())
+                        if (DateHelper.dateIsValid(date1, date2, t.child("transactionDate").value.toString()) && isType(type, t.child("transactionType").value.toString())){
+                            listTransaction.add(Transactions(
+                                t.child("transactionDate").value.toString(),
+                                t.child("transactionNote").value.toString(),
+                                t.child("transactionAmount").getValue().toString().toInt(),
+                                t.child("transactionType").value.toString(),
+                            ))
+                        }
+
+                    }
+                }
+
+                listTransaction.sortedWith(compareBy {it.transactionDate})
+                makeExcel(listTransaction, type)
+
+            }
+
+        }
+
+
+        listing_transaction.addValueEventListener(listener)
+
+
+    }
+
+    fun createListStyle(wb : Workbook) : CellStyle{
+        var c : CellStyle = wb.createCellStyle()
+        var color = HSSFColor.BLACK.index
+        var border = HSSFBorderFormatting.BORDER_THIN
+
+        c.bottomBorderColor = color
+        c.borderBottom = border
+
+        c.leftBorderColor = color
+        c.borderLeft = border
+
+        c.rightBorderColor = color
+        c.borderRight = border
+
+        c.topBorderColor = color
+        c.borderTop = border
+
+        return c
+    }
+
+    fun createTitleStyle(wb : Workbook) : CellStyle {
+        var c : CellStyle = wb.createCellStyle()
+        var color = HSSFColor.BLACK.index
+        var border = HSSFBorderFormatting.BORDER_THIN
+
+        c.bottomBorderColor = color
+        c.borderBottom = border
+
+        c.leftBorderColor = color
+        c.borderLeft = border
+
+        c.rightBorderColor = color
+        c.borderRight = border
+
+        c.topBorderColor = color
+        c.borderTop = border
+
+        c.fillForegroundColor = HSSFColor.LAVENDER.index
+        c.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
+
+        var f = wb.createFont()
+        f.bold = true
+        c.setFont(f)
+        return c
+    }
+
+    fun createExpenseStyle(wb : Workbook) : CellStyle {
+        var c : CellStyle = wb.createCellStyle()
+        var color = HSSFColor.BLACK.index
+        var border = HSSFBorderFormatting.BORDER_THIN
+
+        c.bottomBorderColor = color
+        c.borderBottom = border
+
+        c.leftBorderColor = color
+        c.borderLeft = border
+
+        c.rightBorderColor = color
+        c.borderRight = border
+
+        c.topBorderColor = color
+        c.borderTop = border
+
+        var f = wb.createFont()
+        f.color = HSSFColor.RED.index
+
+        c.setFont(f)
+
+        return c
+
+    }
+
+    fun setSheetTitle (row : Row, sheet : Sheet, wb : Workbook){
+        var cell : Cell? = null
+        cell = row.createCell(1)
+        cell.setCellValue("Transaction Date")
+        cell.cellStyle = createTitleStyle(wb)
+
+        cell = row.createCell(2)
+        cell.setCellValue("Transaction Detail")
+        cell.cellStyle = createTitleStyle(wb)
+
+        cell = row.createCell(3)
+        cell.setCellValue("Amount")
+        cell.cellStyle = createTitleStyle(wb)
+
+        sheet.setColumnWidth(1, 4000)
+        sheet.setColumnWidth(2, 8000)
+        sheet.setColumnWidth(3, 5000)
+    }
+
+    fun setSheetValue (sheet : Sheet, wb : Workbook, listTransactions: ArrayList<Transactions>){
+        var rowNow = 2
+        var totals : Double = 0.0
+        for (t in listTransactions){
+            var row = sheet.createRow(rowNow)
+            var cell : Cell? = null
+
+            cell = row.createCell(1)
+            cell.setCellValue(t.transactionDate)
+            cell.cellStyle = createListStyle(wb)
+
+            cell = row.createCell(2)
+            cell.setCellValue(t.transactionNote)
+            cell.cellStyle = createListStyle(wb)
+
+            cell = row.createCell(3)
+            if (t.transactionType == "Expense"){
+                totals += t.transactionAmount.toDouble() * -1
+                cell.setCellValue(t.transactionAmount.toDouble() * -1)
+                cell.cellStyle = createExpenseStyle(wb)
+            } else {
+                totals += t.transactionAmount.toDouble()
+                cell.setCellValue(t.transactionAmount.toDouble())
+                cell.cellStyle = createListStyle(wb)
+            }
+
+            rowNow++
+        }
+
+        var row = sheet.createRow(rowNow)
+        var cell : Cell? = null
+
+        cell = row.createCell(3)
+
+        var strings = "SUM(D3:D" + (rowNow) + ")"
+        cell.setCellFormula(strings)
+
+        if (totals < 0){
+            var c : CellStyle = wb.createCellStyle()
+            var color = HSSFColor.BLACK.index
+            var border = HSSFBorderFormatting.BORDER_THIN
+
+            c.bottomBorderColor = color
+            c.borderBottom = border
+
+            c.leftBorderColor = color
+            c.borderLeft = border
+
+            c.rightBorderColor = color
+            c.borderRight = border
+
+            c.topBorderColor = color
+            c.borderTop = border
+
+            var f = wb.createFont()
+            f.color = HSSFColor.RED.index
+            f.bold = true
+
+            c.setFont(f)
+
+            c.fillForegroundColor = HSSFColor.LIGHT_ORANGE.index
+            c.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
+
+            cell.cellStyle = c
+        } else {
+            var c : CellStyle = wb.createCellStyle()
+            var color = HSSFColor.BLACK.index
+            var border = HSSFBorderFormatting.BORDER_THIN
+
+            c.bottomBorderColor = color
+            c.borderBottom = border
+
+            c.leftBorderColor = color
+            c.borderLeft = border
+
+            c.rightBorderColor = color
+            c.borderRight = border
+
+            c.topBorderColor = color
+            c.borderTop = border
+
+            var f = wb.createFont()
+            f.bold = true
+
+            c.setFont(f)
+
+            c.fillForegroundColor = HSSFColor.LIGHT_GREEN.index
+            c.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
+
+            cell.cellStyle = c
+        }
+
+
+    }
+
+
+
+    fun makeExcel (listTransactions: ArrayList<Transactions>, type : String){
+        val wb: Workbook = HSSFWorkbook()
+//        var cell: Cell? = null
+
+        //Now we are creating sheet
+        var sheet: Sheet? = null
+        sheet = wb.createSheet(type)
+        //Now column and row
+        //Now column and row
+        val row: Row = sheet.createRow(1)
+
+        setSheetTitle(row, sheet, wb)
+        setSheetValue(sheet, wb, listTransactions)
+//
+        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), null)[0], "tests.xlsx")
+        var outputStream: FileOutputStream? = null
+
+        try {
+            outputStream = FileOutputStream(file)
+            wb.write(outputStream)
+            Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_LONG).show()
+            try {
+                outputStream?.close()
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+            }
+        }
+
+        if (file.exists()){
+            Toast.makeText(requireContext(), file.absolutePath, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     fun basedOnSelected(){
         var selected = spinner.selectedItem.toString()
@@ -282,7 +587,6 @@ class ReportFragment : Fragment() {
             }
         }
     }
-
 
     fun initItems(){
         listSpinner.add("All")
@@ -439,4 +743,5 @@ class ReportFragment : Fragment() {
             }
     }
 }
+
 

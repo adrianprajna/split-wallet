@@ -107,10 +107,9 @@ class LoginActivity : AppCompatActivity() {
                 var u : Users?
                 u = null
                 for(p in userList){
-                    if (et_username.toString().equals(p.username)){
+                    if (et_username.toString() == p.username){
                         userValid = true
                         u = p
-
                         break
                     }
 
@@ -286,6 +285,11 @@ class LoginActivity : AppCompatActivity() {
                 applicationContext
             )
         preferenceConfig.putString(Constants.KEY_USER, preferenceConfig.listToJson(u))
+
+        if (preferenceConfig.getString(Constants.THEME_STATUS) == null){
+            preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_LIGHT)
+        }
+
         Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

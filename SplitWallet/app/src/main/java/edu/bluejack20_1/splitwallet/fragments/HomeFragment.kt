@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.CreateWalletActivity
 import edu.bluejack20_1.splitwallet.LoginActivity
+import edu.bluejack20_1.splitwallet.SettingActivity
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Users
@@ -87,7 +88,7 @@ class HomeFragment : Fragment() {
             mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
             mGoogleSignInClient.signOut();
 
-            var preferenceConfig = PreferenceConfig(this.requireContext()).clearSharedPreference()
+            var preferenceConfig = PreferenceConfig(this.requireContext()).clearOneSharedPreference(Constants.KEY_USER)
             var intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -116,6 +117,15 @@ class HomeFragment : Fragment() {
                 val intent = Intent(activity, CreateWalletActivity::class.java)
                 requireActivity().startActivity(intent)
             }
+
+            val setting_btn = inf.findViewById<CardView>(R.id.home_btn_setting)
+            setting_btn.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    val intent = Intent(activity, SettingActivity::class.java)
+                    requireActivity().startActivity(intent)
+                }
+
+            })
 
             initView()
         }
@@ -303,17 +313,33 @@ class HomeFragment : Fragment() {
 //        reff.setValue(x)
 
 
-        reff.child("Electricity").setValue(
+//        reff.child("Electricity").setValue(
+//            Wallets(
+//                "Electricity",
+//                "Expense",
+//                2000000
+//            )
+//        )
+
+        reff.child("Food").setValue(
             Wallets(
-                "Electricity",
+                "Food",
                 "Expense",
                 2000000
             )
         )
 
-        addTransaction("Electricity")
-//        addTransaction("Salary")
-//        addTransaction("Food")
+        reff.child("Salary").setValue(
+            Wallets(
+                "Salary",
+                "Expense",
+                0
+            )
+        )
+
+//        addTransaction("Electricity")
+        addTransaction("Salary")
+        addTransaction("Food")
     }
 
     fun addTransaction(walletName : String){
@@ -344,6 +370,23 @@ class HomeFragment : Fragment() {
                     Transactions(
                         DateHelper.nowToString(),
                         "Elec2",
+                        105000,
+                        type!!
+                    )
+                )
+
+                x.add(
+                    Transactions(
+                        DateHelper.nowToString(),
+                        "Elec3",
+                        200000,
+                        type!!
+                    )
+                )
+                x.add(
+                    Transactions(
+                        DateHelper.nowToString(),
+                        "Elec4",
                         105000,
                         type!!
                     )
