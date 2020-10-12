@@ -45,9 +45,6 @@ class DateHelper {
             return (targetDate <= secondDate && targetDate >= firstDate)
         }
 
-
-
-
     }
 
 }
