@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,7 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import edu.bluejack20_1.splitwallet.R
 import com.google.firebase.database.*
-import com.google.gson.Gson
 import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 
@@ -32,7 +30,6 @@ import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Users
 import edu.bluejack20_1.splitwallet.support_class.Wallets
-import kotlinx.android.synthetic.main.fragment_home.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -116,6 +113,7 @@ class HomeFragment : Fragment() {
 
             val btn = inf.findViewById<CardView>(R.id.btn_create_wallet)
             btn.setOnClickListener(){
+                var user = Users("asd", "asd", "asd")
                 val intent = Intent(activity, CreateWalletActivity::class.java)
                 requireActivity().startActivity(intent)
             }
