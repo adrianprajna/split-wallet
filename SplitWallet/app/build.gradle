@@ -76,4 +76,7 @@ dependencies {
     //Dependency Injection
     implementation 'org.kodein.di:kodein-di-generic-jvm:6.2.1'
     implementation 'org.kodein.di:kodein-di-framework-android-x:6.2.1'
+
+    //Location
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }

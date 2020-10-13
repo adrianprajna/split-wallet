@@ -17,4 +17,14 @@ object Constants {
     fun capitalizeEachWord(string : String) : String{
         return string.split(" ").map { it.capitalize() }.joinToString(" ")
     }
+
+    //For Location
+    const val PACKAGE_NAME = "edu.bluejack20_1.splitwallet"
+    const val RESULT_DATA_KEY = "$PACKAGE_NAME.RESULT_DATA_KEY"
+    const val RECEIVER = "$PACKAGE_NAME.RECEIVER"
+    const val LOCATION_DATA_EXTRA = "$PACKAGE_NAME.LOCATION_DATA_EXTRA"
+    const val SUCCESS_RESULT = 1
+    const val FAILURE_RESULT = 0
+
+
 }

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="edu.bluejack20_1.splitwallet.fragments.HomeFragment">
+    tools:context="edu.bluejack20_1.splitwallet.fragments.HomeFragment"
+    android:background="?attr/backgroundColor">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@color/colorPrimary"
+            android:background="?attr/blueBaseColor"
             >
             
             <de.hdodenhof.circleimageview.CircleImageView
@@ -47,15 +48,16 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/fontReverseColor"/>
+                    android:textColor="?attr/textColor"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
+                    android:textStyle="bold"
                     android:id="@+id/home_email"
                     android:textSize="14sp"
-                    android:textColor="@color/fontReverseColor"
+                    android:textColor="?attr/textColor"
                     android:includeFontPadding="false"
                     android:layout_gravity="center"
                     />
@@ -122,7 +124,7 @@
                             android:layout_below="@id/home_payment_label"
                             android:textStyle="italic"
                             android:textColor="@color/fontReverseColor"
-                            android:text="Total Spent"/>
+                            android:text="@string/totalSpent"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -166,7 +168,7 @@
                             android:includeFontPadding="false"
                             android:layout_below="@id/home_limit_label"
                             android:textStyle="italic"
-                            android:text="Limit"/>
+                            android:text="@string/limit"/>
                     </RelativeLayout>
 
             </LinearLayout>

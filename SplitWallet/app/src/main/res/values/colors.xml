@@ -17,6 +17,11 @@
     <color name="yellowHomeCard">#FECE2f</color>
     <color name="redHomeCard">#FE5555</color>
     <color name="fontReverseColor">#FFF</color>
-    <color name="darkThemeBackgroud">#0033BB</color>
+    <color name="darkThemeBackground">#0033BB</color>
+
+
+    <color name="colorBaseBlue">#0099ff</color>
+    <color name="colorGrey">#666666</color>
+    <color name="colorWhite">#FFF</color>
 
 </resources>

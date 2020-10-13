@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="edu.bluejack20_1.splitwallet.fragments.ReportFragment"
+    android:background="?attr/backgroundColor"
     >
 
 
@@ -18,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:background="@color/colorPrimary"
+            android:background="?attr/blueBaseColor"
             >
 
             <TextView
@@ -26,11 +27,12 @@
                 android:layout_height="wrap_content"
                 android:text="Report"
                 android:paddingLeft="20dp"
+                android:textStyle="bold"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:textSize="20sp"
-                android:textColor="@color/fontReverseColor"
+                android:textColor="?attr/textColor"
                 />
 
         </LinearLayout>
@@ -51,7 +53,8 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
-                    android:text="From : "
+                    android:textColor="?attr/textColor"
+                    android:text="@string/from"
                     android:textStyle="bold"
                     android:textSize="20sp"/>
 
@@ -89,7 +92,8 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
-                    android:text="To : "
+                    android:text="@string/to"
+                    android:textColor="?attr/textColor"
                     android:textStyle="bold"
                     android:textSize="20sp"/>
 
@@ -137,7 +141,7 @@
                 app:ms_floatingLabelColor="@color/fontColor"
                 app:ms_floatingLabelText="Choose Wallet Type"
                 app:ms_hint="Please Choose"
-                app:ms_hintColor="@color/fontColor"
+                app:ms_hintColor="?attr/colorAccent"
                 app:ms_multiline="true"
                 android:layout_margin="10dp"/>
 
@@ -150,7 +154,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check"
+                    android:text="@string/check"
                     android:layout_marginTop="3dp"
                     android:id="@+id/report_check_button"
                     android:layout_centerVertical="true"
@@ -172,7 +176,7 @@
                 android:background="@drawable/login_round_button"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/btn_report_submit"
-                android:text="Submit"/>
+                android:text="@string/export"/>
 
 
         </RelativeLayout>
@@ -189,11 +193,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Income Available"
+            android:text="@string/no_income"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
             android:textSize="20sp"
             android:textStyle="italic|bold"
+            android:textColor="?attr/colorAccent"
             android:gravity="center"
             android:visibility="gone"
             android:id="@+id/report_no_income"
@@ -209,7 +214,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Convert to Excel"
+            android:text="@string/export"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
 
@@ -221,12 +226,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Expense Available"
+            android:text="@string/no_expense"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="20dp"
             android:textSize="20sp"
             android:textStyle="italic|bold"
             android:gravity="center"
+            android:textColor="?attr/colorAccent"
             android:visibility="gone"
             android:id="@+id/report_no_expand"
             />
@@ -234,6 +240,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
+
+
 
     </LinearLayout>
 

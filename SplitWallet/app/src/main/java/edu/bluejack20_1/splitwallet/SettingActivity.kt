@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.database.FirebaseDatabase
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
@@ -12,16 +13,23 @@ import edu.bluejack20_1.splitwallet.support_class.Users
 import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
+
+    lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        preferenceConfig =
+            PreferenceConfig(
+                this@SettingActivity
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
         setIcon()
         initButton()
-
-        var preferenceConfig : PreferenceConfig =
-            PreferenceConfig(
-                this@SettingActivity
-            )
 
         val u : Users
         u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
@@ -30,17 +38,43 @@ class SettingActivity : AppCompatActivity() {
         home_email.text = u.email
     }
 
-    fun setIcon(){
+    fun getFlag() : Boolean{
         var preferenceConfig : PreferenceConfig =
             PreferenceConfig(
                 this@SettingActivity
             )
-        var theme = preferenceConfig.getString(Constants.THEME_STATUS)
-        if (theme == Constants.THEME_LIGHT){
-            theme_icon.setImageResource(R.drawable.icon_theme_light)
-        } else {
+        return preferenceConfig.getString(Constants.THEME_STATUS) != Constants.THEME_DARK
+    }
+
+    override fun onBackPressed() {
+        var i = Intent(applicationContext, MainActivity::class.java)
+        startActivity(i)
+        finish()
+    }
+
+    fun setIcon(){
+//        var preferenceConfig : PreferenceConfig =
+//            PreferenceConfig(
+//                this@SettingActivity
+//            )
+//        var theme = preferenceConfig.getString(Constants.THEME_STATUS)
+//        if (theme == Constants.THEME_LIGHT){
+//            theme_icon.setImageResource(R.drawable.icon_theme_light)
+//        } else {
+//            theme_icon.setImageResource(R.drawable.icon_theme_dark)
+//        }
+
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
             theme_icon.setImageResource(R.drawable.icon_theme_dark)
+        } else {
+            theme_icon.setImageResource(R.drawable.icon_theme_light)
         }
+    }
+
+    fun restartApp(){
+        var i = Intent(applicationContext, SettingActivity::class.java)
+        startActivity(i)
+        finish()
     }
 
     fun initButton() {
@@ -55,12 +89,21 @@ class SettingActivity : AppCompatActivity() {
                     this@SettingActivity
                 )
             var theme = preferenceConfig.getString(Constants.THEME_STATUS)
-            if (theme == Constants.THEME_LIGHT){
-                preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_DARK)
-            } else {
+//            if (theme == Constants.THEME_LIGHT){
+//                preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_DARK)
+//            } else {
+//                preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_LIGHT)
+//            }
+
+            if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
                 preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_LIGHT)
+                restartApp()
+            } else {
+                preferenceConfig.putString(Constants.THEME_STATUS, Constants.THEME_DARK)
+                restartApp()
             }
             setIcon()
+
         }
 
         btn_notification.setOnClickListener {

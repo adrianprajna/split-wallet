@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity">
+    tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:background="@color/colorPrimary"
-        >
+        android:background="?attr/backgroundColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="?attr/blueBaseColor"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="October"
+                android:layout_marginBottom="5dp"
+                android:textSize="25sp"
+                android:textStyle="italic|bold"
+                android:textColor="?attr/textColor"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24, 2020"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                android:textColor="?attr/textColor"
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_wave4"
+            />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="October"
-            android:layout_marginBottom="5dp"
-            android:textSize="25sp"
-            android:textStyle="italic"
-            android:textColor="@color/fontReverseColor"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textSize="15sp"
+            android:textColor="?attr/blueBaseColor"
+            android:text="@string/intro_transaction"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="24, 2020"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/fontReverseColor"
-            android:textSize="18sp"
-            />
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@drawable/ic_wave4"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        android:textSize="15sp"
-        android:text="Here is your detail transactions!"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorGray200"
-        android:padding="20dp"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_wallet"
-            />
+            android:background="?attr/backgroundColor"
+            android:padding="20dp"
 
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_wallet"
+                />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
