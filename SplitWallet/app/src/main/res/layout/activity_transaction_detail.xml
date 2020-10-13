@@ -8,10 +8,12 @@
     tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity"
     >
 
+    <!-- Main content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity"
         android:background="?attr/backgroundColor">
 
         <LinearLayout
@@ -20,28 +22,19 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="10dp"
+
             android:background="?attr/blueBaseColor"
             >
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="October"
+                android:text="October 24, 2020"
                 android:layout_marginBottom="5dp"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="italic|bold"
                 android:textColor="?attr/textColor"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="24, 2020"
-                android:textStyle="bold"
-                android:layout_marginStart="15dp"
-                android:textColor="?attr/textColor"
-                android:textSize="18sp"
                 />
 
         </LinearLayout>
@@ -67,16 +60,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/backgroundColor"
             android:padding="20dp"
-
+            android:background="?attr/backgroundColor"
             >
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_wallet"
+                tools:listitem="@layout/item_transaction"
                 />
+
+        </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

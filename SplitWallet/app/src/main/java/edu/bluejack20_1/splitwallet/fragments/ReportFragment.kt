@@ -646,7 +646,7 @@ class ReportFragment : Fragment() {
         setSheetTitle(row, sheet, wb)
         setSheetValue(sheet, wb, listTransactions)
 //
-        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), null)[0], "tests.xlsx")
+        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), null)[0], "tests.xls")
         var outputStream: FileOutputStream? = null
 
         try {

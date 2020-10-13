@@ -20,7 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import edu.bluejack20_1.splitwallet.CreateTransaction
 import edu.bluejack20_1.splitwallet.R
+import edu.bluejack20_1.splitwallet.TransactionDetailActivity
 import edu.bluejack20_1.splitwallet.adapter.WalletAdapter
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.DateHelper
@@ -52,14 +54,10 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
     private lateinit var btn_date: MaterialButton
     private lateinit var walletList : ArrayList<WalletsHelper>
-    private lateinit var adapter:  RecyclerView.Adapter<WalletAdapter.WalletViewHolder>
+    private lateinit var adapter:  WalletAdapter
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var dateFormat: DateFormat
-
-
-    private var months = listOf<String>("January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December")
 
     private var ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER).child(Constants.KEY_USER_ID).
                     child(Constants.LIST_WALLET)
@@ -73,7 +71,6 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
         calendar = Calendar.getInstance()
         dateFormat = SimpleDateFormat("EEE, MMM d, ''yy")
-
         btn_date = inf.findViewById(R.id.btn_date)
         btn_date.setText(dateFormat.format(calendar.time))
         btn_date.setOnClickListener(){
@@ -82,16 +79,7 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
         if(activity != null){
             recyclerView = inf.findViewById(R.id.recycler_view)
-
-            var fab = inf.findViewById<FloatingActionButton>(R.id.floating_action_button)
-            fab.setOnClickListener(){
-                var transactions = ArrayList<Transactions>()
-                transactions.add(Transactions("2020/10/10", "Makan bang", 123456, "Income"))
-                walletList.add(3, WalletsHelper("Beverage", "Income", 0, transactions))
-                adapter.notifyItemInserted(3)
-            }
-
-
+            floatingButtonAction()
             var date = DateHelper.splitDate(DateHelper.nowToString())
             this.year = date[0].toInt()
             this.month = date[1].toInt()
@@ -172,17 +160,44 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
                     handler.postDelayed(object : Runnable {
                         override fun run() {
-                            adapter = WalletAdapter(walletList)
-                            recyclerView.adapter = adapter
-                            recyclerView.layoutManager = LinearLayoutManager(context)
-                            recyclerView.setHasFixedSize(true)
+                           initAdapter()
                         }
                     }, delay.toLong())
                 }
             }
-
         })
     }
+
+    fun initAdapter(){
+        adapter = WalletAdapter(walletList)
+        adapter.setOnItemClickListener(object : WalletAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                var intent = Intent(context, TransactionDetailActivity::class.java)
+                intent.putExtra("wallet", walletList[position])
+                intent.putExtra("day", day.toString())
+                intent.putExtra("month", month.toString())
+                intent.putExtra("year", year.toString())
+                startActivity(intent)
+            }
+        })
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
+    }
+
+    fun floatingButtonAction(){
+        var fab = inf.findViewById<FloatingActionButton>(R.id.floating_action_button)
+        fab.setOnClickListener(){
+            var intent = Intent(context, CreateTransaction::class.java)
+            intent.putExtra("day", day.toString())
+            intent.putExtra("month", month.toString())
+            intent.putExtra("year", year.toString())
+            startActivity(intent)
+        }
+    }
+
+
 }
 
 

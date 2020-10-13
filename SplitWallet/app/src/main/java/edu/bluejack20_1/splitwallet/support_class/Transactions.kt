@@ -1,7 +1,9 @@
 package edu.bluejack20_1.splitwallet.support_class
 
+import java.io.Serializable
 
-class Transactions {
+
+class Transactions : Serializable{
     var transactionDate : String = ""
     var transactionNote : String = ""
     var transactionAmount : Number = 0

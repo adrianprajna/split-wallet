@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.bluejack20_1.splitwallet.CreateTransaction">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/colorPrimary"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Transaction"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/fontReverseColor"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/logo"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="vertical"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Transaction Amount"
+            app:errorEnabled="true"
+            app:prefixText="Rp. "
+            android:id="@+id/wallet_name_layout"
+            android:layout_marginBottom="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/transaction_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:inputType="number"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_attach_money_24"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Transaction Note"
+            app:errorEnabled="true"
+            android:layout_marginBottom="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/transaction_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_event_note_24"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Select Your Wallet"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:helperTextEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint = "@color/greenHomeCard"
+            android:text="Add New Transaction"
+            android:onClick="addWallet"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>
