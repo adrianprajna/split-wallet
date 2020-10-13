@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginBottom="20dp"
+    android:elevation="3dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/redHomeCard"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/transaction_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Bayar Grabfood"
+                android:textColor="@color/fontReverseColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/colorGray100"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Amount" />
+
+            <TextView
+                android:id="@+id/transaction_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/redHomeCard"
+                android:text="Rp. 1.800.000,00" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
