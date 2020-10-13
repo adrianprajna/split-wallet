@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.firebase.database.*
 import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Wallets
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 
@@ -23,8 +24,17 @@ class CreateWalletActivity : AppCompatActivity() {
         .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
 
     var flag : Boolean = true
-
+    lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                applicationContext
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_create_wallet)
         initItem()

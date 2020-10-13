@@ -15,6 +15,8 @@ import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.activity_transaction_detail.*
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 
 class TransactionDetailActivity : AppCompatActivity() {
 
@@ -29,7 +31,18 @@ class TransactionDetailActivity : AppCompatActivity() {
     private var months = listOf<String>("January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December")
 
+    lateinit var preferenceConfig : PreferenceConfig
+  
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                applicationContext
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_detail)
 

@@ -11,13 +11,25 @@ import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.Users
 import com.google.firebase.database.*
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 
 class RegisterActivity : AppCompatActivity() {
 
     var reff = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER)
     var userList = arrayListOf<Users>()
 
+    lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                applicationContext
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 

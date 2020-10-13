@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity"
+    >
 
     <!-- Main content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity">
+        tools:context="edu.bluejack20_1.splitwallet.TransactionDetailActivity"
+        android:background="?attr/backgroundColor">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,7 +22,8 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="@color/colorPrimary"
+
+            android:background="?attr/blueBaseColor"
             >
 
             <TextView
@@ -28,8 +33,8 @@
                 android:text="October 24, 2020"
                 android:layout_marginBottom="5dp"
                 android:textSize="20sp"
-                android:textStyle="italic"
-                android:textColor="@color/fontReverseColor"
+                android:textStyle="italic|bold"
+                android:textColor="?attr/textColor"
                 />
 
         </LinearLayout>
@@ -48,13 +53,15 @@
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
             android:textSize="15sp"
-            android:text="Here is your detail transactions!"
+            android:textColor="?attr/blueBaseColor"
+            android:text="@string/intro_transaction"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
+            android:background="?attr/backgroundColor"
             >
 
             <androidx.recyclerview.widget.RecyclerView
@@ -66,7 +73,7 @@
 
         </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
-
 
 </ScrollView>

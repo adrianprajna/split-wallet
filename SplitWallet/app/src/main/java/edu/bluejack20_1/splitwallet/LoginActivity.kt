@@ -1,18 +1,16 @@
 package edu.bluejack20_1.splitwallet
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.bluejack20_1.splitwallet.R
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
-import edu.bluejack20_1.splitwallet.support_class.Users
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +24,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
+import edu.bluejack20_1.splitwallet.support_class.Users
 
 
 class LoginActivity : AppCompatActivity() {
@@ -36,14 +37,21 @@ class LoginActivity : AppCompatActivity() {
     var userList = arrayListOf<Users>()
     lateinit var preferenceConfig : PreferenceConfig
 
+
     lateinit var mGoogleSignInClient : GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
         preferenceConfig =
             PreferenceConfig(
                 applicationContext
             )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+
         var user_storage : String? = preferenceConfig.getString(Constants.KEY_USER)
 
         if (user_storage != null){
@@ -60,6 +68,26 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+    
+    var exit = false
+
+
+    @Override
+    override fun onBackPressed() {
+        if (exit){
+            val a = Intent(Intent.ACTION_MAIN)
+            a.addCategory(Intent.CATEGORY_HOME)
+            a.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(a)
+        } else {
+            Toast.makeText(
+                this, "Press Back again to Exit.",
+                Toast.LENGTH_SHORT
+            ).show()
+            exit = true
+            Handler().postDelayed(Runnable { exit = false }, 3 * 1000)
+        }
     }
 
     fun normalLogin(){

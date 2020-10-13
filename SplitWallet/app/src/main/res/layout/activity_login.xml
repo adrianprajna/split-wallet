@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="edu.bluejack20_1.splitwallet.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/backgroundColor">
 
         <ImageView
             android:id="@+id/loginLogo"
@@ -43,7 +45,6 @@
                     android:paddingRight="15dp"
                     android:paddingBottom="20dp"
                     android:paddingTop="25dp"
-                    android:textColor="@color/fontColor"
                     android:drawablePadding="15dp"
                     android:drawableLeft="@drawable/username_logo"
                     />
@@ -74,8 +75,7 @@
                         android:drawableLeft="@drawable/password_logo"
                         android:drawablePadding="15dp"
                         android:layout_marginVertical="5dp"
-                        android:inputType="textPassword"
-                        android:textColor="@color/fontColor"/>
+                        android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--        <EditText-->
