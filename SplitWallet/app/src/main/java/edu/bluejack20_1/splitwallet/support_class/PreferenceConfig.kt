@@ -21,4 +21,9 @@ class PreferenceConfig (context: Context) : GsonReader() {
     fun clearOneSharedPreference(key : String) : Boolean {
         return sharedPreferences.edit().remove(key).commit()
     }
+
+    fun loadTheme() : String{
+        var state = sharedPreferences.getString(Constants.THEME_STATUS, Constants.THEME_DARK)
+        return state.toString()
+    }
 }

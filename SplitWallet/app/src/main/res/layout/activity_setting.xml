@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack20_1.splitwallet.SettingActivity">
+    tools:context="edu.bluejack20_1.splitwallet.SettingActivity"
+    android:background="?attr/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@color/colorPrimary"
+            android:background="?attr/blueBaseColor"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -47,7 +48,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/fontReverseColor"/>
+                android:textColor="?attr/textColor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,7 +58,8 @@
                 android:layout_below="@id/home_username"
                 android:layout_centerHorizontal="true"
                 android:textSize="14sp"
-                android:textColor="@color/fontReverseColor"
+                android:textStyle="bold"
+                android:textColor="?attr/textColor"
                 android:includeFontPadding="false"
                 android:layout_gravity="center"
                 />
@@ -111,12 +113,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Notification"
+                        android:hint="@string/notification"
                         android:layout_gravity="center"
                         android:includeFontPadding="false"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
-                        android:textColorHint="@color/colorBlack"
+                        android:textColorHint="@color/colorGrey"
                         />
 
                 </LinearLayout>
@@ -130,7 +132,6 @@
                 android:id="@+id/btn_theme"
                 app:cardElevation="2dp"
                 app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/fontReverseColor"
                 >
 
                 <LinearLayout
@@ -149,12 +150,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Theme"
+                        android:hint="@string/theme"
                         android:layout_gravity="center"
                         android:includeFontPadding="false"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
-                        android:textColorHint="@color/colorBlack"
+                        android:textColorHint="@color/colorGrey"
                         />
 
                 </LinearLayout>
@@ -168,7 +169,6 @@
                 app:cardElevation="2dp"
                 android:id="@+id/btn_back"
                 app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/fontReverseColor"
                 >
 
                 <LinearLayout
@@ -186,12 +186,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Back to home"
+                        android:hint="@string/back_menu"
                         android:layout_gravity="center"
                         android:includeFontPadding="false"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"
-                        android:textColorHint="@color/colorBlack"
+                        android:textColorHint="@color/colorGrey"
                         />
 
                 </LinearLayout>

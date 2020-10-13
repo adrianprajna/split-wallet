@@ -1,7 +1,10 @@
 package edu.bluejack20_1.splitwallet.fragments
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,27 +12,25 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import edu.bluejack20_1.splitwallet.R
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.*
-import edu.bluejack20_1.splitwallet.support_class.*
-import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
-
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.CreateWalletActivity
 import edu.bluejack20_1.splitwallet.LoginActivity
+import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.SettingActivity
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
-import edu.bluejack20_1.splitwallet.support_class.Users
-import edu.bluejack20_1.splitwallet.support_class.Wallets
+import edu.bluejack20_1.splitwallet.support_class.*
+import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -129,10 +130,8 @@ class HomeFragment : Fragment() {
 
             initView()
         }
-
         return inf
     }
-
 
     fun initView(){
 

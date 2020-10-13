@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack20_1.splitwallet.fragments.CalendarFragment">
+    tools:context="edu.bluejack20_1.splitwallet.fragments.CalendarFragment"
+    android:background="?attr/backgroundColor">
 
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="?attr/blueBaseColor"
         >
 
         <TextView
@@ -19,7 +20,7 @@
             android:text="Calendar"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:textColor="@color/fontReverseColor"
+            android:textColor="?attr/textColor"
             />
 
     </LinearLayout>

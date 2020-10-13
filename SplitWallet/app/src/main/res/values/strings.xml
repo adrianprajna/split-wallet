@@ -2,15 +2,15 @@
     <string name="empty_field_toast">Please insert all of the field</string>
     <!--Login-->
     <string name="app_name">SplitWallet</string>
-    <string name="username_email">Username</string>
+    <string name="username_email" translatable="false">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="registerHyperlink">Haven\'t make an account? Sign Up</string>
     <string name="success_login_toast">Successfully Login</string>
 
     <!--Register-->
-    <string name="username">Username</string>
-    <string name="email">Email</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="email" translatable="false">Email</string>
     <string name="register">Register</string>
     <string name="success_register_toast">Successfully Register</string>
     <string name="title_activity_register">Register</string>
@@ -22,17 +22,17 @@
     <string name="wrong_credential">Wrong Credential</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_register_user">RegisterUserActivity</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_register_user" translatable="false">RegisterUserActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!--   Menu item -->
     <string name="icon_calendar">Calendar</string>
@@ -42,11 +42,41 @@
     <string name="icon_report">Report</string>
 
     <!--  User Account page   -->
-    <string name="user_account_name">Adrian</string>
-    <string name="user_account_email">tpafgdx@gmail.com</string>
+    <string name="user_account_name" translatable="false">Adrian</string>
+    <string name="user_account_email" translatable="false">tpafgdx@gmail.com</string>
     <string name="settings">Settings</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="create_wallet">Create Wallet</string>
 
+<!--    Wallet-->
+    <string name="add_wallet">Add</string>
 
+<!--    Setting-->
+    <string name="notification">Notification</string>
+    <string name="theme">Theme</string>
+    <string name="back_menu">Back to Home</string>
+
+<!--    TransactionDetail-->
+    <string name="intro_transaction" translatable="false">Here is your detail transactions!</string>
+    <string name="totalSpent">Total Spent</string>
+    <string name="limit">Limit</string>
+
+
+<!--    Report-->
+    <string name="from">From : </string>
+    <string name="to">To : </string>
+    <string name="check">Check</string>
+    <string name="export">Export to Excel</string>
+
+    <string name="no_income">No Income Available</string>
+    <string name="no_expense">No Expense Available</string>
+
+<!--    TransactionFragment-->
+    <string name="transaction">Transaction</string>
+    <string name="select_date">Select Date</string>
+
+<!--    Create Wallet-->
+    <string name="wallet_type">Wallet Type</string>
+    <string name="wallet_name">Wallet Name</string>
+    <string name="wallet_limit">Wallet Limit</string>
 </resources>

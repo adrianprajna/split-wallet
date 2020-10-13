@@ -1,14 +1,23 @@
 package edu.bluejack20_1.splitwallet.fragments
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.ResultReceiver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.PieChart
@@ -17,6 +26,10 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -24,17 +37,17 @@ import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.DateHelper
+import edu.bluejack20_1.splitwallet.support_class.FetchAddressIntentService
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletGrowth
 import fr.ganfra.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_report.*
 import org.apache.poi.hssf.usermodel.HSSFBorderFormatting
-import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.hssf.util.CellReference
 import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.util.CellRangeAddress
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -82,6 +95,12 @@ class ReportFragment : Fragment() {
     lateinit var report_date_from : EditText
     lateinit var report_date_to : EditText
 
+    lateinit var resultReceiver: ResultReceiver
+
+    lateinit var currentLocation : String
+
+    val REQUEST_CODE_LOCATION_PERMISSION = 1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -108,6 +127,14 @@ class ReportFragment : Fragment() {
 
         checkButton()
 
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION_PERMISSION
+            )
+        } else {
+            getCurrentLocation()
+        }
 
 
 //        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -142,12 +169,95 @@ class ReportFragment : Fragment() {
 //
 //
 //        }
-
+        resultReceiver = AddressResultReceiver(Handler())
         return inf
     }
 
-    fun checkButton(){
 
+    fun fetchAddressFromLatLong(location : Location){
+        var intent = Intent(requireContext(), FetchAddressIntentService::class.java)
+        intent.putExtra(Constants.RECEIVER, resultReceiver)
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location)
+        requireContext().startService(intent)
+    }
+
+    inner class AddressResultReceiver : ResultReceiver {
+
+        constructor(handler : Handler) : super(handler)
+
+        override fun onReceiveResult(resultCode: Int, resultData: Bundle?) {
+            super.onReceiveResult(resultCode, resultData)
+
+            if (resultCode == Constants.SUCCESS_RESULT){
+//                Log.d("Locations", resultData!!.getString(Constants.RESULT_DATA_KEY).toString())
+//                Toast.makeText(requireContext(), resultData!!.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show()
+
+                currentLocation = resultData!!.getString(Constants.RESULT_DATA_KEY).toString()
+
+                Log.d("Location for now", resultData.getString(Constants.RESULT_DATA_KEY)!!)
+//                report_date_from.setText(resultData!!.getString(Constants.RESULT_DATA_KEY))
+            } else {
+                Toast.makeText(requireContext(), resultData!!.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show()
+            }
+//            inf.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.GONE
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.isNotEmpty()){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                getCurrentLocation()
+            } else {
+                Toast.makeText(requireContext(), "Permission Denied!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getCurrentLocation(){
+
+//        inf.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.VISIBLE
+
+        var locationRequest = LocationRequest()
+        locationRequest.setInterval(10000)
+        locationRequest.setFastestInterval(3000)
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+
+        LocationServices.getFusedLocationProviderClient(requireActivity())
+            .requestLocationUpdates(locationRequest, object : LocationCallback() {
+                override fun onLocationResult(p0: LocationResult?) {
+                    super.onLocationResult(p0)
+                    LocationServices.getFusedLocationProviderClient(requireActivity()).removeLocationUpdates(this)
+
+                    if (p0 != null && p0.locations.size > 0){
+                        var latestLocationIndex = p0.locations.size - 1
+                        var latitude = p0.locations.get(latestLocationIndex).latitude
+                        var longitude = p0.locations.get(latestLocationIndex).longitude
+
+//                        inf.findViewById<TextView>(R.id.textLatLong).setText(String.format("Latitude %s\nLongitude %s", longitude, latitude))
+
+                        var location = Location("providerNA")
+                        location.latitude = latitude
+                        location.longitude = longitude
+                        fetchAddressFromLatLong(location)
+                    } else {
+//                        progress_bar.visibility = View.GONE
+                    }
+
+
+                }
+            }, Looper.getMainLooper())
+
+
+    }
+
+    fun checkButton(){
 //        report_date_to.isEnabled = false;
 
         report_date_from.setOnClickListener(object : View.OnClickListener {
@@ -223,6 +333,8 @@ class ReportFragment : Fragment() {
         var submit = inf.findViewById<Button>(R.id.btn_report_submit)
 
         submit.setOnClickListener{
+            Toast.makeText(requireContext(), "Bangke", Toast.LENGTH_SHORT).show()
+//            checkPermission()
             if (giveChart()){
                 var selected = spinner.selectedItem.toString()
                 makeReport(selected)
@@ -506,7 +618,16 @@ class ReportFragment : Fragment() {
             cell.cellStyle = c
         }
 
+        rowNow+=2
 
+        row = sheet.createRow(rowNow)
+        cell = row.createCell(1)
+        cell.setCellValue(currentLocation)
+
+        var wraptext = wb.createCellStyle()
+        wraptext.wrapText = true
+        cell.cellStyle = wraptext
+        sheet.addMergedRegion(CellRangeAddress(rowNow, rowNow+1, 1, 3))
     }
 
 

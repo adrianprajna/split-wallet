@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SplitWallet</string>
+    <string name="empty_field_toast">Semua bagian harus diisi</string>
+    <string name="login">Masuk</string>
+    <string name="registerHyperlink">Belum punya akun? Daftar</string>
+    <string name="success_login_toast">Login Berhasil</string>
+    <string name="register">Daftar</string>
+    <string name="success_register_toast">Daftar berhasil</string>
+    <string name="title_activity_register">Daftar</string>
+    <string name="confirm_password">Ulangi Kata Sandi</string>
+    <string name="password">Kata Sandi</string>
+    <string name="add_wallet">Tambah</string>
+    <string name="back_menu">Kembali ke menu utama</string>
+    <string name="icon_calendar">Kalender</string>
+    <string name="check">Cek</string>
+    <string name="create_wallet">Buat Dompet</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="export">Ubah ke Excel</string>
+    <string name="from">Dari :</string>
+    <string name="icon_home">Menu Utama</string>
+    <string name="username_invalid">Username tidak valid</string>
+    <string name="limit">Batas Pemakaian</string>
+    <string name="no_expense">Tidak ada pengeluaran</string>
+    <string name="no_income">Tidak ada pemasukkan</string>
+    <string name="notification">Notifikasi</string>
+    <string name="wrong_confirm_password">Kata Sandi harus sama</string>
+    <string name="icon_report">Laporan</string>
+    <string name="select_date">Pilih tanggal</string>
+    <string name="settings">Pengaturan</string>
+    <string name="theme">Tema</string>
+    <string name="to">Sampai :</string>
+    <string name="totalSpent">Total Pengeluran</string>
+    <string name="wrong_credential">Akun tidak valid</string>
+    <string name="icon_wallet">Dompet</string>
+    <string name="transaction">Transaksi</string>
+    <string name="icon_transaction">Transaksi</string>
+    <string name="wallet_type">Tipe Dompet</string>
+    <string name="wallet_name">Nama Dompet</string>
+    <string name="wallet_limit">Batas Pemakaian Dompet</string>
+</resources>
