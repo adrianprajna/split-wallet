@@ -14,6 +14,7 @@ object Constants {
     const val THEME_LIGHT = "LIGHT"
     const val THEME_DARK = "DARK"
 
+
     fun capitalizeEachWord(string : String) : String{
         return string.split(" ").map { it.capitalize() }.joinToString(" ")
     }
