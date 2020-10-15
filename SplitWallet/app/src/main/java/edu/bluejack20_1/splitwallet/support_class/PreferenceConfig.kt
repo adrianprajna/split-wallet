@@ -26,4 +26,10 @@ class PreferenceConfig (context: Context) : GsonReader() {
         var state = sharedPreferences.getString(Constants.THEME_STATUS, Constants.THEME_DARK)
         return state.toString()
     }
+
+    fun loadNotification() : String {
+        var state = sharedPreferences.getString(Constants.NOTIFICATION_STATUS, "false")
+        return state.toString()
+    }
+
 }

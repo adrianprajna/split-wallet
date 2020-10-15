@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-    
+
     var exit = false
 
 

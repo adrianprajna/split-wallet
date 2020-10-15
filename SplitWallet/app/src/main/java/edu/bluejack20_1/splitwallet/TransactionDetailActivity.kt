@@ -11,7 +11,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.adapter.TransactionAdapter
-import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.activity_transaction_detail.*
