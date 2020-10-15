@@ -48,21 +48,21 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="create_wallet">Create Wallet</string>
 
-<!--    Wallet-->
+    <!--    Wallet-->
     <string name="add_wallet">Add</string>
 
-<!--    Setting-->
+    <!--    Setting-->
     <string name="notification">Notification</string>
     <string name="theme">Theme</string>
     <string name="back_menu">Back to Home</string>
 
-<!--    TransactionDetail-->
+    <!--    TransactionDetail-->
     <string name="intro_transaction" translatable="false">Here is your detail transactions!</string>
     <string name="totalSpent">Total Spent</string>
     <string name="limit">Limit</string>
 
 
-<!--    Report-->
+    <!--    Report-->
     <string name="from">From : </string>
     <string name="to">To : </string>
     <string name="check">Check</string>
@@ -71,11 +71,11 @@
     <string name="no_income">No Income Available</string>
     <string name="no_expense">No Expense Available</string>
 
-<!--    TransactionFragment-->
+    <!--    TransactionFragment-->
     <string name="transaction">Transaction</string>
     <string name="select_date">Select Date</string>
 
-<!--    Create Wallet-->
+    <!--    Create Wallet-->
     <string name="wallet_type">Wallet Type</string>
     <string name="wallet_name">Wallet Name</string>
     <string name="wallet_limit">Wallet Limit</string>

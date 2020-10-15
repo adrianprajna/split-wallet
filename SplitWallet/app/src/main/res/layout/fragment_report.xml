@@ -19,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:gravity="center"
             android:background="?attr/blueBaseColor"
             >
 
@@ -26,11 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Report"
-                android:paddingLeft="20dp"
                 android:textStyle="bold"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
                 android:textSize="20sp"
                 android:textColor="?attr/textColor"
                 />

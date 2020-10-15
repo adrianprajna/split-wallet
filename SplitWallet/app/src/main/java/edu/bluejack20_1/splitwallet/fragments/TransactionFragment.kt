@@ -16,17 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import edu.bluejack20_1.splitwallet.CreateTransaction
 import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.TransactionDetailActivity
 import edu.bluejack20_1.splitwallet.adapter.WalletAdapter
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.DateHelper
-import edu.bluejack20_1.splitwallet.support_class.Transactions
+import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -56,11 +51,10 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
     private lateinit var walletList : ArrayList<WalletsHelper>
     private lateinit var adapter:  WalletAdapter
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var transactionList: ArrayList<Transactions>
     private lateinit var dateFormat: DateFormat
 
-    private var ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER).child(Constants.KEY_USER_ID).
-                    child(Constants.LIST_WALLET)
+    private lateinit var ref: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +62,15 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
     ): View? {
         // Inflate the layout for this fragment
         inf = inflater.inflate(R.layout.fragment_transaction, container, false)
+
+        var preferenceConfig = PreferenceConfig(requireActivity().applicationContext)
+
+        val u : Users
+        u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)
+        Constants.KEY_USER_ID = u.email!!.split("@gmail.com")[0]
+
+        ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER).child(Constants.KEY_USER_ID).
+        child(Constants.LIST_WALLET)
 
         calendar = Calendar.getInstance()
         dateFormat = SimpleDateFormat("EEE, MMM d, ''yy")
@@ -115,40 +118,45 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
     private fun getData(){
 
-
-        var currDate = "$year/$month/$day"
         walletList = ArrayList()
-        ref.addValueEventListener(object : ValueEventListener{
+        var currDate = "$year/$month/$day"
+        ref.addListenerForSingleValueEvent(object : ValueEventListener{
 
             override fun onCancelled(error: DatabaseError) {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    var tempData = snapshot.getValue() as Map<*, *>
-                    for( (key, value) in tempData.entries){
 
+                if(snapshot.exists()){
+
+                    var tempData = snapshot.getValue() as Map<*, *>
+
+                    Log.d("asas", "dbref")
+                    for( (key, value) in tempData.entries){
+                        Log.d("asas", tempData.entries.size.toString())
                         var data = value as Map<*, *>
+                        walletList.removeAll(walletList)
                         var tempRef = ref.child(key.toString()).child("transactions")
 
-                        tempRef.addValueEventListener(object : ValueEventListener{
+                        tempRef.addListenerForSingleValueEvent(object : ValueEventListener{
                             override fun onCancelled(error: DatabaseError) {
                             }
 
                             override fun onDataChange(snapshot: DataSnapshot) {
 
-                                var transactionsList = ArrayList<Transactions>()
+                                Log.d("asas", "tempref")
+                                transactionList = ArrayList()
 
                                 for(s in snapshot.children){
                                     if(s.child("transactionDate").value.toString() == currDate){
-                                        transactionsList.add(Transactions(s.child("transactionDate").value.toString(), s.child("transactionNote").value.toString(),
+                                        transactionList.add(Transactions(s.child("transactionDate").value.toString(), s.child("transactionNote").value.toString(),
                                             s.child("transactionAmount").value.toString().toInt(), s.child("transactionType").value.toString()))
                                     }
                                 }
 
-                                if(transactionsList.isNotEmpty()){
+                                if(transactionList.isNotEmpty()){
                                     walletList.add(WalletsHelper(data["walletName"].toString(), data["walletType"].toString(), data["walletLimit"].toString().toInt(),
-                                        transactionsList))
+                                        transactionList))
                                 }
 
                             }
@@ -160,7 +168,7 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
                     handler.postDelayed(object : Runnable {
                         override fun run() {
-                           initAdapter()
+                            initAdapter()
                         }
                     }, delay.toLong())
                 }

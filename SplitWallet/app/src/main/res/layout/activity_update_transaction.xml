@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/fontReverseColor"
-            android:backgroundTint = "@color/colorPrimaryVariant"
+            android:backgroundTint = "@color/colorPrimary"
             android:text="Update Transaction"
             android:onClick="addWallet"
             />

@@ -98,10 +98,7 @@ class HomeFragment : Fragment() {
             var username_home = inf.findViewById<TextView>(R.id.home_username)
             var email_home = inf.findViewById<TextView>(R.id.home_email)
 
-            var preferenceConfig : PreferenceConfig =
-                PreferenceConfig(
-                    requireActivity().applicationContext
-                )
+            var preferenceConfig= PreferenceConfig(requireActivity().applicationContext)
 
             val u : Users
             u = preferenceConfig.getGson().fromJson(preferenceConfig.getString(Constants.KEY_USER), Users::class.java)

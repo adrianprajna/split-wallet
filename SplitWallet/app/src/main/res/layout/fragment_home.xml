@@ -300,6 +300,8 @@
 
 
         <Button
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:id="@+id/btn_sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

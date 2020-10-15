@@ -97,11 +97,12 @@ class CreateTransaction : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var t = Transactions(transactionDate = date, transactionType = type,
                     transactionAmount = transaction_amount.text.toString().toInt(), transactionNote = transaction_note.text.toString())
-                dbRef.child(snapshot.childrenCount.toString()).setValue(t)
 
+                dbRef.child(snapshot.childrenCount.toString()).setValue(t)
                 Toast.makeText(this@CreateTransaction, "Successfully added a new transaction!", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this@CreateTransaction, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         })
     }
