@@ -1,94 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <LinearLayout
+    <!-- Main content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:background="?attr/backgroundColor">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context="edu.bluejack20_1.splitwallet.fragments.Transaction"
             android:background="?attr/backgroundColor">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:background="?attr/blueBaseColor"
-                >
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context="edu.bluejack20_1.splitwallet.fragments.Transaction"
+                android:background="?attr/backgroundColor">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/transaction"
-                    android:layout_weight="1"
-                    android:paddingLeft="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:textSize="20sp"
-                    android:textColor="?attr/textColor"
-                    android:textStyle="bold"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:gravity="center"
+                    android:background="?attr/blueBaseColor"
+                    >
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transaction"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:textColor="?attr/textColor"
+                        android:textStyle="bold"
+                        />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                </LinearLayout>
 
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_date"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_date"
-                    android:padding="15dp"
-                    android:layout_marginTop="-5dp"
-                    android:textColor="?attr/blueBaseColor"
-                    android:backgroundTint="@color/colorGray50"
-                    />
-            </LinearLayout>
+                    >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="-5dp"
-                android:background="?attr/backgroundColor"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
-                android:padding="15dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    tools:listitem="@layout/item_wallet"
-                    android:id="@+id/recycler_view"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_date"
+                        android:padding="15dp"
+                        android:layout_marginTop="-5dp"
+                        android:textColor="?attr/blueBaseColor"
+                        android:backgroundTint="@color/colorGray50"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    />
+                    android:layout_marginTop="-5dp"
+                    android:background="?attr/backgroundColor"
+                    android:orientation="vertical"
+                    android:scrollbars="vertical"
+                    android:padding="15dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        tools:listitem="@layout/item_wallet"
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_baseline_add_24"
-            />
+    </ScrollView>
 
-    </LinearLayout>
 
-</ScrollView>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_add_24"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

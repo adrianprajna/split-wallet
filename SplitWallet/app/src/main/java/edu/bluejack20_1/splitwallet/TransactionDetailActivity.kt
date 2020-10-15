@@ -14,7 +14,6 @@ import edu.bluejack20_1.splitwallet.adapter.TransactionAdapter
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.activity_transaction_detail.*
-import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 
 class TransactionDetailActivity : AppCompatActivity() {
@@ -65,7 +64,6 @@ class TransactionDetailActivity : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 transactionList = ArrayList()
-
                 for(p in snapshot.children){
                     if(p.child("transactionDate").value.toString() == curr)
                         transactionList.add(Transactions(transactionDate = p.child("transactionDate").value.toString(),
@@ -78,7 +76,7 @@ class TransactionDetailActivity : AppCompatActivity() {
                 setListener(adapter)
                 recycler_view.adapter = adapter
                 recycler_view.layoutManager = LinearLayoutManager(applicationContext)
-                recycler_view.setHasFixedSize(true)
+                recycler_view.setHasFixedSize(false)
             }
         })
     }

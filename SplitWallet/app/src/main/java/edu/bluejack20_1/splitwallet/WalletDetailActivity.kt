@@ -1,0 +1,146 @@
+package edu.bluejack20_1.splitwallet
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.*
+import com.whiteelephant.monthpicker.MonthPickerDialog
+import edu.bluejack20_1.splitwallet.adapter.TransactionDetailAdapter
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.DateHelper
+import edu.bluejack20_1.splitwallet.support_class.Transactions
+import kotlinx.android.synthetic.main.activity_wallet_detail.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
+
+class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
+
+    private var months = listOf<String>("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER")
+
+    private lateinit var ref: DatabaseReference
+    private lateinit var transactionList: ArrayList<Transactions>
+    private lateinit var calendar: Calendar
+    private lateinit var adapter: TransactionDetailAdapter
+    private var month = 0
+    private var year = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_wallet_detail)
+
+        setSupportActionBar(toolbar)
+        init()
+        getAllData()
+    }
+
+    private fun init(){
+        calendar = Calendar.getInstance()
+        year = calendar.get(Calendar.YEAR)
+        month = calendar.get(Calendar.MONTH)
+        btn_date.setText("${months[month.toInt()]} $year")
+        btn_date.setOnClickListener(){
+            selectMonth()
+        }
+
+        var walletName = intent.getStringExtra("walletName").toString()
+
+        ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
+            .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET).child(walletName).child("transactions")
+        transactionList = ArrayList()
+    }
+
+    private fun getAllData(){
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                transactionList.clear()
+                for(p in snapshot.children){
+                    var splittedDate = DateHelper.splitDate(p.child("transactionDate").value.toString())
+                    if(year == splittedDate[0].toInt() && (month + 1) == splittedDate[1].toInt()){
+                        var data = Transactions(transactionAmount = p.child("transactionAmount").value.toString().toInt(),
+                            transactionNote = p.child("transactionNote").value.toString(),
+                            transactionType = p.child("transactionType").value.toString(),
+                            transactionDate = p.child("transactionDate").value.toString())
+
+                        transactionList.add(data)
+                    }
+                }
+                setAdapter()
+            }
+        })
+    }
+
+    private fun setAdapter(){
+        adapter = TransactionDetailAdapter(transactionList)
+        recycler_view.adapter = adapter
+        recycler_view.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun selectMonth(){
+        var monthPicker = MonthPickerDialog.Builder(this, object : MonthPickerDialog.OnDateSetListener{
+            override fun onDateSet(selectedMonth: Int, selectedYear: Int) {
+                btn_date.setText("${months[selectedMonth]} $selectedYear")
+                month = selectedMonth
+                year = selectedYear
+                getAllData()
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH))
+
+        monthPicker.setActivatedMonth(calendar.get(Calendar.MONTH))
+            .setMinYear(1990)
+            .setActivatedYear(calendar.get(Calendar.YEAR))
+            .setMaxYear(2025)
+            .setTitle("SELECT DATE")
+            .build().show()
+    }
+
+    fun setPopUpMenu(view: View){
+        var popup = PopupMenu(this, view)
+        popup.setOnMenuItemClickListener(this)
+        popup.inflate(R.menu.sort_menu)
+        popup.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_bar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.edit -> {
+                var intent = Intent(this, UpdateWalletActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.remove -> Toast.makeText(this, "remove", Toast.LENGTH_SHORT).show()
+        }
+        return true
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        if (item != null) {
+            when(item.itemId){
+                R.id.date_asc -> Toast.makeText(this, "DATE ASC", Toast.LENGTH_SHORT).show()
+                R.id.date_desc -> Toast.makeText(this, "DATE DESC", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return true
+    }
+
+}

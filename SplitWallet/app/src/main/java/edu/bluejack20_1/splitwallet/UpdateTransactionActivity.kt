@@ -1,5 +1,6 @@
 package edu.bluejack20_1.splitwallet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,6 +60,9 @@ class UpdateTransactionActivity : AppCompatActivity() {
                         tempRef.child("transactionNote").setValue(transaction_note.text.toString())
                         tempRef.child("transactionAmount").setValue(transaction_amount.text.toString().toInt())
                         Toast.makeText(this@UpdateTransactionActivity, "Successfully updated this transaction", Toast.LENGTH_SHORT).show()
+
+                        var intent = Intent(this@UpdateTransactionActivity, MainActivity::class.java)
+                        startActivity(intent)
                         finish()
                         break
                     }

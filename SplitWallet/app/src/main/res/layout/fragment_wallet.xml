@@ -1,195 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/colorGray200"
-    tools:context="edu.bluejack20_1.splitwallet.fragments.WalletFragment">
+    >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="175dp"
-        android:background="@color/colorPrimary"
-        >
-    </View>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/ic_wave"
-        />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-175dp"
-
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:layout_height="155dp"
-            android:layout_marginTop="50dp"
-            android:background="@color/colorGray50"
-            >
-
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:hint="@string/user_account_name"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:textColorHint="@color/colorBlack"
-                />
-
-            <TextView
-                android:layout_below="@+id/user_name"
-                android:id="@+id/user_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_account_email"
-                android:gravity="center"
-                android:textSize="15sp"
-                />
-
-        </RelativeLayout>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/display_picture"
-            android:layout_gravity="center"
-            />
-
-    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="325dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:padding="15dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorGray50"
-        >
+        android:background="@color/colorGray100"
+        tools:context="edu.bluejack20_1.splitwallet.fragments.WalletFragment">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:background="?attr/blueBaseColor"
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
+                android:text="Wallet"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="?attr/textColor"
+                />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_baseline_account_balance_wallet_24"
-                    />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/create_wallet"
-                    android:layout_gravity="center"
-                    android:includeFontPadding="false"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"
-                    android:textColorHint="@color/colorBlack"
-                    />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="@color/fontReverseColor"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp"
             >
 
-            <LinearLayout
+
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:layout_marginBottom="20dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
+                tools:listitem="@layout/item_wallet_detail"
+                />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_baseline_account_circle_24"
-                    />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/edit_profile"
-                    android:layout_gravity="center"
-                    android:includeFontPadding="false"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"
-                    android:textColorHint="@color/colorBlack"
-                    />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="@color/fontReverseColor"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_baseline_settings_24"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/settings"
-                    android:layout_gravity="center"
-                    android:includeFontPadding="false"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"
-                    android:textColorHint="@color/colorBlack"
-                    />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
-</LinearLayout>
+
+</ScrollView>
