@@ -25,10 +25,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.database.*
-import edu.bluejack20_1.splitwallet.CreateWalletActivity
-import edu.bluejack20_1.splitwallet.LoginActivity
+import edu.bluejack20_1.splitwallet.*
 import edu.bluejack20_1.splitwallet.R
-import edu.bluejack20_1.splitwallet.SettingActivity
 import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 
@@ -129,6 +127,13 @@ class HomeFragment : Fragment() {
             })
 
             initView()
+
+            val edit_btn = inf.findViewById<CardView>(R.id.btn_home_edit)
+            edit_btn.setOnClickListener{
+                var intent = Intent(activity, EditProfileActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+
         }
         return inf
     }
