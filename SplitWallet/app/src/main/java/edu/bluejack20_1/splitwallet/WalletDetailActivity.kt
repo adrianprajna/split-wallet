@@ -1,5 +1,6 @@
 package edu.bluejack20_1.splitwallet
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,13 +11,16 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.*
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import edu.bluejack20_1.splitwallet.adapter.TransactionDetailAdapter
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.DateHelper
 import edu.bluejack20_1.splitwallet.support_class.Transactions
+import edu.bluejack20_1.splitwallet.support_class.Wallets
 import kotlinx.android.synthetic.main.activity_wallet_detail.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -33,6 +37,7 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
     private lateinit var transactionList: ArrayList<Transactions>
     private lateinit var calendar: Calendar
     private lateinit var adapter: TransactionDetailAdapter
+    private lateinit var wallet: Wallets
     private var month = 0
     private var year = 0
 
@@ -55,7 +60,8 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         }
 
         var walletName = intent.getStringExtra("walletName").toString()
-
+        wallet = intent.getSerializableExtra("wallet") as Wallets
+        toolbar.title = walletName
         ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
             .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET).child(walletName).child("transactions")
         transactionList = ArrayList()
@@ -125,18 +131,77 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         when(item.itemId) {
             R.id.edit -> {
                 var intent = Intent(this, UpdateWalletActivity::class.java)
+                intent.putExtra("wallet", wallet)
+                intent.putExtra("transactionList", transactionList)
                 startActivity(intent)
             }
-            R.id.remove -> Toast.makeText(this, "remove", Toast.LENGTH_SHORT).show()
-        }
+            R.id.remove -> {
+                var alertDialog = MaterialAlertDialogBuilder(this)
+                    .setNegativeButton("NO") { dialog, which ->
+
+                    }
+                    .setTitle("Are you sure?").setPositiveButton("YES") { dialog, which ->
+                        removeWallet()
+                    }.show()
+            }
+    }
         return true
+    }
+
+    private fun removeWallet(){
+        var dbRef = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
+                        .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET).child(wallet.walletName.toString())
+        dbRef.removeValue()
+        Toast.makeText(this, "Successfully removed this wallet!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    private fun sortByDate(sort: String){
+        if(sort == "ASC"){
+            transactionList.sortWith(compareBy{
+                it.transactionDate
+            })
+        } else {
+            transactionList.sortWith(compareBy{
+                it.transactionDate
+            })
+            transactionList.reverse()
+        }
+
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun sortByAmount(sort: String){
+        if(sort == "ASC"){
+            transactionList.sortWith(compareBy {
+                it.transactionAmount.toString()
+            })
+        } else {
+            transactionList.sortWith(compareBy {
+                it.transactionAmount.toString()
+            })
+            transactionList.reverse()
+        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         if (item != null) {
             when(item.itemId){
-                R.id.date_asc -> Toast.makeText(this, "DATE ASC", Toast.LENGTH_SHORT).show()
-                R.id.date_desc -> Toast.makeText(this, "DATE DESC", Toast.LENGTH_SHORT).show()
+                R.id.date_asc -> {
+                    sortByDate("ASC")
+                    Toast.makeText(this, "DATE ASC", Toast.LENGTH_SHORT).show()
+                }
+                R.id.date_desc -> {
+                    sortByDate("DESC")
+                    Toast.makeText(this, "DATE DESC", Toast.LENGTH_SHORT).show()
+                }
+                R.id.amount_asc -> {
+                    sortByAmount("ASC")
+                }
+                R.id.amount_desc -> {
+                    sortByAmount("DESC")
+                }
             }
         }
 

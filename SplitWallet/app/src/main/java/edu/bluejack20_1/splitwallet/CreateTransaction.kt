@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.Wallets
 import kotlinx.android.synthetic.main.activity_create_transaction.*
+import org.apache.poi.poifs.property.Child
 
 class CreateTransaction : AppCompatActivity() {
 
@@ -49,14 +47,16 @@ class CreateTransaction : AppCompatActivity() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                listWallets = ArrayList()
-                var data = snapshot.getValue() as Map<*, *>
-                for((key, value) in data.entries){
-                    listWallets.add(key.toString())
-                }
+                if(snapshot.exists()){
+                    listWallets = ArrayList()
+                    var data = snapshot.getValue() as Map<*, *>
+                    for((key, value) in data.entries){
+                        listWallets.add(key.toString())
+                    }
 
-                var adapter = ArrayAdapter(this@CreateTransaction, R.layout.list_item, listWallets)
-                autoComplete.setAdapter(adapter)
+                    var adapter = ArrayAdapter(this@CreateTransaction, R.layout.list_item, listWallets)
+                    autoComplete.setAdapter(adapter)
+                }
             }
         })
     }
@@ -106,4 +106,6 @@ class CreateTransaction : AppCompatActivity() {
             }
         })
     }
+
+
 }

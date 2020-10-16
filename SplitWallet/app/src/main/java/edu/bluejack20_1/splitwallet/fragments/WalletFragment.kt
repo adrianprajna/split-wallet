@@ -21,6 +21,7 @@ import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Users
 import edu.bluejack20_1.splitwallet.support_class.Wallets
+import kotlin.reflect.typeOf
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,10 +74,12 @@ class WalletFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 walletList = ArrayList()
                 for(p in snapshot.children){
+                    Log.d("key", p.child("walletLimit").getValue().toString())
                     walletList.add(Wallets(walletName = p.child("walletName").value.toString(),
                     walletLimit = p.child("walletLimit").value.toString().toInt(),
                     walletType = p.child("walletType").value.toString()))
                 }
+
                 setAdapter()
             }
         })
@@ -91,6 +94,7 @@ class WalletFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 var intent = Intent(context, WalletDetailActivity::class.java)
                 intent.putExtra("walletName", walletList[position].walletName)
+                intent.putExtra("wallet", walletList[position])
                 startActivity(intent)
             }
         })

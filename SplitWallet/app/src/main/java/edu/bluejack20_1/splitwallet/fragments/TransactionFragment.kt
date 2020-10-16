@@ -131,9 +131,7 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
                     var tempData = snapshot.getValue() as Map<*, *>
 
-                    Log.d("asas", "dbref")
                     for( (key, value) in tempData.entries){
-                        Log.d("asas", tempData.entries.size.toString())
                         var data = value as Map<*, *>
                         walletList.removeAll(walletList)
                         var tempRef = ref.child(key.toString()).child("transactions")
@@ -144,7 +142,6 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
                             override fun onDataChange(snapshot: DataSnapshot) {
 
-                                Log.d("asas", "tempref")
                                 transactionList = ArrayList()
 
                                 for(s in snapshot.children){
@@ -192,6 +189,7 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
+        adapter.notifyDataSetChanged()
     }
 
     fun floatingButtonAction(){
