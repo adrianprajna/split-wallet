@@ -212,7 +212,9 @@ class ReportFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.isNotEmpty()){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                getCurrentLocation()
+                if(isAdded){
+                    getCurrentLocation()
+                }
             } else {
                 Toast.makeText(requireContext(), "Permission Denied!", Toast.LENGTH_SHORT).show()
             }

@@ -8,7 +8,7 @@ class WalletsHelper() : Parcelable {
     var walletName : String? = ""
     var walletType : String? = ""
     var walletLimit : Number? = 0
-    var listTransactions = arrayListOf<Transactions>()
+    var transactions = arrayListOf<Transactions>()
 
     constructor(parcel: Parcel) : this() {
         walletName = parcel.readString()
@@ -22,7 +22,7 @@ class WalletsHelper() : Parcelable {
         this.walletType = walletType
         this.walletLimit = walletLimit
         if (listTransactions != null) {
-            this.listTransactions = listTransactions
+            this.transactions = listTransactions
         }
     }
 

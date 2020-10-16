@@ -1,6 +1,8 @@
 package edu.bluejack20_1.splitwallet.support_class
 
-class Wallets {
+import java.io.Serializable
+
+class Wallets : Serializable{
     var walletName : String? = ""
     var walletType : String? = ""
     var walletLimit : Number? = 0

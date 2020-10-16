@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".UpdateWalletActivity"></activity>
+        <activity android:name=".PleaseWaitActivity"></activity>
+        <activity android:name=".UpdateWalletActivity" />
         <activity android:name=".WalletDetailActivity" />
         <activity android:name=".UpdateTransactionActivity" />
         <activity android:name=".CreateTransaction" />
@@ -35,10 +36,9 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".support_class.FetchAddressIntentService" />
 
-        <service android:name=".support_class.FetchAddressIntentService"/>
-        <receiver android:name=".support_class.json_class.NotificationReceiver"/>
-
+        <receiver android:name=".support_class.json_class.NotificationReceiver" />
     </application>
 
 </manifest>

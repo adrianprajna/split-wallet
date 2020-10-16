@@ -249,12 +249,12 @@ class HomeFragment : Fragment() {
                                         p.child("transactionType").value.toString()
 
                                     )
-                                listWallets.get(listWallets.size - 1).listTransactions.add(u)
+                                listWallets.get(listWallets.size - 1).transactions.add(u)
                             }
 
                             if (singleUser["walletType"].toString().equals("Expense")){
                                 totalLimit += singleUser["walletLimit"].toString()!!.toInt()
-                                for (t in listWallets.get(listWallets.size - 1).listTransactions){
+                                for (t in listWallets.get(listWallets.size - 1).transactions){
                                     totalSpend += t.transactionAmount!!.toInt()
                                 }
                                 changeWalletView()
@@ -271,7 +271,8 @@ class HomeFragment : Fragment() {
                         WalletsHelper(
                             singleUser["walletName"].toString(),
                             singleUser["walletType"].toString(),
-                            singleUser["walletLimit"].toString().toInt(), null
+                            singleUser["walletLimit"].toString().toInt(),
+                            null
                         )
                     )
                     if (singleUser["walletType"].toString() == "Expense"){

@@ -47,13 +47,12 @@
             android:hint="@string/wallet_name"
             app:errorEnabled="true"
             app:hintTextColor="?attr/textColor"
-            android:id="@+id/wallet_name_layout"
             android:layout_marginBottom="10dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/wallet_name"
+                android:id="@+id/wallet_name_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
@@ -99,7 +98,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/wallet_limit"
+                android:id="@+id/wallet_limit_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
@@ -113,7 +112,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_update_wallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

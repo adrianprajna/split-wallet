@@ -1,21 +1,137 @@
 package edu.bluejack20_1.splitwallet
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.activity_create_wallet.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.*
+import com.google.gson.reflect.TypeToken
+import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.GsonReader
+import edu.bluejack20_1.splitwallet.support_class.Transactions
+import edu.bluejack20_1.splitwallet.support_class.Wallets
+import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
+import kotlinx.android.synthetic.main.activity_update_wallet.*
 
 class UpdateWalletActivity : AppCompatActivity() {
+
+    private var flag = false
+    private lateinit var transactionList: ArrayList<Transactions>
+    private lateinit var wallet: Wallets
+    private lateinit var reff: DatabaseReference
+
+    private lateinit var dbRef: DatabaseReference
+
+    private var refListener = object : ValueEventListener {
+        override fun onCancelled(error: DatabaseError) {
+        }
+
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()){
+                if(snapshot.child(Constants.capitalizeEachWord(wallet_name_update.text.toString())).exists() && wallet_name_update.text.toString() != wallet.walletName){
+                    wallet_name_update.setError("Wallet name is exists!")
+                } else {
+                    remove()
+                }
+            }
+        }
+    }
+
+
+    private fun remove(){
+        var temp: WalletsHelper
+        reff.child(wallet.walletName.toString()).removeValue().addOnCompleteListener {
+            if(autoComplete.text.toString() == "Income"){
+                temp = WalletsHelper(wallet_name_update.text.toString(), "Income",  0, transactionList)
+            } else {
+                temp = WalletsHelper(wallet_name_update.text.toString(), "Expense",  wallet_limit_update.text.toString().toInt(), transactionList)
+            }
+            reff.child(wallet_name_update.text.toString()).setValue(temp)
+            Toast.makeText(applicationContext, "Successfully updated the wallet!", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@UpdateWalletActivity, MainActivity::class.java))
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_wallet)
 
+
         initItem()
+        addAction()
     }
 
     fun initItem(){
         val items = listOf<String>("Expense", "Income")
         val adapter = ArrayAdapter(this, R.layout.list_item, items)
+
+        wallet = intent.getSerializableExtra("wallet") as Wallets
+        wallet_name_update.setText(wallet.walletName)
+        autoComplete.setText(wallet.walletType)
+        transactionList = intent.getSerializableExtra("transactionList") as ArrayList<Transactions>
+        if(wallet.walletType == "Expense"){
+            wallet_limit_update.setText(wallet.walletLimit.toString())
+        } else {
+            wallet_limit_update.setText("0")
+            wallet_limit_update.isEnabled = false
+        }
         autoComplete.setAdapter(adapter)
+
+        btn_update_wallet.setOnClickListener(){
+            updateWallet()
+        }
+
+
+        reff = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
+            .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
+        dbRef = reff.child(wallet.walletName.toString()).child("transactions")
     }
+
+    fun addAction(){
+        autoComplete.setOnItemClickListener(object : AdapterView.OnItemClickListener{
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                wallet_limit_update.isEnabled = !autoComplete.text.toString().equals("Income")
+            }
+        })
+    }
+
+    fun validateWalletName(): Boolean{
+
+        reff.addListenerForSingleValueEvent(refListener)
+
+        if (wallet_name_update.text.toString().isEmpty()) {
+            wallet_name_update.setError("Field can't be empty")
+            return false
+        }
+
+        return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        reff.removeEventListener(refListener)
+    }
+
+    private fun updateWallet(){
+        if(!validateWalletName()){
+            return
+        }
+
+        if(autoComplete.text.toString().isEmpty()){
+            Toast.makeText(this, "You have to choose the wallet type!", Toast.LENGTH_SHORT).show()
+            return
+        }
+    }
+
 }

@@ -99,7 +99,7 @@ class CreateWalletActivity : AppCompatActivity() {
             return
         }
 
-        reff.addValueEventListener(object : ValueEventListener{
+        reff.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -145,8 +145,9 @@ class CreateWalletActivity : AppCompatActivity() {
                     }
                     reff.setValue(list)
                     Toast.makeText(this@CreateWalletActivity, "Successfully created new wallet!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
+//                    startActivity(intent)
+                    finish()
                 }
             }
         })
