@@ -231,7 +231,6 @@ class LoginActivity : AppCompatActivity() {
     fun handleSignInResult(completedTask : Task<GoogleSignInAccount>){
         try {
             var acc = completedTask.getResult(ApiException::class.java)
-            Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show()
             FirebaseGoogleAuth(acc);
         }
         catch(e : ApiException){
@@ -289,6 +288,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (userValid){
                 if (u != null){
+                    Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show()
                     successLogin(u)
                 }
             } else {

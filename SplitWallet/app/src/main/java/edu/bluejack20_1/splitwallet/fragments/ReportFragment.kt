@@ -335,7 +335,6 @@ class ReportFragment : Fragment() {
         var submit = inf.findViewById<Button>(R.id.btn_report_submit)
 
         submit.setOnClickListener{
-            Toast.makeText(requireContext(), "Bangke", Toast.LENGTH_SHORT).show()
 //            checkPermission()
             if (giveChart()){
                 var selected = spinner.selectedItem.toString()
