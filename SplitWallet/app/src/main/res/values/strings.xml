@@ -82,6 +82,8 @@
     <string name="wallet_name">Wallet Name</string>
     <string name="wallet_limit">Wallet Limit</string>
 
+    <string name="update">Update</string>
+
     <!--    Update Wallet-->
     <string name="edit_wallet">Update Wallet</string>
 

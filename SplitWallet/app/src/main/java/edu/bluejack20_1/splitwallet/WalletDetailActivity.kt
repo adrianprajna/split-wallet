@@ -201,11 +201,11 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
     private fun sortByAmount(sort: String){
         if(sort == "ASC"){
             transactionList.sortWith(compareBy {
-                it.transactionAmount.toString()
+                it.transactionAmount.toString().toInt()
             })
         } else {
             transactionList.sortWith(compareBy {
-                it.transactionAmount.toString()
+                it.transactionAmount.toString().toInt()
             })
             transactionList.reverse()
         }

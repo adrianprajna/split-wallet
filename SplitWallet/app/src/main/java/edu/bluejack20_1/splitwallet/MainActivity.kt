@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
 
             var calendar = Calendar.getInstance()
 
-            calendar.set(Calendar.HOUR_OF_DAY, 22)
-            calendar.set(Calendar.MINUTE, 21)
+            calendar.set(Calendar.HOUR_OF_DAY, 9)
+            calendar.set(Calendar.MINUTE, 0)
             calendar.set(Calendar.SECOND, 0)
 
             var intent = Intent(this, NotificationReceiver::class.java)

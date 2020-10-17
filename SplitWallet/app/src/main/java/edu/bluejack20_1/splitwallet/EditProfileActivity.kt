@@ -1,5 +1,6 @@
 package edu.bluejack20_1.splitwallet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -128,6 +129,7 @@ class EditProfileActivity : AppCompatActivity() {
                 applicationContext
             )
         preferenceConfig.putString(Constants.KEY_USER, preferenceConfig.listToJson(u))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
