@@ -230,6 +230,7 @@
                 app:cardElevation="2dp"
                 app:cardCornerRadius="8dp"
                 app:cardBackgroundColor="@color/fontReverseColor"
+                android:id="@+id/btn_home_edit"
                 >
 
                 <LinearLayout

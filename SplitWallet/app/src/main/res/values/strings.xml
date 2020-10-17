@@ -17,6 +17,7 @@
     <string name="title_activity_register">Register</string>
     <string name="confirm_password">Confirm password</string>
     <string name="wrong_confirm_password">Password and Confirm password must same</string>
+    <string name="wrong_validation_password">Password length mush be 6 or more character and Alphanumeric</string>
 
     <!--Login & Register-->
     <string name="username_invalid">Invalid Username</string>

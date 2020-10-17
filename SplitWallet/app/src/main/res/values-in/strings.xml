@@ -11,6 +11,8 @@
     <string name="success_register_toast">Daftar berhasil</string>
     <string name="title_activity_register">Daftar</string>
     <string name="confirm_password">Ulangi Kata Sandi</string>
+    <string name="wrong_validation_password">Panjang password harus 6 karakter atau lebih and alphanumeric</string>
+
     <string name="password">Kata Sandi</string>
     <string name="add_wallet">Tambah</string>
     <string name="back_menu">Kembali ke menu utama</string>

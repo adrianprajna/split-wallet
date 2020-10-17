@@ -65,9 +65,9 @@ class MainActivity : AppCompatActivity() {
 
             var calendar = Calendar.getInstance()
 
-            calendar.set(Calendar.HOUR_OF_DAY, 9)
-            calendar.set(Calendar.MINUTE, 51)
-            calendar.set(Calendar.SECOND, 20)
+            calendar.set(Calendar.HOUR_OF_DAY, 22)
+            calendar.set(Calendar.MINUTE, 21)
+            calendar.set(Calendar.SECOND, 0)
 
             var intent = Intent(this, NotificationReceiver::class.java)
             intent.setAction("MY_NOTIFICATION_MESSAGE")
@@ -77,6 +77,10 @@ class MainActivity : AppCompatActivity() {
             var alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
             Toast.makeText(this, "Notification Active", Toast.LENGTH_SHORT).show()
+
+
+
+
 
         } else if (u.notification == "false" && preferenceConfig.loadNotification() == "true"){
             preferenceConfig.putString(Constants.NOTIFICATION_STATUS, "false")
