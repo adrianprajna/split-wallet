@@ -18,7 +18,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".PleaseWaitActivity"></activity>
+        <activity android:name=".UpdateWalletActivity" />
+        <activity android:name=".WalletDetailActivity" />
         <activity android:name=".UpdateTransactionActivity" />
         <activity android:name=".CreateTransaction" />
         <activity android:name=".SettingActivity" />

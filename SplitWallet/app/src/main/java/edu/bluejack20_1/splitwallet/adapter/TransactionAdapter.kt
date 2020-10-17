@@ -1,5 +1,6 @@
 package edu.bluejack20_1.splitwallet.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import kotlinx.android.synthetic.main.item_transaction.view.*
+import java.text.NumberFormat
 
 class TransactionAdapter(private var transactionList: ArrayList<Transactions>): RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>(){
 
@@ -25,13 +27,21 @@ class TransactionAdapter(private var transactionList: ArrayList<Transactions>): 
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
+        if(transactionList[position].transactionType == "Expense"){
+            holder.topLayout.setBackgroundColor(Color.RED)
+            holder.transactionAmount.setTextColor(Color.RED)
+        } else {
+            holder.topLayout.setBackgroundColor(Color.parseColor("#0099ff"))
+            holder.transactionAmount.setTextColor(Color.parseColor("#0099ff"))
+        }
         holder.transactionNote.text = transactionList[position].transactionNote
-        holder.transactionAmount.text = "Rp. " + transactionList[position].transactionAmount.toString()
+        holder.transactionAmount.text = "Rp. " + NumberFormat.getIntegerInstance().format(transactionList[position].transactionAmount);
     }
 
     class TransactionViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView){
         var transactionNote = itemView.transaction_note
         var transactionAmount = itemView.transaction_amount
+        var topLayout = itemView.top_layout
 
         init {
             itemView.setOnClickListener(){

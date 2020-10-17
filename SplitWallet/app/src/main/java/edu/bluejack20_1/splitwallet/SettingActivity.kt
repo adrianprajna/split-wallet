@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.database.FirebaseDatabase
 import edu.bluejack20_1.splitwallet.support_class.Constants
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
@@ -14,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
 
+    lateinit var mGoogleSignInClient : GoogleSignInClient
     lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -79,8 +83,18 @@ class SettingActivity : AppCompatActivity() {
 
     fun initButton() {
         btn_back.setOnClickListener {
-            val intent = Intent(this@SettingActivity, MainActivity::class.java)
-            this@SettingActivity.startActivity(intent)
+//            val intent = Intent(this@SettingActivity, MainActivity::class.java)
+//            this@SettingActivity.startActivity(intent)
+            var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(
+                R.string.default_web_client_id
+            )).requestEmail().build()
+
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+            mGoogleSignInClient.signOut();
+
+            PreferenceConfig(this).clearOneSharedPreference(Constants.KEY_USER)
+            var intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         btn_theme.setOnClickListener {

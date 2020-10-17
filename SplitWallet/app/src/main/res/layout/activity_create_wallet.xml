@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="edu.bluejack20_1.splitwallet.CreateWalletActivity"
-    android:background="?attr/backgroundColor">
+    android:background="@color/fontReverseColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/icon_mobile_wallet"
         />
 
     <LinearLayout

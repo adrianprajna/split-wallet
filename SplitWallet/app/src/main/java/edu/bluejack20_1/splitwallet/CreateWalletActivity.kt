@@ -99,7 +99,7 @@ class CreateWalletActivity : AppCompatActivity() {
             return
         }
 
-        reff.addValueEventListener(object : ValueEventListener{
+        reff.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -111,13 +111,13 @@ class CreateWalletActivity : AppCompatActivity() {
                     list = (snapshot.getValue() as Map<String, Any>).toMutableMap()
 
                     if(autoComplete.text.toString().equals("Income")){
-                        list[wallet_name.text.toString()] = Wallets(
+                        list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = 0
                         )
                     } else {
-                        list[wallet_name.text.toString()] = Wallets(
+                        list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = wallet_limit.text.toString().toInt()
@@ -131,22 +131,23 @@ class CreateWalletActivity : AppCompatActivity() {
                     }
                 } else {
                     if(autoComplete.text.toString().equals("Income")){
-                        list[wallet_name.text.toString()] = Wallets(
+                        list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = 0
                         )
                     } else {
-                        list[wallet_name.text.toString()] = Wallets(
+                        list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
                             walletType = autoComplete.text.toString(),
                             walletLimit = wallet_limit.text.toString().toInt()
                         )
                     }
                     reff.setValue(list)
-                    Toast.makeText(this@CreateWalletActivity, "Success create new wallet!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
-                    startActivity(intent)
+                    Toast.makeText(this@CreateWalletActivity, "Successfully created new wallet!", Toast.LENGTH_SHORT).show()
+//                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
+//                    startActivity(intent)
+                    finish()
                 }
             }
         })
