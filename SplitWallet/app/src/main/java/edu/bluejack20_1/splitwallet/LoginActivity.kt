@@ -224,7 +224,6 @@ class LoginActivity : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN){
             var task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            Toast.makeText(this, task.toString(), Toast.LENGTH_SHORT).show()
             handleSignInResult(task)
         }
     }
@@ -251,12 +250,9 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this,
                     OnCompleteListener<AuthResult?> { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Successful", Toast.LENGTH_SHORT)
-                                .show()
                             val user: FirebaseUser? = mAuth.getCurrentUser()
                             updateUI(user)
                         } else {
-                            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                             updateUI(null)
                         }
                     })

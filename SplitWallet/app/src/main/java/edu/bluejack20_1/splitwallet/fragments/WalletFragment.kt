@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +42,7 @@ class WalletFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private var ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
         .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
+    private lateinit var inf: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +54,7 @@ class WalletFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        var inf = inflater.inflate(R.layout.fragment_wallet, container, false)
+        inf = inflater.inflate(R.layout.fragment_wallet, container, false)
 
         if(activity != null){
             initView(inf)
@@ -87,6 +90,17 @@ class WalletFragment : Fragment() {
 
     private fun setAdapter(){
         adapter = WalletDetailAdapter(walletList)
+
+        var tempLayout = inf.findViewById<RelativeLayout>(R.id.tempLayout)
+        var realLayout = inf.findViewById<LinearLayout>(R.id.realLayout)
+        if(walletList.isEmpty()){
+            realLayout.visibility = View.GONE
+            tempLayout.visibility = View.VISIBLE
+        } else {
+            tempLayout.visibility = View.GONE
+            realLayout.visibility = View.VISIBLE
+        }
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)

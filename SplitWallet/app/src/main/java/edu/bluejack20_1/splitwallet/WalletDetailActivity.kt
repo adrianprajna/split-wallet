@@ -22,10 +22,16 @@ import edu.bluejack20_1.splitwallet.support_class.DateHelper
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.Wallets
 import kotlinx.android.synthetic.main.activity_wallet_detail.*
+import kotlinx.android.synthetic.main.activity_wallet_detail.recycler_view
+import kotlinx.android.synthetic.main.activity_wallet_detail.tempLayout
+import kotlinx.android.synthetic.main.fragment_report.*
+import kotlinx.android.synthetic.main.fragment_wallet.*
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.exp
 import kotlin.properties.Delegates
 
 class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
@@ -75,6 +81,8 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 transactionList.clear()
+                var incomes = 0
+                var expenses = 0
                 for(p in snapshot.children){
                     var splittedDate = DateHelper.splitDate(p.child("transactionDate").value.toString())
                     if(year == splittedDate[0].toInt() && (month + 1) == splittedDate[1].toInt()){
@@ -84,7 +92,19 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
                             transactionDate = p.child("transactionDate").value.toString())
 
                         transactionList.add(data)
+
+                        if(data.transactionType == "Expense") expenses += data.transactionAmount.toInt()
+                        else incomes += data.transactionAmount.toInt()
                     }
+                }
+                expense.setText("Rp. " + NumberFormat.getIntegerInstance().format(expenses))
+                income.setText("Rp. " + NumberFormat.getIntegerInstance().format(incomes))
+
+                var totals = incomes - expenses
+                if(totals < 0){
+                    total.setText("Rp. " + NumberFormat.getIntegerInstance().format(totals))
+                } else {
+                    total.setText("+ Rp. " + NumberFormat.getIntegerInstance().format(totals))
                 }
                 setAdapter()
             }
@@ -95,6 +115,13 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         adapter = TransactionDetailAdapter(transactionList)
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(this)
+        if(transactionList.isEmpty()){
+            tempLayout.visibility = View.VISIBLE
+            recycler_view.visibility = View.GONE
+        } else {
+            tempLayout.visibility = View.GONE
+            recycler_view.visibility = View.VISIBLE
+        }
     }
 
     private fun selectMonth(){

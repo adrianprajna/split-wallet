@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="edu.bluejack20_1.splitwallet.CreateWalletActivity"
-    android:background="?attr/backgroundColor">
+    android:background="@color/fontReverseColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/icon_mobile_wallet"
         />
 
     <LinearLayout
@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/wallet_name"
             app:errorEnabled="true"
-            app:hintTextColor="?attr/textColor"
             android:id="@+id/wallet_name_layout"
             android:layout_marginBottom="10dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -60,7 +59,6 @@
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"
                 android:drawablePadding="10dp"
-                android:textColor="?attr/textColor"
                 android:drawableStart="@drawable/ic_baseline_account_balance_wallet_24"
                 />
 
@@ -72,12 +70,10 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hintTextColor="?attr/textColor"
             app:helperTextEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
-                android:textColor="?attr/textColor"
                 android:id="@+id/autoComplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,8 +87,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/wallet_limit"
-            app:hintTextColor="?attr/textColor"
-            app:prefixTextColor="?attr/textColor"
             app:prefixText="Rp. "
             app:errorEnabled="true"
             android:layout_marginBottom="10dp"
@@ -106,7 +100,6 @@
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"
                 android:inputType="number"
-                android:textColor="?attr/textColor"
                 android:drawablePadding="10dp"
                 android:drawableStart="@drawable/ic_baseline_attach_money_24"
                 />

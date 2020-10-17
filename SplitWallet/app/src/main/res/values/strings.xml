@@ -7,7 +7,8 @@
     <string name="login">Login</string>
     <string name="registerHyperlink">Haven\'t make an account? Sign Up</string>
     <string name="success_login_toast">Successfully Login</string>
-
+    <string name="signUpWithGoogle">Or sign in with social account</string>
+    <string name="signOut">Sign out</string>
     <!--Register-->
     <string name="username" translatable="false">Username</string>
     <string name="email" translatable="false">Email</string>
@@ -79,4 +80,15 @@
     <string name="wallet_type">Wallet Type</string>
     <string name="wallet_name">Wallet Name</string>
     <string name="wallet_limit">Wallet Limit</string>
+
+    <!--    Update Wallet-->
+    <string name="edit_wallet">Update Wallet</string>
+
+    <!--    Update Transaction -->
+    <string name="edit_transaction">Update Transaction</string>
+    <string name="transaction_amount">Transaction Amount</string>
+    <string name="transaction_note">Transaction Note</string>
+
+    <string name="no_transactions">No transaction added!\n\nPlease add first!</string>
+    <string name="no_wallets">No wallet added!\n\nPlease add first!</string>
 </resources>

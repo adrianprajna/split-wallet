@@ -4,6 +4,8 @@
     <string name="empty_field_toast">Semua bagian harus diisi</string>
     <string name="login">Masuk</string>
     <string name="registerHyperlink">Belum punya akun? Daftar</string>
+    <string name="signUpWithGoogle">Atau login melalui akun social media</string>
+    <string name="signOut">Keluar</string>
     <string name="success_login_toast">Login Berhasil</string>
     <string name="register">Daftar</string>
     <string name="success_register_toast">Daftar berhasil</string>
@@ -38,4 +40,10 @@
     <string name="wallet_type">Tipe Dompet</string>
     <string name="wallet_name">Nama Dompet</string>
     <string name="wallet_limit">Batas Pemakaian Dompet</string>
+    <string name="edit_wallet">Edit Dompet</string>
+    <string name="edit_transaction">Edit Transaksi</string>
+    <string name="transaction_amount">Jumlah Transaksi</string>
+    <string name="transaction_note">Catatan</string>
+    <string name="no_transactions">Tidak ada transaksi tercatat!\n\nSilakan tambah transaksi baru!</string>
+    <string name="no_wallets">Tidak ada wallet!\n\nSilakan buat terlebih dahulu!</string>
 </resources>
