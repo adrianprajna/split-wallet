@@ -16,6 +16,8 @@ import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.activity_transaction_detail.*
 import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
+import kotlinx.android.synthetic.main.item_wallet.*
+import java.text.NumberFormat
 
 class TransactionDetailActivity : AppCompatActivity() {
 
@@ -50,6 +52,8 @@ class TransactionDetailActivity : AppCompatActivity() {
         year = intent.getStringExtra("year").toString().toInt()
         wallet = intent.getParcelableExtra("wallet")!!
 
+        wallet_name_transaction.setText(wallet.walletName)
+
         date.setText(months[month as Int - 1] + " " + day + ", " + year)
         getAllTransactions()
     }
@@ -66,11 +70,12 @@ class TransactionDetailActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 transactionList = ArrayList()
                 for(p in snapshot.children){
-                    if(p.child("transactionDate").value.toString() == curr)
+                    if(p.child("transactionDate").value.toString() == curr){
                         transactionList.add(Transactions(transactionDate = p.child("transactionDate").value.toString(),
                             transactionNote = p.child("transactionNote").value.toString(),
                             transactionAmount = p.child("transactionAmount").value.toString().toInt(),
                             transactionType = p.child("transactionType").value.toString()))
+                    }
                 }
 
                 var adapter = TransactionAdapter(transactionList)

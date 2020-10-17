@@ -31,6 +31,7 @@ import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.SettingActivity
 import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
+import java.text.NumberFormat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,20 +80,6 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         fragmentManager?.popBackStack()
         inf = inflater.inflate(R.layout.fragment_home, container, false)
-
-        var btn_sign_out = inf.findViewById<Button>(R.id.btn_sign_out)
-        btn_sign_out.setOnClickListener(){
-            var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(
-                R.string.default_web_client_id
-            )).requestEmail().build()
-
-            mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-            mGoogleSignInClient.signOut();
-
-            var preferenceConfig = PreferenceConfig(this.requireContext()).clearOneSharedPreference(Constants.KEY_USER)
-            var intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-        }
 
         if (activity != null){
             var username_home = inf.findViewById<TextView>(R.id.home_username)
@@ -159,9 +146,9 @@ class HomeFragment : Fragment() {
     fun changeWalletView(){
 
         var txt_spend = inf.findViewById<TextView>(R.id.home_payment_label)
-        txt_spend.text = "Rp. $totalSpend"
+        txt_spend.text = "Rp. " + NumberFormat.getIntegerInstance().format(totalSpend);
         var txt_limit = inf.findViewById<TextView>(R.id.home_limit_label)
-        txt_limit.text = "Rp. $totalLimit"
+        txt_limit.text = "Rp. " + NumberFormat.getIntegerInstance().format(totalLimit);
 
         if (totalSpend < totalLimit/2){
             greenView()

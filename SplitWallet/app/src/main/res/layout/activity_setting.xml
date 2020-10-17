@@ -180,13 +180,13 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_baseline_home_24"
+                        android:src="@drawable/ic_baseline_exit_to_app_24"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/back_menu"
+                        android:hint="@string/signOut"
                         android:layout_gravity="center"
                         android:includeFontPadding="false"
                         android:layout_marginStart="10dp"
@@ -195,6 +195,7 @@
                         />
 
                 </LinearLayout>
+
 
             </com.google.android.material.card.MaterialCardView>
 

@@ -154,8 +154,26 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 tools:listitem="@layout/item_transaction_detail"
                 />
+
+            <RelativeLayout
+                android:id="@+id/tempLayout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="@string/no_transactions"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

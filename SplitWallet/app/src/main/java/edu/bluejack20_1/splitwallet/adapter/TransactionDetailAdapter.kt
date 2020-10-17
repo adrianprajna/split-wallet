@@ -12,6 +12,7 @@ import edu.bluejack20_1.splitwallet.support_class.DateHelper
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import kotlinx.android.synthetic.main.item_transaction_detail.view.*
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,10 +37,10 @@ class TransactionDetailAdapter(var transactionList: ArrayList<Transactions>): Re
         var splittedDate = realDate.split(",")
 
         if(transactionList[position].transactionType == "Expense"){
-            holder.transaction_amount.text = "- Rp. " + transactionList.get(position).transactionAmount.toString()
+            holder.transaction_amount.text = "- Rp. " + NumberFormat.getIntegerInstance().format(transactionList[position].transactionAmount)
             holder.transaction_amount.setTextColor(Color.RED)
         } else {
-            holder.transaction_amount.text = "+ Rp. " + transactionList.get(position).transactionAmount.toString()
+            holder.transaction_amount.text = "+ Rp. " + NumberFormat.getIntegerInstance().format(transactionList[position].transactionAmount)
             holder.transaction_amount.setTextColor(Color.parseColor("#0099ff"))
         }
         holder.transaction_note.text = transactionList.get(position).transactionNote

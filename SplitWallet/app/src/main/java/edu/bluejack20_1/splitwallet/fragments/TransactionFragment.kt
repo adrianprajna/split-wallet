@@ -8,14 +8,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 import edu.bluejack20_1.splitwallet.CreateTransaction
 import edu.bluejack20_1.splitwallet.R
@@ -82,12 +83,12 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
         if(activity != null){
             recyclerView = inf.findViewById(R.id.recycler_view)
-            floatingButtonAction()
             var date = DateHelper.splitDate(DateHelper.nowToString())
             this.year = date[0].toInt()
             this.month = date[1].toInt()
             this.day = date[2].toInt()
             getData()
+            floatingButtonAction()
         }
 
         return inf
@@ -114,6 +115,32 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
 
         var datePickerDialog = DatePickerDialog(requireContext(), this, year, month, day)
         datePickerDialog.show()
+    }
+
+    private fun getInitList(){
+        ref.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.value == null){
+                    var bottom_nav = inf.findViewById<BottomNavigationView>(R.id.bottom_nav)
+                    Snackbar.make(inf, "You have no wallets!", Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAnchorView(bottom_nav)
+                        .setAction("CLOSE"){
+                            Toast.makeText(context, "CLOSED", Toast.LENGTH_SHORT).show()
+                        }.show()
+                } else {
+                    var intent = Intent(context, CreateTransaction::class.java)
+                    intent.putExtra("day", day.toString())
+                    intent.putExtra("month", month.toString())
+                    intent.putExtra("year", year.toString())
+                    startActivity(intent)
+                }
+            }
+
+        })
     }
 
     private fun getData(){
@@ -186,6 +213,16 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
             }
         })
 
+        var tempLayout = inf.findViewById<RelativeLayout>(R.id.tempLayout)
+        var realLayout = inf.findViewById<LinearLayout>(R.id.realLayout)
+        if(walletList.isEmpty()){
+            realLayout.visibility = View.GONE
+            tempLayout.visibility = View.VISIBLE
+        } else {
+            tempLayout.visibility = View.GONE
+            realLayout.visibility = View.VISIBLE
+        }
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
@@ -195,11 +232,7 @@ class Transaction : Fragment(), DatePickerDialog.OnDateSetListener{
     fun floatingButtonAction(){
         var fab = inf.findViewById<FloatingActionButton>(R.id.floating_action_button)
         fab.setOnClickListener(){
-            var intent = Intent(context, CreateTransaction::class.java)
-            intent.putExtra("day", day.toString())
-            intent.putExtra("month", month.toString())
-            intent.putExtra("year", year.toString())
-            startActivity(intent)
+            getInitList()
         }
     }
 

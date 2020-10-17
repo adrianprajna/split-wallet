@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:layout_marginBottom="20dp"
@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/top_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/redHomeCard"
@@ -28,7 +29,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Bayar Grabfood"
                 android:textColor="@color/fontReverseColor"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -42,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:text="Amount" />
 
@@ -50,7 +51,7 @@
                 android:id="@+id/transaction_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_alignParentEnd="true"
                 android:textColor="@color/redHomeCard"
                 android:text="Rp. 1.800.000,00" />
