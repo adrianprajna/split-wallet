@@ -50,7 +50,7 @@ class WalletAdapter(val walletList: ArrayList<WalletsHelper>): RecyclerView.Adap
         var currItem = walletList[position]
         var totalMoney = 0
 
-        for(i in currItem.listTransactions){
+        for(i in currItem.transactions){
             totalMoney += i.transactionAmount.toInt()
         }
 

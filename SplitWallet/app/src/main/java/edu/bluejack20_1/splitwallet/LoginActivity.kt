@@ -224,7 +224,6 @@ class LoginActivity : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN){
             var task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            Toast.makeText(this, task.toString(), Toast.LENGTH_SHORT).show()
             handleSignInResult(task)
         }
     }
@@ -232,7 +231,6 @@ class LoginActivity : AppCompatActivity() {
     fun handleSignInResult(completedTask : Task<GoogleSignInAccount>){
         try {
             var acc = completedTask.getResult(ApiException::class.java)
-            Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show()
             FirebaseGoogleAuth(acc);
         }
         catch(e : ApiException){
@@ -251,12 +249,9 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this,
                     OnCompleteListener<AuthResult?> { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Successful", Toast.LENGTH_SHORT)
-                                .show()
                             val user: FirebaseUser? = mAuth.getCurrentUser()
                             updateUI(user)
                         } else {
-                            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
                             updateUI(null)
                         }
                     })
@@ -293,6 +288,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (userValid){
                 if (u != null){
+                    Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show()
                     successLogin(u)
                 }
             } else {

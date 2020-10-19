@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
 
             var calendar = Calendar.getInstance()
 
-            calendar.set(Calendar.HOUR_OF_DAY, 22)
-            calendar.set(Calendar.MINUTE, 21)
+            calendar.set(Calendar.HOUR_OF_DAY, 9)
+            calendar.set(Calendar.MINUTE, 0)
             calendar.set(Calendar.SECOND, 0)
 
             var intent = Intent(this, NotificationReceiver::class.java)
@@ -107,10 +107,9 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 bottom_nav.selectedItemId = when(position){
                     0 -> R.id.nav_home
-                    1 -> R.id.nav_calendar
-                    2 -> R.id.nav_transaction
-                    3 -> R.id.nav_report
-                    4 -> R.id.nav_wallet
+                    1 -> R.id.nav_transaction
+                    2 -> R.id.nav_report
+                    3 -> R.id.nav_wallet
                     else -> R.id.nav_home
                 }
             }
@@ -122,10 +121,9 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setOnNavigationItemSelectedListener { item ->
             viewPager.currentItem = when(item.itemId) {
                 R.id.nav_home -> 0
-                R.id.nav_calendar -> 1
-                R.id.nav_transaction -> 2
-                R.id.nav_report -> 3
-                R.id.nav_wallet -> 4
+                R.id.nav_transaction -> 1
+                R.id.nav_report -> 2
+                R.id.nav_wallet -> 3
                 else -> 0
             }
 

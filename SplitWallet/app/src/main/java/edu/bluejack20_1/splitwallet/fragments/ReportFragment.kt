@@ -212,7 +212,9 @@ class ReportFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.isNotEmpty()){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                getCurrentLocation()
+                if(isAdded){
+                    getCurrentLocation()
+                }
             } else {
                 Toast.makeText(requireContext(), "Permission Denied!", Toast.LENGTH_SHORT).show()
             }
@@ -232,25 +234,25 @@ class ReportFragment : Fragment() {
         LocationServices.getFusedLocationProviderClient(requireActivity())
             .requestLocationUpdates(locationRequest, object : LocationCallback() {
                 override fun onLocationResult(p0: LocationResult?) {
-                    super.onLocationResult(p0)
-                    LocationServices.getFusedLocationProviderClient(requireActivity()).removeLocationUpdates(this)
+                    if(isAdded){
+                        super.onLocationResult(p0)
+                        LocationServices.getFusedLocationProviderClient(requireActivity()).removeLocationUpdates(this)
 
-                    if (p0 != null && p0.locations.size > 0){
-                        var latestLocationIndex = p0.locations.size - 1
-                        var latitude = p0.locations.get(latestLocationIndex).latitude
-                        var longitude = p0.locations.get(latestLocationIndex).longitude
+                        if (p0 != null && p0.locations.size > 0){
+                            var latestLocationIndex = p0.locations.size - 1
+                            var latitude = p0.locations.get(latestLocationIndex).latitude
+                            var longitude = p0.locations.get(latestLocationIndex).longitude
 
 //                        inf.findViewById<TextView>(R.id.textLatLong).setText(String.format("Latitude %s\nLongitude %s", longitude, latitude))
 
-                        var location = Location("providerNA")
-                        location.latitude = latitude
-                        location.longitude = longitude
-                        fetchAddressFromLatLong(location)
-                    } else {
+                            var location = Location("providerNA")
+                            location.latitude = latitude
+                            location.longitude = longitude
+                            fetchAddressFromLatLong(location)
+                        } else {
 //                        progress_bar.visibility = View.GONE
+                        }
                     }
-
-
                 }
             }, Looper.getMainLooper())
 
@@ -333,7 +335,6 @@ class ReportFragment : Fragment() {
         var submit = inf.findViewById<Button>(R.id.btn_report_submit)
 
         submit.setOnClickListener{
-            Toast.makeText(requireContext(), "Bangke", Toast.LENGTH_SHORT).show()
 //            checkPermission()
             if (giveChart()){
                 var selected = spinner.selectedItem.toString()

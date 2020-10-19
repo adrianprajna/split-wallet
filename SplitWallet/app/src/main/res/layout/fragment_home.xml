@@ -204,7 +204,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_baseline_account_balance_wallet_24"
+                        android:src="@drawable/wallet_card_icon"
                         />
 
                     <TextView
@@ -298,14 +298,6 @@
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btn_sign_out"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Out"
-            />
 
     </LinearLayout>
 

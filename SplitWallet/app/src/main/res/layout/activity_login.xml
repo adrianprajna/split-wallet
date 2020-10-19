@@ -16,9 +16,9 @@
 
         <ImageView
             android:id="@+id/loginLogo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/icon_mobile_wallet"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="50dp"
             ></ImageView>
@@ -27,13 +27,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/loginLogo"
+            android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="20dp"
+            >
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_marginBottom="10dp"
             >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +64,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_marginBottom="10dp"
                 >
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -96,12 +99,6 @@
                 android:id="@+id/registerHyperlink"
                 android:textColor="@color/hyperlinkColor"
                 android:layout_marginVertical="5dp"/>
-            <com.google.android.gms.common.SignInButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="5dp"
-                android:id="@+id/sign_in_button"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -112,6 +109,22 @@
                 android:background="@drawable/login_round_button"
                 android:layout_marginBottom="50dp"
                 android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/signUpWithGoogle"
+                android:layout_gravity="center"
+                android:textColor="@color/hyperlinkColor"
+                android:layout_marginVertical="5dp"/>
+
+
+            <com.google.android.gms.common.SignInButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="5dp"
+                android:id="@+id/sign_in_button"/>
 
 
         </LinearLayout>
