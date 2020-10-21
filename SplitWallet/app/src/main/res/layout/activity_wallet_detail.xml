@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
+                android:textSize="20sp"
                 android:text="Cash Flow"
                 android:textColor="@color/colorPrimaryVariant"
                 />
@@ -133,18 +134,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:text="Transactions"
                     android:layout_weight="2"
                     android:textColor="@color/colorPrimaryVariant"
                     />
 
-                <com.google.android.material.button.MaterialButton
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:backgroundTint="@color/fontReverseColor"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:text="Sort By"-->
+<!--                    android:onClick="setPopUpMenu"-->
+<!--                    />-->
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/fontReverseColor"
-                    android:textColor="@color/colorPrimary"
-                    android:text="Sort By"
                     android:onClick="setPopUpMenu"
+                    android:src="@drawable/ic_baseline_sort_24"
                     />
 
             </LinearLayout>
