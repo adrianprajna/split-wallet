@@ -9,7 +9,7 @@ import edu.bluejack20_1.splitwallet.support_class.Wallets
 import kotlinx.android.synthetic.main.item_wallet.view.wallet_name
 import kotlinx.android.synthetic.main.item_wallet_detail.view.*
 
-class WalletDetailAdapter(var walletList: ArrayList<Wallets>): RecyclerView.Adapter<WalletDetailAdapter.WalletDetailViewHolder>(){
+class WalletDetailAdapter(var walletList: ArrayList<Wallets>, var types: ArrayList<String>): RecyclerView.Adapter<WalletDetailAdapter.WalletDetailViewHolder>(){
 
     private lateinit var listener: OnItemClickListener
 
@@ -49,7 +49,12 @@ class WalletDetailAdapter(var walletList: ArrayList<Wallets>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: WalletDetailViewHolder, position: Int) {
         holder.walletName.text = walletList.get(position).walletName
-        holder.walletType.text = walletList.get(position).walletType
+        if (walletList.get(position).walletType == "Income"){
+            holder.walletType.text = types[0]
+        } else {
+            holder.walletType.text = types[1]
+        }
+
     }
 
 

@@ -98,13 +98,14 @@ class CreateTransaction : AppCompatActivity() {
     private fun addTransaction(type: String){
 
         if(transaction_amount.text.toString().isEmpty() || transaction_amount.text.toString().toInt() <= 0){
-            transaction_amount.setError("Transaction amount must be filled")
+            transaction_amount.setError(getString(R.string.amount_empty))
             return
         } else if(transaction_note.text.toString().isEmpty()){
-            transaction_note.setError("Transaction note must be filled")
+            transaction_note.setError(getString(R.string.note_empty))
             return
         } else if(autoComplete.text.toString().isEmpty()){
-            Toast.makeText(this, "You have to choose the wallet!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.please_choose)
+                , Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -122,7 +123,7 @@ class CreateTransaction : AppCompatActivity() {
                     transactionAmount = transaction_amount.text.toString().toInt(), transactionNote = transaction_note.text.toString())
 
                 dbRef.child(snapshot.childrenCount.toString()).setValue(t)
-                Toast.makeText(this@CreateTransaction, "Successfully added a new transaction!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CreateTransaction, getString(R.string.add_transaction_success), Toast.LENGTH_SHORT).show()
                 var intent = Intent(this@CreateTransaction, MainActivity::class.java)
                 startActivity(intent)
                 finish()

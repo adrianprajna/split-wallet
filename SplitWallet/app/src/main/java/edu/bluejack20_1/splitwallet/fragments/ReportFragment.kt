@@ -231,7 +231,8 @@ class ReportFragment : Fragment() {
                     getCurrentLocation()
                 }
             } else {
-                Toast.makeText(requireContext(), "Permission Denied!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.permission_denied
+                ), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -361,15 +362,16 @@ class ReportFragment : Fragment() {
     fun giveChart() : Boolean{
         if (report_date_from.text.toString().isBlank() || report_date_to.text.toString().isBlank()){
             if (report_date_from.text.toString().isBlank()){
-                report_date_from.error = "Required"
+                report_date_from.error = getString(R.string.required)
             }
 
             if (report_date_to.text.toString().isBlank()){
-                report_date_to.error = "Required"
+                report_date_to.error = getString(R.string.required)
             }
             return false
         } else if (!DateHelper.validateTwoDates(report_date_from.text.toString(), report_date_to.text.toString())){
-            report_date_to.error = "Date Invalid"
+            report_date_to.error = getString(R.string.date_invalid)
+
             return false
         }
         else {
@@ -381,14 +383,14 @@ class ReportFragment : Fragment() {
 
             report_date_to.error = null
             report_date_from.error = null
-            return if (selected != "Please Choose") {
+            return if (selected != getString(R.string.choose_wallet)) {
                 mExpensePieChart.visibility = View.GONE
                 mIncomePieChart.visibility = View.GONE
 
                 getListOfData(report_date_from.text.toString(), report_date_to.text.toString())
                 true
             } else {
-                Toast.makeText(this.requireContext(), "Please choose type of wallet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.requireContext(), getString(R.string.no_choose), Toast.LENGTH_SHORT).show()
                 false
             }
 
@@ -664,7 +666,11 @@ class ReportFragment : Fragment() {
         setSheetTitle(row, sheet, wb)
         setSheetValue(sheet, wb, listTransactions)
 //
-        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), null)[0], "tests.xls")
+        var d1 = report_date_from.text.toString().split("/").joinToString("_")
+        var d2 = report_date_to.text.toString().split("/").joinToString("_")
+
+        val file = File(ContextCompat.getExternalFilesDirs(requireContext(), null)[0],
+            "${d1} ${d2} ${spinner.selectedItem.toString()}.xls")
         var outputStream: FileOutputStream? = null
 
         try {
@@ -681,7 +687,7 @@ class ReportFragment : Fragment() {
         }
 
         if (file.exists()){
-            Toast.makeText(requireContext(), "Successfully save to " + file.absolutePath, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${getString(R.string.success_save)} ${file.absolutePath}", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -689,8 +695,7 @@ class ReportFragment : Fragment() {
 
     fun basedOnSelected(){
         var selected = spinner.selectedItem.toString()
-        if (selected == "All"){
-            Log.d("Masuk all cek empty", expenseList.size.toString())
+        if (selected == getString(R.string.all)){
             if (incomeList.size > 0 || expenseList.size > 0){
                 if (incomeList.size > 0){
 
@@ -703,21 +708,20 @@ class ReportFragment : Fragment() {
                 } else {
                     report_no_expand.visibility = View.VISIBLE
                 }
-                Log.d("Masuk done", "Loaded")
             } else {
                 mExpensePieChart.visibility = View.GONE
                 mIncomePieChart.visibility = View.GONE
                 report_no_income.visibility = View.VISIBLE
                 report_no_expand.visibility = View.VISIBLE
             }
-        } else if (selected == "Income"){
+        } else if (selected == getString(R.string.incomes)){
             if (incomeList.size > 0 ){
                 incomeChart()
                 mExpensePieChart.visibility = View.GONE
             } else {
                 report_no_income.visibility = View.VISIBLE
             }
-        } else if (selected == "Expense"){
+        } else if (selected == getString(R.string.expenses)){
             if (expenseList.size > 0 ){
                 expenseChart()
                 mIncomePieChart.visibility = View.GONE
@@ -728,9 +732,9 @@ class ReportFragment : Fragment() {
     }
 
     fun initItems(){
-        listSpinner.add("All")
-        listSpinner.add("Income")
-        listSpinner.add("Expense")
+        listSpinner.add(getString(R.string.all))
+        listSpinner.add(getString(R.string.incomes))
+        listSpinner.add(getString(R.string.expenses))
     }
 
     fun getListOfData(date1 : String, date2: String){

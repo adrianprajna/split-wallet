@@ -140,7 +140,7 @@
                 app:ms_arrowColor="@color/colorPrimary"
                 app:ms_arrowSize="16dp"
                 app:ms_floatingLabelText="@string/please_choose"
-                app:ms_hint="Please Choose"
+                app:ms_hint="@string/choose_wallet"
                 app:ms_hintColor="@color/colorBaseBlue"
                 app:ms_multiline="true"
                 android:layout_marginHorizontal="5dp"/>
