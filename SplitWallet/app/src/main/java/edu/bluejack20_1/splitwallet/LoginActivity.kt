@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun preferenceLogin(user: String){
         var u = preferenceConfig.getGson().fromJson(user, Users::class.java)
-        Toast.makeText(this, "Welcome " + u.username, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.welcome) + u.username, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(a)
         } else {
             Toast.makeText(
-                this, "Press Back again to Exit.",
+                this, getString(R.string.back_to_exit),
                 Toast.LENGTH_SHORT
             ).show()
             exit = true
@@ -234,7 +234,7 @@ class LoginActivity : AppCompatActivity() {
             FirebaseGoogleAuth(acc);
         }
         catch(e : ApiException){
-            Toast.makeText(this, "Sign In Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.failed_sign_in), Toast.LENGTH_SHORT).show()
             FirebaseGoogleAuth(null);
         }
 
@@ -256,7 +256,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     })
         } else {
-            Toast.makeText(this, "acc failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.acc_failed), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -288,7 +288,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (userValid){
                 if (u != null){
-                    Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show()
                     successLogin(u)
                 }
             } else {
@@ -300,7 +300,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun invalidGoogleSignIn(){
         mGoogleSignInClient.signOut();
-        Toast.makeText(this,"Please register your email first",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.register_email_first),Toast.LENGTH_SHORT).show();
     }
 
     fun successLogin(u : Users){

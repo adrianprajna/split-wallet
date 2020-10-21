@@ -13,13 +13,18 @@
     <string name="confirm_password">Ulangi Kata Sandi</string>
     <string name="wrong_validation_password">Panjang password harus 6 karakter atau lebih and alphanumeric</string>
 
+    <string name="invalid_email">Email tidak valid</string>
+    <string name="invalid_below_6">Panjang password harus 6 karakter atau lebih</string>
+    <string name="alphanumeric_password">Password harus terdiri dari angka dan huruf</string>
+    <string name="please_choose">Pilih dompet</string>
+    <string name="cashFlow">Aliran Uang</string>
     <string name="password">Kata Sandi</string>
     <string name="add_wallet">Tambah</string>
     <string name="back_menu">Kembali ke menu utama</string>
     <string name="icon_calendar">Kalender</string>
     <string name="check">Cek</string>
     <string name="create_wallet">Buat Dompet</string>
-    <string name="edit_profile">Edit Profil</string>
+    <string name="edit_profile">Ubah Profil</string>
     <string name="export">Ubah ke Excel</string>
     <string name="from">Dari :</string>
     <string name="icon_home">Menu Utama</string>
@@ -49,4 +54,36 @@
     <string name="no_transactions">Tidak ada transaksi tercatat!\n\nSilakan tambah transaksi baru!</string>
     <string name="no_wallets">Tidak ada wallet!\n\nSilakan buat terlebih dahulu!</string>
     <string name="update">Perbaharui</string>
+    <string name="incomes">Pemasukan</string>
+    <string name="expenses">Pengeluaran</string>
+    <string name="select_wallet">Pilih Dompet</string>
+    <string name="add_transaction">Buat Transaksi Baru</string>
+    <string name="edit">Ubah</string>
+    <string name="remove">Hapus</string>
+
+    <string name="email_exists">"Email sudah ada !"</string>
+    <string name="username_exists">"Username sudah ada!"</string>
+    <string name="welcome">Selamat Datang </string>
+    <string name="back_to_exit">Tekan back lagi untuk keluar.</string>
+    <string name="failed_sign_in">Sign In Gagal</string>
+    <string name="acc_failed">Akun Gagal</string>
+    <string name="sign_in_success">Sign In Berhasil</string>
+    <string name="register_email_first">Mohon daftarkan email terlebih dahulu</string>
+    <string name="wallet_available">Wallet name sudah ada!</string>
+
+    <string name="input_wallet_type">Tipe dompet harus dipilih!</string>
+
+    <string name="jan">Januari</string>
+    <string name="feb">Februari</string>
+    <string name="mar">Maret</string>
+    <string name="apr">April</string>
+    <string name="may">Mei</string>
+    <string name="jun">Juni</string>
+    <string name="jul">Juli</string>
+    <string name="aug">Agustus</string>
+    <string name="sep">September</string>
+    <string name="oct">Oktober</string>
+    <string name="nov">November</string>
+    <string name="dec">Desember</string>
+
 </resources>

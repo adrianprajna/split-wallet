@@ -23,6 +23,15 @@ class EditProfileActivity : AppCompatActivity() {
     lateinit var preferenceConfig : PreferenceConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
         getUser()
@@ -104,7 +113,7 @@ class EditProfileActivity : AppCompatActivity() {
                 for (p in snapshot.children) {
                     var temp = p.getValue(Users::class.java)
                     if (temp != null) {
-                        if (temp.username == u.username) flag = false;
+                        if (temp.username == u.username && temp.email != u.email) flag = false;
                     }
                 }
 

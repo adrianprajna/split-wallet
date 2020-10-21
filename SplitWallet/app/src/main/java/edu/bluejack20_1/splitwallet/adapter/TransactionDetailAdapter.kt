@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionDetailAdapter(var transactionList: ArrayList<Transactions>): RecyclerView.Adapter<TransactionDetailAdapter.TransactionDetailViewHolder>() {
+class TransactionDetailAdapter(var transactionList: ArrayList<Transactions>, var months: ArrayList<String>): RecyclerView.Adapter<TransactionDetailAdapter.TransactionDetailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionDetailViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(layout.item_transaction_detail, parent, false)
@@ -29,8 +29,6 @@ class TransactionDetailAdapter(var transactionList: ArrayList<Transactions>): Re
     }
 
     override fun onBindViewHolder(holder: TransactionDetailViewHolder, position: Int) {
-        var months = listOf<String>("January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December")
         var list_date = DateHelper.splitDate(transactionList[position].transactionDate)
         var tempDate = SimpleDateFormat("yyyy-dd-MM").parse("${list_date[0]}-${list_date[2]}-${list_date[1]}")
         var realDate = DateFormat.getDateInstance(DateFormat.FULL).format(tempDate)

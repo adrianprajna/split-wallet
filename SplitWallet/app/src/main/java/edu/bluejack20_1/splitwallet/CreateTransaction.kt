@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.firebase.database.*
 import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import edu.bluejack20_1.splitwallet.support_class.Wallets
 import kotlinx.android.synthetic.main.activity_create_transaction.*
@@ -22,9 +23,18 @@ class CreateTransaction : AppCompatActivity() {
     private lateinit var day: Number
     private lateinit var month: Number
     private lateinit var year: Number
-
+    lateinit var preferenceConfig : PreferenceConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_transaction)
 

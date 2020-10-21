@@ -51,19 +51,21 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Transaction Amount"
+                android:hint="@string/transaction_amount"
                 app:errorEnabled="true"
                 app:prefixText="Rp. "
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/transaction_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
+                    android:layout_marginVertical="5dp"
                     android:inputType="number"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_baseline_attach_money_24"
@@ -74,37 +76,45 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Transaction Note"
+                android:hint="@string/transaction_note"
                 app:errorEnabled="true"
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/transaction_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
                     android:drawablePadding="10dp"
+                    android:layout_marginVertical="5dp"
                     android:drawableStart="@drawable/ic_baseline_event_note_24"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:hint="Select Your Wallet"
+                android:hint="@string/select_wallet"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:helperTextEnabled="true"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                >
 
                 <AutoCompleteTextView
                     android:id="@+id/autoComplete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="25dp"
+                    android:layout_marginVertical="5dp"
                     />
 
 
@@ -116,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint = "@color/greenHomeCard"
-                android:text="Add New Transaction"
+                android:text="@string/add_transaction"
                 android:onClick="addWallet"
                 />
 

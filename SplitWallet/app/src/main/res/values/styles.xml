@@ -27,7 +27,7 @@
 
         <item name="blueBaseColor">@color/colorBaseBlue</item>
         <item name="textColor">@color/colorWhite</item>
-        <item name="backgroundColor">@color/colorGrey</item>
+        <item name="backgroundColor">@color/colorBlack</item>
 
     </style>
 

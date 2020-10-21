@@ -104,17 +104,25 @@ class RegisterActivity : AppCompatActivity() {
                 for (p in userList){
                     if (p.email.equals(email)){
                         var txt_email = findViewById<TextView>(R.id.email)
-                        txt_email.error = "Email already exists!"
+                        txt_email.error = getString(R.string.email_exists)
                         return false
                     } else if(p.username.equals(username)){
                         var txt_username = findViewById<TextView>(R.id.username)
-                        txt_username.error = "Username already exists!"
+                        txt_username.error = getString(R.string.username_exists)
                         return false
                     }
                 }
                 return true
+            } else if (password.length < 6){
+                Toast.makeText(this, R.string.invalid_below_6, Toast.LENGTH_SHORT).show()
+                return false
+            } else {
+                Toast.makeText(this, R.string.alphanumeric_password, Toast.LENGTH_SHORT).show()
+
+                return false
             }
         }
+        Toast.makeText(this, R.string.invalid_email, Toast.LENGTH_SHORT).show()
         return false
     }
 
