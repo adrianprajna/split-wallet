@@ -51,6 +51,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/cashFlow"
                 android:textColor="?attr/textColor"
+                android:textSize="20sp"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -134,17 +135,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/transaction"
+                    android:textSize="20sp"
                     android:layout_weight="2"
                     android:textColor="?attr/textColor"
                     />
 
-                <com.google.android.material.button.MaterialButton
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:backgroundTint="@color/fontReverseColor"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:text="Sort By"-->
+<!--                    android:onClick="setPopUpMenu"-->
+<!--                    />-->
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/fontReverseColor"
-                    android:textColor="@color/colorPrimary"
-                    android:text="Sort By"
                     android:onClick="setPopUpMenu"
+                    android:src="@drawable/ic_baseline_sort_24"
                     />
 
             </LinearLayout>

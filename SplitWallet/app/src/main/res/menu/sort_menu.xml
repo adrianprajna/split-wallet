@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/date_asc"
-        android:title="Date (ASC)"/>
+        android:title="Date (Newest)"/>
 
     <item
         android:id="@+id/date_desc"
-        android:title="Date (DESC)"/>
+        android:title="Date (Oldest)"/>
 
     <item
         android:id="@+id/amount_asc"
-        android:title="Amount (ASC)"/>
+        android:title="Amount (Smallest)"/>
 
     <item
         android:id="@+id/amount_desc"
-        android:title="Amount (DESC)"/>
+        android:title="Amount (Largest)"/>
 </menu>

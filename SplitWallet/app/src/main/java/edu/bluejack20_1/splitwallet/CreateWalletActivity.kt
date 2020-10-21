@@ -56,7 +56,12 @@ class CreateWalletActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                wallet_limit.isEnabled = !autoComplete.text.toString().equals("Income")
+//                wallet_limit.isEnabled = !autoComplete.text.toString().equals("Income")
+                if(autoComplete.text.toString() == "Income"){
+                    limit_layout.visibility = View.GONE
+                } else {
+                    limit_layout.visibility = View.VISIBLE
+                }
             }
         })
     }
