@@ -86,6 +86,19 @@ class CreateTransaction : AppCompatActivity() {
     }
 
     private fun addTransaction(type: String){
+
+        if(transaction_amount.text.toString().isEmpty() || transaction_amount.text.toString().toInt() <= 0){
+            transaction_amount.setError("Transaction amount must be filled")
+            return
+        } else if(transaction_note.text.toString().isEmpty()){
+            transaction_note.setError("Transaction note must be filled")
+            return
+        } else if(autoComplete.text.toString().isEmpty()){
+            Toast.makeText(this, "You have to choose the wallet!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
         var dbRef = ref.child(autoComplete.text.toString()).child("transactions")
         var date = "$year/$month/$day"
 

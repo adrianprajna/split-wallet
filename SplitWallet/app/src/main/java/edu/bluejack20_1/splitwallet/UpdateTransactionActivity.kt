@@ -44,6 +44,15 @@ class UpdateTransactionActivity : AppCompatActivity() {
     }
 
     private fun updateTransaction(){
+
+        if(transaction_amount.text.toString().isEmpty() || transaction_amount.text.toString().toInt() <= 0){
+            transaction_amount.setError("Amount must be greater than 0")
+            return
+        } else if(transaction_note.text.toString().isEmpty()){
+            transaction_note.setError("Transaction note must be filled!")
+            return
+        }
+
         var dbRef = ref.child(walletName).child("transactions")
 
         dbRef.addListenerForSingleValueEvent(object : ValueEventListener{

@@ -47,8 +47,14 @@ class UpdateWalletActivity : AppCompatActivity() {
         var temp: WalletsHelper
         reff.child(wallet.walletName.toString()).removeValue().addOnCompleteListener {
             if(autoComplete.text.toString() == "Income"){
+                for(i in transactionList){
+                    i.transactionType = "Income"
+                }
                 temp = WalletsHelper(wallet_name_update.text.toString(), "Income",  0, transactionList)
             } else {
+                for(i in transactionList){
+                    i.transactionType = "Expense"
+                }
                 temp = WalletsHelper(wallet_name_update.text.toString(), "Expense",  wallet_limit_update.text.toString().toInt(), transactionList)
             }
             reff.child(wallet_name_update.text.toString()).setValue(temp)
@@ -77,9 +83,9 @@ class UpdateWalletActivity : AppCompatActivity() {
         transactionList = intent.getSerializableExtra("transactionList") as ArrayList<Transactions>
         if(wallet.walletType == "Expense"){
             wallet_limit_update.setText(wallet.walletLimit.toString())
+            limit_layout.visibility = View.VISIBLE
         } else {
-            wallet_limit_update.setText("0")
-            wallet_limit_update.isEnabled = false
+            limit_layout.visibility = View.GONE
         }
         autoComplete.setAdapter(adapter)
 
@@ -101,14 +107,16 @@ class UpdateWalletActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                wallet_limit_update.isEnabled = !autoComplete.text.toString().equals("Income")
+                if(autoComplete.text.toString() == "Income"){
+                    limit_layout.visibility = View.GONE
+                } else {
+                    limit_layout.visibility = View.VISIBLE
+                }
             }
         })
     }
 
     fun validateWalletName(): Boolean{
-
-        reff.addListenerForSingleValueEvent(refListener)
 
         if (wallet_name_update.text.toString().isEmpty()) {
             wallet_name_update.setError("Field can't be empty")
@@ -132,6 +140,14 @@ class UpdateWalletActivity : AppCompatActivity() {
             Toast.makeText(this, "You have to choose the wallet type!", Toast.LENGTH_SHORT).show()
             return
         }
+
+        if(autoComplete.text.toString() == "Expense" && (wallet_limit_update.text.toString().isEmpty() || wallet_limit_update.text.toString().toInt() <= 0)){
+            wallet_limit_update.setError("Limit must be greater than 0")
+            return
+        }
+
+        reff.addListenerForSingleValueEvent(refListener)
+
     }
 
 }
