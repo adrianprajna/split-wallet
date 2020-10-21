@@ -18,10 +18,25 @@
     <string name="confirm_password">Confirm password</string>
     <string name="wrong_confirm_password">Password and Confirm password must same</string>
     <string name="wrong_validation_password">Password length mush be 6 or more character and Alphanumeric</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_below_6">Password length must be 6 or more character</string>
+    <string name="alphanumeric_password">Password must be alphanumeric</string>
 
     <!--Login & Register-->
     <string name="username_invalid">Invalid Username</string>
     <string name="wrong_credential">Wrong Credential</string>
+
+    <string name="email_exists">"Email already exists!"</string>
+    <string name="username_exists">"Username already exists!"</string>
+    <string name="welcome">Welcome </string>
+    <string name="back_to_exit">Press Back again to Exit.</string>
+    <string name="failed_sign_in">Sign In Failed</string>
+    <string name="acc_failed">Account Failed</string>
+    <string name="sign_in_success">Sign In Success</string>
+    <string name="register_email_first">Please register your email first</string>
+    <string name="wallet_available">Wallet name is exists!</string>
+    <string name="input_wallet_type">You have to choose the wallet type!</string>
+
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label" translatable="false">First Fragment</string>
@@ -72,6 +87,7 @@
 
     <string name="no_income">No Income Available</string>
     <string name="no_expense">No Expense Available</string>
+    <string name="please_choose">Choose the wallet</string>
 
     <!--    TransactionFragment-->
     <string name="transaction">Transaction</string>
@@ -86,6 +102,7 @@
 
     <!--    Update Wallet-->
     <string name="edit_wallet">Update Wallet</string>
+    <string name="cashFlow">Cash Flow</string>
 
     <!--    Update Transaction -->
     <string name="edit_transaction">Update Transaction</string>
@@ -94,4 +111,26 @@
 
     <string name="no_transactions">No transaction added!\n\nPlease add first!</string>
     <string name="no_wallets">No wallet added!\n\nPlease add first!</string>
+
+    <string name="incomes">Incomes</string>
+    <string name="expenses">Expenses</string>
+
+    <string name="select_wallet">Select Your Wallet</string>
+    <string name="add_transaction">Add New Transaction</string>
+
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+
+    <string name="jan">January</string>
+    <string name="feb">February</string>
+    <string name="mar">March</string>
+    <string name="apr">April</string>
+    <string name="may">May</string>
+    <string name="jun">June</string>
+    <string name="jul">July</string>
+    <string name="aug">August</string>
+    <string name="sep">September</string>
+    <string name="oct">October</string>
+    <string name="nov">November</string>
+    <string name="dec">December</string>
 </resources>

@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.google.gson.reflect.TypeToken
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.GsonReader
-import edu.bluejack20_1.splitwallet.support_class.Transactions
-import edu.bluejack20_1.splitwallet.support_class.Wallets
+import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.activity_update_wallet.*
 
@@ -26,6 +23,8 @@ class UpdateWalletActivity : AppCompatActivity() {
     private lateinit var reff: DatabaseReference
 
     private lateinit var dbRef: DatabaseReference
+
+    private lateinit var preferenceConfig : PreferenceConfig
 
     private var refListener = object : ValueEventListener {
         override fun onCancelled(error: DatabaseError) {
@@ -59,6 +58,15 @@ class UpdateWalletActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_wallet)
 

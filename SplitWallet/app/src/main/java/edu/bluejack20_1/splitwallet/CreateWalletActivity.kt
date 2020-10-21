@@ -72,7 +72,7 @@ class CreateWalletActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     if(snapshot.child(Constants.capitalizeEachWord(wallet_name.text.toString())).exists()){
-                        wallet_name.setError("Wallet name is exists!")
+                        wallet_name.setError(getString(R.string.wallet_available))
                         flag = false
                     }
                 }
@@ -95,7 +95,7 @@ class CreateWalletActivity : AppCompatActivity() {
         }
 
         if(autoComplete.text.toString().isEmpty()){
-            Toast.makeText(this, "You have to choose the wallet type!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.input_wallet_type), Toast.LENGTH_SHORT).show()
             return
         }
 

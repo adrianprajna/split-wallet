@@ -35,10 +35,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.R
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.DateHelper
-import edu.bluejack20_1.splitwallet.support_class.FetchAddressIntentService
-import edu.bluejack20_1.splitwallet.support_class.Transactions
+import edu.bluejack20_1.splitwallet.support_class.*
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletGrowth
 import fr.ganfra.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_report.*
@@ -51,6 +48,7 @@ import org.apache.poi.ss.util.CellRangeAddress
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -83,6 +81,9 @@ class ReportFragment : Fragment() {
     lateinit var mIncomePieChart: PieChart
     lateinit var mExpensePieChart: PieChart
 
+    lateinit var bg_expense_pie_chart : LinearLayout
+    lateinit var  bg_income_pie_chart : LinearLayout
+
     var expenseList : ArrayList<WalletGrowth> = arrayListOf()
     var incomeList : ArrayList<WalletGrowth> = arrayListOf()
     var reff_report = FirebaseDatabase.getInstance().getReference().child(Constants.KEY_USER).child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
@@ -101,6 +102,8 @@ class ReportFragment : Fragment() {
 
     val REQUEST_CODE_LOCATION_PERMISSION = 1
 
+    lateinit var preferenceConfig : PreferenceConfig
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,6 +112,9 @@ class ReportFragment : Fragment() {
         fragmentManager?.popBackStack()
         // Inflate the layout for this fragment
         inf = inflater.inflate(R.layout.fragment_report, container, false)
+
+        bg_expense_pie_chart = inf.findViewById(R.id.bg_expense_pie_chart)
+        bg_income_pie_chart = inf.findViewById(R.id.bg_income_pie_chart)
 
         mIncomePieChart = inf.findViewById(R.id.report_income_pie_chart)
         mExpensePieChart = inf.findViewById(R.id.report_expense_pie_chart)
@@ -125,7 +131,9 @@ class ReportFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 
+        initDate()
         checkButton()
+
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
             PackageManager.PERMISSION_GRANTED){
@@ -172,6 +180,13 @@ class ReportFragment : Fragment() {
         resultReceiver = AddressResultReceiver(Handler())
         return inf
     }
+
+    fun initDate(){
+        var secondDate = "${Calendar.getInstance().get(Calendar.YEAR)}/${Calendar.getInstance().get(Calendar.MONTH) + 1}/${Calendar.getInstance().get(Calendar.DAY_OF_MONTH)}"
+        report_date_from.setText(secondDate)
+        report_date_to.setText(secondDate)
+    }
+
 
 
     fun fetchAddressFromLatLong(location : Location){
@@ -359,6 +374,8 @@ class ReportFragment : Fragment() {
         }
         else {
             var selected = spinner.selectedItem.toString()
+            bg_income_pie_chart.visibility = View.GONE
+            bg_expense_pie_chart.visibility = View.GONE
             report_no_expand.visibility = View.GONE
             report_no_income.visibility = View.GONE
 
@@ -653,7 +670,6 @@ class ReportFragment : Fragment() {
         try {
             outputStream = FileOutputStream(file)
             wb.write(outputStream)
-            Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
         } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(context, e.printStackTrace().toString(), Toast.LENGTH_LONG).show()
@@ -665,7 +681,7 @@ class ReportFragment : Fragment() {
         }
 
         if (file.exists()){
-            Toast.makeText(requireContext(), file.absolutePath, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Successfully save to " + file.absolutePath, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -677,6 +693,7 @@ class ReportFragment : Fragment() {
             Log.d("Masuk all cek empty", expenseList.size.toString())
             if (incomeList.size > 0 || expenseList.size > 0){
                 if (incomeList.size > 0){
+
                     incomeChart()
                 } else {
                     report_no_income.visibility = View.VISIBLE
@@ -773,18 +790,21 @@ class ReportFragment : Fragment() {
         for (p in incomeList){
             incomeBarEntries.add(PieEntry(p.walletSpent.toFloat(), p.walletName))
         }
+        bg_income_pie_chart.visibility = View.VISIBLE
         mIncomePieChart.visibility = View.VISIBLE
         mIncomePieChart.animateXY(5000,5000)
 
-        var incomePieDataSet = PieDataSet(incomeBarEntries, "(Incomes in this month)")
+        var incomePieDataSet = PieDataSet(incomeBarEntries, "")
         incomePieDataSet.colors = randomColor()
         incomePieDataSet.valueTextSize = 15.0f
+
+        preferenceConfig = PreferenceConfig(requireContext())
 
         var incomePieData = PieData(incomePieDataSet)
         mIncomePieChart.data = incomePieData
 
         var description = Description()
-        description.text = "Incomes"
+        description.text = getString(R.string.incomes)
         description.textSize = 20.0f
         mIncomePieChart.description = description
         mIncomePieChart.invalidate()
@@ -799,9 +819,11 @@ class ReportFragment : Fragment() {
         for (p in expenseList){
             expenseBarEntries.add(PieEntry(p.walletSpent.toFloat(), p.walletName))
         }
+        bg_expense_pie_chart.visibility = View.VISIBLE
         mExpensePieChart.visibility = View.VISIBLE
         mExpensePieChart.animateXY(5000,5000)
-        var expensePieDataSet = PieDataSet(expenseBarEntries, "(Expenses in this month)")
+
+        var expensePieDataSet = PieDataSet(expenseBarEntries, "")
         expensePieDataSet.colors = randomColor()
         expensePieDataSet.valueTextSize = 15.0f
 
@@ -809,7 +831,7 @@ class ReportFragment : Fragment() {
         mExpensePieChart.data = expensePieData
 
         var descriptions = Description()
-        descriptions.text = "Expenses"
+        descriptions.text = getString(R.string.expenses)
         descriptions.textSize = 20.0f
         mExpensePieChart.description = descriptions
         mExpensePieChart.invalidate()

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack20_1.splitwallet.WalletDetailActivity">
+    tools:context="edu.bluejack20_1.splitwallet.WalletDetailActivity"
+    android:background="?attr/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorGray200"
         >
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginBottom="5dp"
-                android:text="Cash Flow"
-                android:textColor="@color/colorPrimaryVariant"
+                android:text="@string/cashFlow"
+                android:textColor="?attr/textColor"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -133,9 +133,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transactions"
+                    android:text="@string/transaction"
                     android:layout_weight="2"
-                    android:textColor="@color/colorPrimaryVariant"
+                    android:textColor="?attr/textColor"
                     />
 
                 <com.google.android.material.button.MaterialButton

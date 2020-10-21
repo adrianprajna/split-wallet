@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.bluejack20_1.splitwallet.CreateWalletActivity"
-    android:background="@color/fontReverseColor">
+    android:background="?attr/backgroundColor">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -54,16 +54,19 @@
                app:errorEnabled="true"
                android:id="@+id/wallet_name_layout"
                android:layout_marginBottom="10dp"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                >
 
                <com.google.android.material.textfield.TextInputEditText
                    android:id="@+id/wallet_name"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:paddingLeft="15dp"
+                   android:paddingRight="15dp"
                    android:paddingBottom="20dp"
-                   android:paddingTop="20dp"
+                   android:paddingTop="25dp"
                    android:drawablePadding="10dp"
+                   android:layout_marginVertical="5dp"
+
                    android:drawableStart="@drawable/ic_baseline_account_balance_wallet_24"
                    />
 
@@ -76,13 +79,19 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                app:helperTextEnabled="true"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+               style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+               >
 
                <AutoCompleteTextView
                    android:id="@+id/autoComplete"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:inputType="none"
+                   android:paddingLeft="15dp"
+                   android:paddingRight="15dp"
+                   android:paddingBottom="20dp"
+                   android:paddingTop="25dp"
+                   android:layout_marginVertical="5dp"
                    />
 
 
@@ -94,18 +103,22 @@
                android:hint="@string/wallet_limit"
                app:prefixText="Rp. "
                app:errorEnabled="true"
+               android:paddingBottom="10dp"
                android:layout_marginBottom="10dp"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-               >
+              >
 
                <com.google.android.material.textfield.TextInputEditText
                    android:id="@+id/wallet_limit"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:paddingLeft="15dp"
+                   android:paddingRight="15dp"
                    android:paddingBottom="20dp"
-                   android:paddingTop="20dp"
-                   android:inputType="number"
+                   android:paddingTop="25dp"
+                   android:drawableLeft="@drawable/email_logo"
                    android:drawablePadding="10dp"
+                   android:layout_marginVertical="5dp"
+                   android:inputType="number"
                    android:drawableStart="@drawable/ic_baseline_attach_money_24"
                    />
 

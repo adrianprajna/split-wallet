@@ -54,8 +54,7 @@
                     android:paddingTop="25dp"
                     android:drawableLeft="@drawable/email_logo"
                     android:drawablePadding="10dp"
-                    android:layout_marginVertical="5dp"
-                    android:textColor="?attr/textColor"/>
+                    android:layout_marginVertical="5dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--        <EditText-->
@@ -82,8 +81,7 @@
                     android:paddingTop="25dp"
                     android:drawableLeft="@drawable/username_logo"
                     android:drawablePadding="10dp"
-                    android:layout_marginVertical="5dp"
-                    android:textColor="?attr/textColor"/>
+                    android:layout_marginVertical="5dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--        <EditText-->
@@ -112,8 +110,7 @@
                     android:drawableLeft="@drawable/password_logo"
                     android:drawablePadding="10dp"
                     android:layout_marginVertical="5dp"
-                    android:inputType="textPassword"
-                    android:textColor="?attr/textColor"/>
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -133,8 +130,7 @@
                     android:drawableLeft="@drawable/password_logo"
                     android:drawablePadding="10dp"
                     android:layout_marginVertical="5dp"
-                    android:inputType="textPassword"
-                    android:textColor="?attr/textColor"/>
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

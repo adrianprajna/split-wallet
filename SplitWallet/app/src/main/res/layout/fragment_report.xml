@@ -127,6 +127,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:background="@drawable/gray_round_button"
+            android:layout_marginBottom="30dp"
+            android:padding="5dp"
             >
 
             <fr.ganfra.materialspinner.MaterialSpinner
@@ -136,12 +139,11 @@
                 android:id="@+id/report_spinner"
                 app:ms_arrowColor="@color/colorPrimary"
                 app:ms_arrowSize="16dp"
-                app:ms_floatingLabelColor="@color/fontColor"
-                app:ms_floatingLabelText="Choose Wallet Type"
+                app:ms_floatingLabelText="@string/please_choose"
                 app:ms_hint="Please Choose"
-                app:ms_hintColor="?attr/colorAccent"
+                app:ms_hintColor="@color/colorBaseBlue"
                 app:ms_multiline="true"
-                android:layout_margin="10dp"/>
+                android:layout_marginHorizontal="5dp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -166,7 +168,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp">
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginBottom="20dp">
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
@@ -179,14 +182,23 @@
 
         </RelativeLayout>
 
-        <com.github.mikephil.charting.charts.PieChart
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/bg_income_pie_chart"
+                android:background="@drawable/gray_round_button"
+                android:visibility="gone"
+                android:padding="20dp">
+                <com.github.mikephil.charting.charts.PieChart
 
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginVertical="10dp"
-            android:layout_marginHorizontal="20dp"
-            android:id="@+id/report_income_pie_chart"
-            />
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:id="@+id/report_income_pie_chart"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -202,12 +214,23 @@
             android:id="@+id/report_no_income"
             />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_margin="10dp"
-            android:id="@+id/report_expense_pie_chart"
-            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/bg_expense_pie_chart"
+        android:visibility="gone"
+        android:background="@drawable/gray_round_button"
+        android:padding="20dp">
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/report_expense_pie_chart"
+                android:background="@color/colorGray200"
+                android:visibility="gone"
+                />
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"

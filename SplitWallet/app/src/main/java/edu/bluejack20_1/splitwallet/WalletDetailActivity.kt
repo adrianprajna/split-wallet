@@ -17,10 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.*
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import edu.bluejack20_1.splitwallet.adapter.TransactionDetailAdapter
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.DateHelper
-import edu.bluejack20_1.splitwallet.support_class.Transactions
-import edu.bluejack20_1.splitwallet.support_class.Wallets
+import edu.bluejack20_1.splitwallet.support_class.*
 import kotlinx.android.synthetic.main.activity_wallet_detail.*
 import kotlinx.android.synthetic.main.activity_wallet_detail.recycler_view
 import kotlinx.android.synthetic.main.activity_wallet_detail.tempLayout
@@ -36,8 +33,7 @@ import kotlin.properties.Delegates
 
 class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
 
-    private var months = listOf<String>("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER")
+    private lateinit var months : ArrayList<String>
 
     private lateinit var ref: DatabaseReference
     private lateinit var transactionList: ArrayList<Transactions>
@@ -47,7 +43,17 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
     private var month = 0
     private var year = 0
 
+    private lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet_detail)
 
@@ -60,6 +66,10 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         calendar = Calendar.getInstance()
         year = calendar.get(Calendar.YEAR)
         month = calendar.get(Calendar.MONTH)
+        months = arrayListOf(getString(R.string.jan), getString(R.string.feb),
+            getString(R.string.mar), getString(R.string.apr), getString(R.string.may), getString(R.string.jun),
+            getString(R.string.jul), getString(R.string.aug), getString(R.string.sep), getString(R.string.oct),
+            getString(R.string.nov), getString(R.string.dec))
         btn_date.setText("${months[month.toInt()]} $year")
         btn_date.setOnClickListener(){
             selectMonth()
@@ -112,7 +122,7 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
     }
 
     private fun setAdapter(){
-        adapter = TransactionDetailAdapter(transactionList)
+        adapter = TransactionDetailAdapter(transactionList, months)
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(this)
         if(transactionList.isEmpty()){

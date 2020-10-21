@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import edu.bluejack20_1.splitwallet.support_class.Constants
+import edu.bluejack20_1.splitwallet.support_class.PreferenceConfig
 import edu.bluejack20_1.splitwallet.support_class.Transactions
 import kotlinx.android.synthetic.main.activity_create_wallet.*
 import kotlinx.android.synthetic.main.activity_update_transaction.*
@@ -22,7 +23,17 @@ class UpdateTransactionActivity : AppCompatActivity() {
     private lateinit var transaction: Transactions
     private lateinit var position: String
 
+    lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_transaction)
 

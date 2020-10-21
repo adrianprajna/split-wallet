@@ -5,18 +5,24 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
-import edu.bluejack20_1.splitwallet.support_class.Constants
-import edu.bluejack20_1.splitwallet.support_class.GsonReader
-import edu.bluejack20_1.splitwallet.support_class.Transactions
-import edu.bluejack20_1.splitwallet.support_class.Wallets
+import edu.bluejack20_1.splitwallet.support_class.*
 import kotlinx.android.synthetic.main.activity_update_wallet.*
 
 class PleaseWaitActivity : AppCompatActivity() {
 
     var reff = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
                 .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET)
-
+    lateinit var preferenceConfig : PreferenceConfig
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceConfig =
+            PreferenceConfig(
+                this
+            )
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_please_wait)
 
