@@ -86,4 +86,6 @@
     <string name="nov">November</string>
     <string name="dec">Desember</string>
 
+    <string name="status_exceeded">Status: Melebihi Limit</string>
+    <string name="status_near_limit">Status: Mendekati Limit</string>
 </resources>
