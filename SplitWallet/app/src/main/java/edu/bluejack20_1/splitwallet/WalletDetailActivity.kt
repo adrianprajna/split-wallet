@@ -2,6 +2,7 @@ package edu.bluejack20_1.splitwallet
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -93,6 +94,7 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
                 transactionList.clear()
                 var incomes = 0
                 var expenses = 0
+                var totalSpend = 0
                 for(p in snapshot.children){
                     var splittedDate = DateHelper.splitDate(p.child("transactionDate").value.toString())
                     if(year == splittedDate[0].toInt() && (month + 1) == splittedDate[1].toInt()){
@@ -102,11 +104,12 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
                             transactionDate = p.child("transactionDate").value.toString())
 
                         transactionList.add(data)
-
+                        totalSpend += data.transactionAmount.toInt()
                         if(data.transactionType == "Expense") expenses += data.transactionAmount.toInt()
                         else incomes += data.transactionAmount.toInt()
                     }
                 }
+                setColor(totalSpend)
                 expense.setText("Rp. " + NumberFormat.getIntegerInstance().format(expenses))
                 income.setText("Rp. " + NumberFormat.getIntegerInstance().format(incomes))
 
@@ -119,6 +122,26 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
                 setAdapter()
             }
         })
+    }
+
+    private fun setColor(totalSpend: Int){
+        if(wallet.walletType == "Expense"){
+            Log.d("wkwk", "if")
+            status.visibility = View.VISIBLE
+            if(totalSpend < wallet.walletLimit.toString().toInt() / 2){
+//                status.setTextColor(resources.getColor(R.color.greenHomeCard))
+                  status.visibility = View.GONE
+            } else if(totalSpend < wallet.walletLimit.toString().toInt()){
+                status.setTextColor(resources.getColor(R.color.yellowHomeCard))
+                status.setText(getString(R.string.status_near_limit))
+            } else {
+                status.setTextColor(resources.getColor(R.color.redHomeCard))
+                status.setText(getString(R.string.status_exceeded))
+            }
+        } else {
+            Log.d("wkwk", "else")
+            status.visibility = View.GONE
+        }
     }
 
     private fun setAdapter(){

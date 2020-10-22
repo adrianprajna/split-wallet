@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.bluejack20_1.splitwallet.R
 import edu.bluejack20_1.splitwallet.support_class.json_class.WalletsHelper
 import kotlinx.android.synthetic.main.item_wallet.view.*
+import java.text.NumberFormat
 
 class WalletAdapter(val walletList: ArrayList<WalletsHelper>): RecyclerView.Adapter<WalletAdapter.WalletViewHolder>() {
 
@@ -55,7 +56,7 @@ class WalletAdapter(val walletList: ArrayList<WalletsHelper>): RecyclerView.Adap
         }
 
         holder.walletName.text = currItem.walletName.toString()
-        holder.walletTotal.text = "Rp. ${totalMoney}"
+        holder.walletTotal.text = "Rp. " + NumberFormat.getIntegerInstance().format(totalMoney)
     }
 
 }

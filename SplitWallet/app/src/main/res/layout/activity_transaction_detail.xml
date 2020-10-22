@@ -45,42 +45,32 @@
             android:background="@drawable/ic_wave4"
             />
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
+            android:background="@color/fontReverseColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginHorizontal="20dp"
-            app:cardElevation="3dp"
+            android:padding="10dp"
+            android:gravity="center"
             >
 
-            <LinearLayout
-                android:background="@color/colorGray50"
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/wallet_card_icon"
+                />
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/wallet_name_transaction"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:gravity="center_vertical"
-                >
+                android:text="Wallet Name"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                />
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/wallet_card_icon"
-                    />
-
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/wallet_name_transaction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wallet Name"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
-                    />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
 
         <TextView

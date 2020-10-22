@@ -133,4 +133,8 @@
     <string name="oct">October</string>
     <string name="nov">November</string>
     <string name="dec">December</string>
+
+    <!-- Exceeded   -->
+    <string name="status_exceeded">Status: Exceeded</string>
+    <string name="status_near_limit">Status: Near Limit</string>
 </resources>
