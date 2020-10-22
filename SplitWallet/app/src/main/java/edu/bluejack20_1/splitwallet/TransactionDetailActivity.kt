@@ -29,8 +29,7 @@ class TransactionDetailActivity : AppCompatActivity() {
     private lateinit var year: Number
     private lateinit var transactionList: ArrayList<Transactions>
 
-    private var months = listOf<String>("January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December")
+    private lateinit var months : ArrayList<String>
 
     lateinit var preferenceConfig : PreferenceConfig
   
@@ -53,7 +52,10 @@ class TransactionDetailActivity : AppCompatActivity() {
         wallet = intent.getParcelableExtra("wallet")!!
 
         wallet_name_transaction.setText(wallet.walletName)
-
+        months = arrayListOf(getString(R.string.jan), getString(R.string.feb),
+            getString(R.string.mar), getString(R.string.apr), getString(R.string.may), getString(R.string.jun),
+            getString(R.string.jul), getString(R.string.aug), getString(R.string.sep), getString(R.string.oct),
+            getString(R.string.nov), getString(R.string.dec))
         date.setText(months[month as Int - 1] + " " + day + ", " + year)
         getAllTransactions()
     }

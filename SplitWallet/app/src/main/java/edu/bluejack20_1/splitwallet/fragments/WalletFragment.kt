@@ -89,7 +89,7 @@ class WalletFragment : Fragment() {
     }
 
     private fun setAdapter(){
-        adapter = WalletDetailAdapter(walletList)
+        adapter = WalletDetailAdapter(walletList, arrayListOf<String>(getString(R.string.incomes), getString(R.string.expenses)))
 
         var tempLayout = inf.findViewById<RelativeLayout>(R.id.tempLayout)
         var realLayout = inf.findViewById<LinearLayout>(R.id.realLayout)

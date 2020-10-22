@@ -43,7 +43,7 @@ class CreateWalletActivity : AppCompatActivity() {
 
     fun initItem(){
 
-        val items = listOf<String>("Expense", "Income")
+        val items = listOf<String>(getString(R.string.expenses), getString(R.string.incomes))
         val adapter = ArrayAdapter(this, layout.list_item, items)
         autoComplete.setAdapter(adapter)
     }
@@ -57,7 +57,7 @@ class CreateWalletActivity : AppCompatActivity() {
                 id: Long
             ) {
 //                wallet_limit.isEnabled = !autoComplete.text.toString().equals("Income")
-                if(autoComplete.text.toString() == "Income"){
+                if(autoComplete.text.toString() == getString(R.string.incomes)){
                     limit_layout.visibility = View.GONE
                 } else {
                     limit_layout.visibility = View.VISIBLE
@@ -86,7 +86,7 @@ class CreateWalletActivity : AppCompatActivity() {
         })
 
         if (wallet_name.text.toString().isEmpty()) {
-            wallet_name.setError("Field can't be empty")
+            wallet_name.setError(getString(R.string.wallet_empty))
             return false
         }
 
@@ -115,41 +115,41 @@ class CreateWalletActivity : AppCompatActivity() {
                 if (snapshot.exists()){
                     list = (snapshot.getValue() as Map<String, Any>).toMutableMap()
 
-                    if(autoComplete.text.toString().equals("Income")){
+                    if(autoComplete.text.toString().equals(getString(R.string.incomes))){
                         list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
-                            walletType = autoComplete.text.toString(),
+                            walletType = "Income",
                             walletLimit = 0
                         )
                     } else {
                         list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
-                            walletType = autoComplete.text.toString(),
+                            walletType = "Expense",
                             walletLimit = wallet_limit.text.toString().toInt()
                         )
                     }
                     if(flag){
                         reff.setValue(list)
-                        Toast.makeText(this@CreateWalletActivity, "Success create new wallet!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CreateWalletActivity, getString(R.string.wallet_success), Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
                 } else {
-                    if(autoComplete.text.toString().equals("Income")){
+                    if(autoComplete.text.toString().equals(getString(R.string.incomes))){
                         list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
-                            walletType = autoComplete.text.toString(),
+                            walletType = "Income",
                             walletLimit = 0
                         )
                     } else {
                         list[Constants.capitalizeEachWord(wallet_name.text.toString())] = Wallets(
                             walletName = Constants.capitalizeEachWord(wallet_name.text.toString()),
-                            walletType = autoComplete.text.toString(),
+                            walletType = "Expense",
                             walletLimit = wallet_limit.text.toString().toInt()
                         )
                     }
                     reff.setValue(list)
-                    Toast.makeText(this@CreateWalletActivity, "Successfully created new wallet!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateWalletActivity, getString(R.string.wallet_success), Toast.LENGTH_SHORT).show()
 //                    val intent = Intent(this@CreateWalletActivity, MainActivity::class.java)
 //                    startActivity(intent)
                     finish()

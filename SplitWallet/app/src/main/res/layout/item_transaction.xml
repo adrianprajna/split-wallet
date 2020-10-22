@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="Amount" />
+                android:text="@string/amount" />
 
             <TextView
                 android:id="@+id/transaction_amount"

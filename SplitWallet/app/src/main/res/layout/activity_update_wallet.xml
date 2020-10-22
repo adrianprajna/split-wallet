@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack20_1.splitwallet.UpdateWalletActivity">
+    tools:context="edu.bluejack20_1.splitwallet.UpdateWalletActivity"
+    android:background="?attr/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,19 +52,18 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/wallet_name"
                 app:errorEnabled="true"
-                app:hintTextColor="?attr/textColor"
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/wallet_name_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
                     android:drawablePadding="10dp"
-                    android:textColor="?attr/textColor"
                     android:drawableStart="@drawable/ic_baseline_account_balance_wallet_24"
                     />
 
@@ -75,12 +75,10 @@
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextColor="?attr/textColor"
                 app:helperTextEnabled="true"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
-                    android:textColor="?attr/textColor"
                     android:id="@+id/autoComplete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,22 +93,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/wallet_limit"
-                app:hintTextColor="?attr/textColor"
-                app:prefixTextColor="?attr/textColor"
                 app:prefixText="Rp. "
                 app:errorEnabled="true"
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/wallet_limit_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
                     android:inputType="number"
-                    android:textColor="?attr/textColor"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_baseline_attach_money_24"
                     />

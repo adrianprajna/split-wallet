@@ -171,7 +171,7 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
             .setMinYear(1990)
             .setActivatedYear(calendar.get(Calendar.YEAR))
             .setMaxYear(2025)
-            .setTitle("SELECT DATE")
+            .setTitle(getString(R.string.select_date))
             .build().show()
     }
 
@@ -197,10 +197,10 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
             }
             R.id.remove -> {
                 var alertDialog = MaterialAlertDialogBuilder(this)
-                    .setNegativeButton("NO") { dialog, which ->
+                    .setNegativeButton(R.string.no) { dialog, which ->
 
                     }
-                    .setTitle("Are you sure?").setPositiveButton("YES") { dialog, which ->
+                    .setTitle(getString(R.string.are_you_sure)).setPositiveButton(R.string.yes) { dialog, which ->
                         removeWallet()
                     }.show()
             }
@@ -212,7 +212,7 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         var dbRef = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
                         .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET).child(wallet.walletName.toString())
         dbRef.removeValue()
-        Toast.makeText(this, "Successfully removed this wallet!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.remove_wallet_success), Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -250,11 +250,9 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
             when(item.itemId){
                 R.id.date_asc -> {
                     sortByDate("ASC")
-                    Toast.makeText(this, "DATE ASC", Toast.LENGTH_SHORT).show()
                 }
                 R.id.date_desc -> {
                     sortByDate("DESC")
-                    Toast.makeText(this, "DATE DESC", Toast.LENGTH_SHORT).show()
                 }
                 R.id.amount_asc -> {
                     sortByAmount("ASC")

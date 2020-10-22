@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Expenses" />
+                        android:text="@string/expenses" />
 
                     <TextView
                         android:id="@+id/expense"
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txt_expenses"
                         android:layout_marginBottom="10dp"
-                        android:text="Income" />
+                        android:text="@string/incomes" />
 
                     <TextView
                         android:id="@+id/income"
@@ -197,6 +197,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_centerInParent="true"
+                    android:textColor="?attr/textColor"
                     android:text="@string/no_transactions"
                     android:textSize="18sp" />
 
