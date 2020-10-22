@@ -153,5 +153,9 @@
     <string name="nov">November</string>
     <string name="dec">December</string>
 
+
     <string name="all">All</string>
+    <string name="status_exceeded">Status: Exceeded</string>
+    <string name="status_near_limit">Status: Near Limit</string>
+
 </resources>
