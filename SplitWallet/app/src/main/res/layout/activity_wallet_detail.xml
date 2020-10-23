@@ -172,6 +172,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/sortIcon"
                     android:onClick="setPopUpMenu"
                     android:src="@drawable/ic_baseline_sort_24"
                     />

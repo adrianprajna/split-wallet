@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun preferenceLogin(user: String){
         var u = preferenceConfig.getGson().fromJson(user, Users::class.java)
-        Toast.makeText(this, getString(R.string.welcome) + u.username, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.welcome) + " " + u.username, Toast.LENGTH_SHORT).show()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

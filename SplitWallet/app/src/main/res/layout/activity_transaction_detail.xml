@@ -46,7 +46,7 @@
             />
 
         <LinearLayout
-            android:background="@color/fontReverseColor"
+            android:background="?attr/backgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="Wallet Name"
                 android:textSize="18sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="?attr/textColor"
                 android:textStyle="bold"
                 />
 
