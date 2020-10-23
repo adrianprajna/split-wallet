@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context="edu.bluejack20_1.splitwallet.UpdateTransactionActivity">
 
     <LinearLayout
@@ -34,7 +35,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/icon_mobile_wallet"
             />
 
         <LinearLayout
@@ -51,15 +52,16 @@
                 app:errorEnabled="true"
                 app:prefixText="Rp. "
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/transaction_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
                     android:inputType="number"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_baseline_attach_money_24"
@@ -73,15 +75,16 @@
                 android:hint="@string/transaction_note"
                 app:errorEnabled="true"
                 android:layout_marginBottom="10dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/transaction_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="25dp"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_baseline_event_note_24"
                     />

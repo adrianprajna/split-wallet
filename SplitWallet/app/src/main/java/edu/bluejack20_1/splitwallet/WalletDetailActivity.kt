@@ -82,6 +82,13 @@ class WalletDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListe
         ref = FirebaseDatabase.getInstance().getReference(Constants.KEY_USER)
             .child(Constants.KEY_USER_ID).child(Constants.LIST_WALLET).child(walletName).child("transactions")
         transactionList = ArrayList()
+
+        if (preferenceConfig.loadTheme() == Constants.THEME_DARK){
+            sortIcon.setImageResource(R.drawable.ic_baseline_sort_white_24)
+        } else {
+            sortIcon.setImageResource(R.drawable.ic_baseline_sort_24)
+
+        }
     }
 
     private fun getAllData(){
