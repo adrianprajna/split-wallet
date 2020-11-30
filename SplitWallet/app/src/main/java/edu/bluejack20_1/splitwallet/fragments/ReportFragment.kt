@@ -399,7 +399,7 @@ class ReportFragment : Fragment() {
     }
 
     fun isType(type : String, st: String) : Boolean {
-        if (type == "All"){
+        if (type == getString(R.string.all)){
             return true
         } else if (type == st){
             return true
